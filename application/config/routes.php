@@ -57,7 +57,7 @@ $route['logout'] = 'Auth/logout';
 
 // santri
 $route['tambah_santri'] = 'santri/create';
-$route['tambah_jabatan'] = 'jabatan/create';
+$route['tambah_pengajar'] = 'pengajar/create';
 $route['tambah_kelompok'] = 'kelompok/create';
 $route['tambah_shift'] = 'shift/create';
 $route['tambah_shift'] = 'shift/create';
@@ -66,7 +66,6 @@ $route['tambah_lokasi'] = 'lokasi/create';
 $route['tambah_menu'] = 'menu/create';
 $route['tambah_grup'] = 'groups/create';
 $route['tambah_user'] = 'auth/create_user';
-$route['jabatan/lihat/(:num)'] = 'jabatan/rd/$1';
 $route['lokasi/lihat/(:num)'] = 'lokasi/rd/$1';
 $route['presensi/lihat/(:num)'] = 'presensi/rd/$1';
 $route['audit/data'] = 'user_audit_trails/data';

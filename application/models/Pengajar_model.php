@@ -3,10 +3,10 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Santri_model extends CI_Model
+class Pengajar_model extends CI_Model
 {
 
-    public $table = 'santri';
+    public $table = 'pengajar';
     public $id = 'id';
     public $order = 'DESC';
 
@@ -26,24 +26,22 @@ class Santri_model extends CI_Model
     function get_max()
     {
         return $this->db->select('max(id) as kode')
-            ->from('santri')->get()->result();
+            ->from('pengajar')->get()->result();
     }
 
     function get_all_query()
     {
-        $sql = "SELECT a.id, a.nis, a.nama_santri, a.jenis_kelamin, a.tempat_lahir, a.tanggal_lahir, a.nama_orang_tua, a.alamat, b.nama_kelompok, c.nama_shift
-                from santri as a, kelompok as b, shift as c
-                where b.id_kelompok = a.kelompok_id 
-                and c.id_shift = a.shift_id";
+        $sql = "SELECT a.id, a.nip, a.nama_pengajar, a.jenis_kelamin, a.tanggal_lahir, a.alamat, b.nama_shift
+                from pengajar as a, shift as b
+                where b.id_shift = a.shift_id";
         return $this->db->query($sql)->result();
     }
 
     function getData()
     {
-        $this->datatables->select('a.id, a.nis, a.nama_santri, a.jenis_kelamin, a.tempat_lahir, a.tanggal_lahir, a.nama_orang_tua, a.alamat, b.nama_kelompok, c.nama_shift')
-            ->from('santri as a, kelompok as b, shift as c')
-            ->where('b.id_kelompok = a.kelompok_id')
-            ->where('c.id_shift = a.shift_id');
+        $this->datatables->select('a.id, a.nip, a.nama_pengajar, a.jenis_kelamin, a.tanggal_lahir, a.alamat, b.nama_shift')
+            ->from('pengajar as a, shift as b')
+            ->where('b.id_shift = a.shift_id');
         return $this->datatables->generate();
     }
 

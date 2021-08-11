@@ -4,16 +4,16 @@
         <div class='col-xs-12'>
             <div class='box box-<?= $box; ?>'>
                 <div class='box-header  with-border'>
-                    <h3 class='box-title'>FORMULIR SANTRI <b class="text-danger">(Notes: Pastikan Data Sudah Benar!)</b></h3>
+                    <h3 class='box-title'>FORMULIR PENGAJAR <b class="text-danger">(Notes: Pastikan Data Sudah Benar!)</b></h3>
                 </div>
                 <div class="box-body">
                     <form role="form" id="myForm" data-toggle="validator" action="<?php echo $action; ?>" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nama_santri" class="control-label">Nama Santri</label>
+                                    <label for="nama_pengajar" class="control-label">Nama Pengajar</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="nama_santri" id="nama_santri" data-error="Nama santri harus diisi" placeholder="Nama santri" value="<?php echo $nama_santri; ?>" required />
+                                        <input type="text" class="form-control" name="nama_pengajar" id="nama_pengajar" data-error="Nama pengajar harus diisi" placeholder="Nama pengajar" value="<?php echo $nama_pengajar; ?>" required />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-user"></span>
                                         </span>
@@ -63,26 +63,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="kelompok_id" class="control-label">Kelompok</label>
-                                    <div class="input-group">
-                                        <?php echo cmb_dinamis('kelompok_id', 'kelompok_id', 'kelompok', 'nama_kelompok', 'id_kelompok', $kelompok_id) ?>
-                                        <span class="input-group-addon">
-                                            <span class="fas fa-users"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="nama_orang_tua" class="control-label">Nama Orang Tua</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="nama_orang_tua" id="nama_orang_tua" placeholder="Nama Orang Tua" value="<?php echo $nama_orang_tua; ?>" required />
-                                        <span class="input-group-addon">
-                                            <span class="fas fa-user"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <label for="shift_id" class="control-label">Shift</label>
                                     <div class="input-group">
                                         <?php echo cmb_dinamis('shift_id', 'shift_id', 'shift', 'nama_shift', 'id_shift', $shift_id) ?>
@@ -104,8 +84,10 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                                    <button type="submit" class="btn btn-primary btn-lg btn3d"><?php echo $button ?></button>
-                                    <a href="<?php echo site_url('santri') ?>" class="btn btn-default btn-lg btn3d">Cancel</a>
+                                    <div class="text-right py-2">
+                                        <button type="submit" class="btn btn-primary btn-lg btn3d"><?php echo $button ?></button>
+                                        <a href="<?php echo site_url('pengajar') ?>" class="btn btn-default btn-lg btn3d">Cancel</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

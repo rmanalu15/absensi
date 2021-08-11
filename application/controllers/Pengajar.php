@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Santri extends CI_Controller
+class Pengajar extends CI_Controller
 {
 
     function __construct()
@@ -15,7 +15,7 @@ class Santri extends CI_Controller
         }
 
         $this->load->library('user_agent');
-        $this->load->model(array('Santri_model'));
+        $this->load->model(array('Pengajar_model'));
         $this->load->library('form_validation', 'ion_auth');
         $this->load->helper('url');
         $this->user = $this->ion_auth->user()->row();
@@ -48,13 +48,13 @@ class Santri extends CI_Controller
             $hasil = 1;
         }
         $user = $this->user;
-        $santri = $this->Santri_model->get_all_query();
+        $pengajar = $this->Pengajar_model->get_all_query();
         $data = array(
-            'santri_data' => $santri,
+            'pengajar_data' => $pengajar,
             'user' => $user, 'users'     => $this->ion_auth->user()->row(),
             'result' => $hasil,
         );
-        $this->template->load('template/template', 'santri/santri_list', $data);
+        $this->template->load('template/template', 'pengajar/pengajar_list', $data);
         $this->load->view('template/datatables');
     }
 
@@ -67,8 +67,7 @@ class Santri extends CI_Controller
 
     public function data()
     {
-
-        $this->output_json($this->Santri_model->getData(), false);
+        $this->output_json($this->Pengajar_model->getData(), false);
     }
 
     public function create()
@@ -84,22 +83,20 @@ class Santri extends CI_Controller
         $data = array(
             'box' => 'info',
             'button' => 'Create',
-            'action' => site_url('santri/create_action'),
-            'nis' => set_value('nis'),
-            'nama_santri' => set_value('nama_santri'),
+            'action' => site_url('pengajar/create_action'),
+            'nip' => set_value('nip'),
+            'nama_pengajar' => set_value('nama_pengajar'),
             'tempat_lahir' => set_value('tempat_lahir'),
             'tanggal_lahir' => set_value('tanggal_lahir'),
             'jenis_kelamin' => set_value('jenis_kelamin'),
             'alamat' => set_value('alamat'),
-            'nama_orang_tua' => set_value('nama_orang_tua'),
-            'kelompok_id' => set_value('kelompok_id'),
             'foto' => set_value('foto'),
             'shift_id' => set_value('shift_id'),
             'id' => set_value('id'),
             'user' => $user, 'users'     => $this->ion_auth->user()->row(),
             'result' => $hasil,
         );
-        $this->template->load('template/template', 'santri/santri_form', $data);
+        $this->template->load('template/template', 'pengajar/pengajar_form', $data);
     }
     public function create_action()
     {
@@ -108,25 +105,23 @@ class Santri extends CI_Controller
             $this->create();
         } else {
             $tgl = date('ym');
-            $var = $this->Santri_model->get_max();
+            $var = $this->Pengajar_model->get_max();
             $getvar = $var[0]->kode;
             $nilai = $this->formatNbr($var[0]->kode);
-            $nourut = 'S' . $tgl . $nilai;
+            $nourut = 'P' . $tgl . $nilai;
             $data = array(
-                'nis' => $nourut,
-                'nama_santri' => ucwords($this->input->post('nama_santri', TRUE)),
+                'nip' => $nourut,
+                'nama_pengajar' => ucwords($this->input->post('nama_pengajar', TRUE)),
                 'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
                 'tanggal_lahir' => $this->input->post('tanggal_lahir', TRUE),
                 'jenis_kelamin' => $this->input->post('jenis_kelamin', TRUE),
                 'alamat' => $this->input->post('alamat', TRUE),
-                'nama_orang_tua' => $this->input->post('nama_orang_tua', TRUE),
-                'kelompok_id' => $this->input->post('kelompok_id', TRUE),
                 // 'foto' => $this->input->post('foto', TRUE),
                 'shift_id' => $this->input->post('shift_id', TRUE)
             );
-            $this->Santri_model->insert($data);
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan santri'));
-            redirect(site_url('santri'));
+            $this->Pengajar_model->insert($data);
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan pengajar'));
+            redirect(site_url('pengajar'));
         }
     }
 
@@ -149,29 +144,27 @@ class Santri extends CI_Controller
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Dilarang!');
         }
         $user = $this->user;
-        $row = $this->Santri_model->get_by_id($id);
+        $row = $this->Pengajar_model->get_by_id($id);
         if ($row) {
             $data = array(
                 'box' => 'danger',
                 'button' => 'Update',
-                'action' => site_url('santri/update_action'),
+                'action' => site_url('pengajar/update_action'),
                 'id' => set_value('id', $row->id),
-                'nis' => set_value('nis', $row->nis),
-                'nama_santri' => set_value('nama_santri', $row->nama_santri),
+                'nip' => set_value('nip', $row->nip),
+                'nama_pengajar' => set_value('nama_pengajar', $row->nama_pengajar),
                 'tempat_lahir' => set_value('tempat_lahir', $row->tempat_lahir),
                 'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
                 'alamat' => set_value('alamat', $row->alamat),
                 'foto' => set_value('foto', $row->foto),
                 'shift_id' => set_value('shift_id', $row->shift_id),
-                'kelompok_id' => set_value('kelompok_id', $row->kelompok_id),
-                'nama_orang_tua' => set_value('nama_orang_tua', $row->nama_orang_tua),
                 'user' => $user,
                 'users'     => $this->ion_auth->user()->row(),
             );
-            $this->template->load('template/template', 'santri/santri_form', $data);
+            $this->template->load('template/template', 'pengajar/pengajar_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('santri'));
+            redirect(site_url('pengajar'));
         }
     }
 
@@ -181,24 +174,22 @@ class Santri extends CI_Controller
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Dilarang!');
         }
         $this->_rules();
-        $row = $this->Santri_model->get_by_id($this->input->post('id'));
-        $nis = $row->nis;
+        $row = $this->Pengajar_model->get_by_id($this->input->post('id'));
+        $nip = $row->nip;
         $data = array(
-            'nis' => $nis,
-            'nama_santri' => $this->input->post('nama_santri', TRUE),
+            'nip' => $nip,
+            'nama_pengajar' => $this->input->post('nama_pengajar', TRUE),
             'tempat_lahir' => $this->input->post('tempat_lahir', TRUE),
             'tanggal_lahir' => $this->input->post('tanggal_lahir', TRUE),
             'jenis_kelamin' => $this->input->post('jenis_kelamin', TRUE),
             'alamat' => $this->input->post('alamat', TRUE),
-            'nama_orang_tua' => $this->input->post('nama_orang_tua', TRUE),
-            'kelompok_id' => $this->input->post('kelompok_id', TRUE),
             'foto' => $this->input->post('foto', TRUE),
             'shift_id' => $this->input->post('shift_id', TRUE),
         );
 
-        $this->Santri_model->update($this->input->post('id', TRUE), $data);
-        $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil merubah data santri'));
-        redirect(site_url('santri'));
+        $this->Pengajar_model->update($this->input->post('id', TRUE), $data);
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil merubah data pengajar'));
+        redirect(site_url('pengajar'));
     }
 
     public function delete($id)
@@ -206,24 +197,23 @@ class Santri extends CI_Controller
         if (!$this->ion_auth->is_admin()) {
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Dilarang!');
         }
-        $row = $this->Santri_model->get_by_id($this->uri->segment(3));
+        $row = $this->Pengajar_model->get_by_id($this->uri->segment(3));
         if ($row) {
-            $this->Santri_model->delete($id);
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menghapus data santri'));
-            redirect(site_url('santri'));
+            $this->Pengajar_model->delete($id);
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menghapus data pengajar'));
+            redirect(site_url('pengajar'));
         } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('danger', 'data tidak ditemukan'));
-            redirect(site_url('santri'));
+            redirect(site_url('pengajar'));
         }
     }
 
 
     public function _rules()
     {
-        $this->form_validation->set_rules('nama_santri', 'nama santri', 'trim|required');
-        $this->form_validation->set_rules('kelompok_id', 'kelompok_id', 'trim|required');
+        $this->form_validation->set_rules('nama_pengajar', 'nama pengajar', 'trim|required');
         $this->form_validation->set_rules('shift_id', 'shift_id', 'trim|required');
-        $this->form_validation->set_rules('nis', 'nis', 'trim');
+        $this->form_validation->set_rules('nip', 'nip', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
