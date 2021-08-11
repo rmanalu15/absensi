@@ -2,9 +2,6 @@
 
 class Genbar_Model extends CI_model
 {
-
-
-
 	function __construct()
 	{
 		parent::__construct();
@@ -20,11 +17,10 @@ class Genbar_Model extends CI_model
 	public function getshow_query($nis)
 	{
 		$result = $this->search_value($_POST['term'] = null);
-		$this->db->select('a.nis,a.nama_santri,b.nama_jabatan,d.nama_shift,c.nama_gedung');
-		$this->db->from('santri as a,jabatan as b,gedung as c,shift as d');
-		$this->db->where('b.id_jabatan = a.jabatan');
-		$this->db->where('a.gedung_id = c.gedung_id');
-		$this->db->where('d.id_shift = a.id_shift');
+		$this->db->select('a.nis, a.nama_santri, b.nama_kelompok, c.nama_shift');
+		$this->db->from('santri as a, kelompok as b, shift as c');
+		$this->db->where('b.id_kelompok = a.kelompok_id');
+		$this->db->where('c.id_shift = a.shift_id');
 		$this->db->where('nama_santri', $_POST['id']);
 		$hasil = $this->db->get();
 		return $hasil;

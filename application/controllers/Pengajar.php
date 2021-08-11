@@ -157,6 +157,7 @@ class Pengajar extends CI_Controller
                 'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
                 'alamat' => set_value('alamat', $row->alamat),
                 'foto' => set_value('foto', $row->foto),
+                'jenis_kelamin' => set_value('jenis_kelamin', $row->jenis_kelamin),
                 'shift_id' => set_value('shift_id', $row->shift_id),
                 'user' => $user,
                 'users'     => $this->ion_auth->user()->row(),
@@ -176,6 +177,27 @@ class Pengajar extends CI_Controller
         $this->_rules();
         $row = $this->Pengajar_model->get_by_id($this->input->post('id'));
         $nip = $row->nip;
+
+        $upload_foto = $_FILES['foto']['name'];
+        if ($upload_foto) {
+            $config['allowed_types'] = 'jpg|png';
+            $config['upload_path'] = './assets/images/profile/';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto')) {
+                // $old_foto = $row->foto;
+                // if ($old_foto != 'default.png') {
+                //     unlink(FCPATH . 'assets/images/profile/' . $old_foto);
+                // }
+                $new_foto = $this->upload->data('file_name');
+            } else {
+                echo $this->upload->dispay_errors();
+            }
+        } else {
+            $new_foto = $row->foto;
+        }
+
         $data = array(
             'nip' => $nip,
             'nama_pengajar' => $this->input->post('nama_pengajar', TRUE),
@@ -183,7 +205,7 @@ class Pengajar extends CI_Controller
             'tanggal_lahir' => $this->input->post('tanggal_lahir', TRUE),
             'jenis_kelamin' => $this->input->post('jenis_kelamin', TRUE),
             'alamat' => $this->input->post('alamat', TRUE),
-            'foto' => $this->input->post('foto', TRUE),
+            'foto' => $new_foto,
             'shift_id' => $this->input->post('shift_id', TRUE),
         );
 

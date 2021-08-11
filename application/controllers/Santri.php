@@ -162,6 +162,7 @@ class Santri extends CI_Controller
                 'tanggal_lahir' => set_value('tanggal_lahir', $row->tanggal_lahir),
                 'alamat' => set_value('alamat', $row->alamat),
                 'foto' => set_value('foto', $row->foto),
+                'jenis_kelamin' => set_value('jenis_kelamin', $row->jenis_kelamin),
                 'shift_id' => set_value('shift_id', $row->shift_id),
                 'kelompok_id' => set_value('kelompok_id', $row->kelompok_id),
                 'nama_orang_tua' => set_value('nama_orang_tua', $row->nama_orang_tua),
@@ -183,6 +184,27 @@ class Santri extends CI_Controller
         $this->_rules();
         $row = $this->Santri_model->get_by_id($this->input->post('id'));
         $nis = $row->nis;
+
+        $upload_foto = $_FILES['foto']['name'];
+        if ($upload_foto) {
+            $config['allowed_types'] = 'jpg|png';
+            $config['upload_path'] = './assets/images/profile/';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('foto')) {
+                // $old_foto = $row->foto;
+                // if ($old_foto != 'default.png') {
+                //     unlink(FCPATH . 'assets/images/profile/' . $old_foto);
+                // }
+                $new_foto = $this->upload->data('file_name');
+            } else {
+                echo $this->upload->dispay_errors();
+            }
+        } else {
+            $new_foto = $row->foto;
+        }
+
         $data = array(
             'nis' => $nis,
             'nama_santri' => $this->input->post('nama_santri', TRUE),
@@ -192,7 +214,7 @@ class Santri extends CI_Controller
             'alamat' => $this->input->post('alamat', TRUE),
             'nama_orang_tua' => $this->input->post('nama_orang_tua', TRUE),
             'kelompok_id' => $this->input->post('kelompok_id', TRUE),
-            'foto' => $this->input->post('foto', TRUE),
+            'foto' => $new_foto,
             'shift_id' => $this->input->post('shift_id', TRUE),
         );
 

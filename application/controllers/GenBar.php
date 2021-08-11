@@ -2,7 +2,6 @@
 
 class GenBar extends CI_Controller
 {
-
 	function __construct()
 	{
 		parent::__construct();
@@ -35,9 +34,8 @@ class GenBar extends CI_Controller
 				$shows = array(
 					'nis' => $row->nis,
 					'nama_santri' => $row->nama_santri,
-					'nama_jabatan' => $row->nama_jabatan,
-					'nama_shift' => $row->nama_shift,
-					'nama_gedung' => $row->nama_gedung
+					'nama_kelompok' => $row->nama_kelompok,
+					'nama_shift' => $row->nama_shift
 				);
 				$this->load->view('ambilqr/v_scan', $shows);
 			}
@@ -46,7 +44,6 @@ class GenBar extends CI_Controller
 		}
 	}
 
-
 	function get_autocomplete()
 	{
 		if (isset($_GET['term'])) {
@@ -54,7 +51,7 @@ class GenBar extends CI_Controller
 			if (count($result) > 0) {
 				foreach ($result as $row)
 					$arr_result[] = array(
-						'label'			=> $row->nama_karyawan,
+						'label'	=> $row->nama_santri,
 					);
 				echo json_encode($arr_result);
 			}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2021 at 06:17 PM
+-- Generation Time: Aug 11, 2021 at 11:01 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -20,6 +20,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_absensi`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gender`
+--
+
+CREATE TABLE `gender` (
+  `id_gender` int(11) NOT NULL,
+  `gender` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `gender`
+--
+
+INSERT INTO `gender` (`id_gender`, `gender`) VALUES
+(1, 'Pria'),
+(2, 'Wanita');
 
 -- --------------------------------------------------------
 
@@ -99,7 +118,6 @@ CREATE TABLE `login_attempts` (
 --
 
 INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(12, '::1', 'admin@amin.com', 1628613128),
 (13, '::1', 'admin@admin', 1628679350);
 
 -- --------------------------------------------------------
@@ -161,7 +179,7 @@ CREATE TABLE `pengajar` (
 --
 
 INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `foto`, `shift_id`) VALUES
-(1, 'P2108001', 'Pengajar 01', 'Jakarta', '2001-01-01', 'Pria', 'Jakarta', 'foto.png', 5);
+(1, 'P2108001', 'Pengajar 01', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'foto1.png', 5);
 
 -- --------------------------------------------------------
 
@@ -205,8 +223,9 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`id`, `nis`, `nama_santri`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `nama_orang_tua`, `kelompok_id`, `foto`, `shift_id`) VALUES
-(133, 'S2108001', 'Santri 01', 'Tangerang', '2000-01-01', 'Pria', 'Tangerang', 'Orang Tua 01', 2, 'foto.png', 6),
-(134, 'S2108133', 'Santri 02', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'Orang Tua 02', 1, NULL, 5);
+(133, 'S2108001', 'Santri 01', 'Tangerang', '2000-01-01', 'Pria', 'Tangerang', 'Orang Tua 01', 2, 'default.png', 6),
+(134, 'S2108133', 'Santri 02', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'Orang Tua 02', 1, 'default.png', 5),
+(136, 'S2108134', 'Asd1', 'asd1', '2001-01-01', 'Wanita', 'asd1', 'asd1', 2, 'foto.png', 6);
 
 -- --------------------------------------------------------
 
@@ -279,7 +298,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628696346, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628713373, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -305,6 +324,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `gender`
+--
+ALTER TABLE `gender`
+  ADD PRIMARY KEY (`id_gender`);
 
 --
 -- Indexes for table `groups`
@@ -390,6 +415,12 @@ ALTER TABLE `users_groups`
 --
 
 --
+-- AUTO_INCREMENT for table `gender`
+--
+ALTER TABLE `gender`
+  MODIFY `id_gender` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
@@ -435,7 +466,7 @@ ALTER TABLE `presensi`
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `shift`

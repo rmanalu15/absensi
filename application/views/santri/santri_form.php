@@ -7,7 +7,7 @@
                     <h3 class='box-title'>FORMULIR SANTRI <b class="text-danger">(Notes: Pastikan Data Sudah Benar!)</b></h3>
                 </div>
                 <div class="box-body">
-                    <form role="form" id="myForm" data-toggle="validator" action="<?php echo $action; ?>" method="post">
+                    <form role="form" id="myForm" data-toggle="validator" action="<?php echo $action; ?>" enctype="multipart/form-data" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -33,12 +33,9 @@
                                 <div class="form-group">
                                     <label for="jenis_kelamin" class="control-label">Jenis Kelamin</label>
                                     <div class="input-group">
-                                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
-                                            <option value="Pria">Pria</option>
-                                            <option value="Wanita">Wanita</option>
-                                        </select>
+                                        <?php echo cmb_dinamis('jenis_kelamin', 'jenis_kelamin', 'gender', 'gender', 'gender', $jenis_kelamin) ?>
                                         <span class="input-group-addon">
-                                            <span class="fas fa-genderless"></span>
+                                            <span class="fas fa-users"></span>
                                         </span>
                                     </div>
                                 </div>
@@ -96,10 +93,14 @@
                                 <div class="form-group">
                                     <label for="foto" class="control-label">Foto</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" name="foto" id="foto" value="<?php echo $foto; ?>" required />
-                                        <span class="input-group-addon">
-                                            <span class="fas fa-user"></span>
-                                        </span>
+                                        <div class="col-md-4">
+                                            <img src="<?= base_url('assets/images/profile/') . $foto; ?>" class="img-thumbnail">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="custom-file">
+                                                <input type="file" class="form-control" id="foto" name="foto" value="<?= $foto; ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
