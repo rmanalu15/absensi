@@ -30,7 +30,7 @@ $(document).ready(function () {
         columns:
             [
                 { 'data': 'id_gj', defaultContent: '' },
-                { "data": "nama_karyawan" },
+                { "data": "nama_santri" },
                 { "data": "nama_jabatan" },
                 { "data": "nama_gedung" },
                 { "data": "nominal" },

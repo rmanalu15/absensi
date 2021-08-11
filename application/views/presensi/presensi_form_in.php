@@ -13,9 +13,9 @@
                     <form role="form" id="myForm" data-toggle="validator" action="<?php echo $action; ?>" method="post">
                         <input type="hidden" name="id" id="id" value="<?php echo $gedung->gedung_id ?>">
                         <div class="form-group">
-                            <label for="id_karyawan" class="control-label">Nama Karyawan</label>
+                            <label for="nis" class="control-label">Nama santri</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" data-error="Nama Karyawan harus diisi" name="id_karyawan" id="id_karyawan" placeholder="nama karyawan" required />
+                                <input type="text" class="form-control" data-error="Nama santri harus diisi" name="nis" id="nis" placeholder="nama santri" required />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
@@ -61,10 +61,10 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#id_karyawan').autocomplete({
+        $('#nis').autocomplete({
             source: "<?php echo site_url('presensi/get_autocomplete/' . $gedung->gedung_id); ?>",
             select: function(event, ui) {
-                $('[name="id_karyawan"]').val(ui.item.label);
+                $('[name="nis"]').val(ui.item.label);
             }
         });
     });

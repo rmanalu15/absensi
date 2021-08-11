@@ -1,6 +1,6 @@
 <body class="hold-transition skin-blue layout-top-nav" onLoad="pindah()">
-    
-<div class="container">
+
+    <div class="container">
         <section class="content">
             <div class="row">
                 <div class="col-md-6">
@@ -11,7 +11,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">INPUT NAMA DI SINI</label>
-                                <input type="text" onChang="ready()" id="id"  name="id_karyawan" class="form-control" placeholder="Masukkan Nama yang terdaftar di Data Karyawan">
+                                <input type="text" onChang="ready()" id="id" name="nis" class="form-control" placeholder="Masukkan Nama yang terdaftar di Data Santri">
                             </div>
                         </div>
                         <div class="box-footer">
@@ -31,7 +31,7 @@
         </section>
     </div>
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/jQueryUI/css/jquery-ui.css">
-    <script  src="<?php echo base_url() ?>assets/plugins/jQueryUI/js/jquery-ui.js"></script>
+    <script src="<?php echo base_url() ?>assets/plugins/jQueryUI/js/jquery-ui.js"></script>
 
     <script type="text/javascript">
         function pindah() {
@@ -49,7 +49,7 @@
                 },
                 success: function(msg) {
                     $('#showR').html(msg);
-                    $('#id_karyawan').focus();
+                    $('#nis').focus();
                 }
             });
         }

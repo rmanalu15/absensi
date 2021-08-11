@@ -35,7 +35,7 @@
                 <div class='box-header  with-border'>
                     <h3 class='box-title'>DATA SANTRI</h3>
                     <div class="pull-right">
-                        <?php echo anchor(site_url('tambah_anggota'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d" hidden="true"'); ?>
+                        <?php echo anchor(site_url('tambah_santri'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d" hidden="true"'); ?>
                     </div>
                 </div>
                 <div class="box-body">
@@ -54,12 +54,16 @@
                     <table id="mytable" class="table table-bordered table-hover display" style="width:100%;">
                         <thead>
                             <tr>
-                                <th class="all">No.</th>
-                                <th class="all">Kode Karyawan.</th>
-                                <th class="all">Nama Karywan</th>
-                                <th class="desktop">Jabatan</th>
-                                <th class="desktop">Shift</th>
-                                <th class="desktop">action</th>
+                                <th class="all">No</th>
+                                <th class="all">NIS</th>
+                                <th class="all">Nama Santri</th>
+                                <th class="dekstop">Jenis Kelamin</th>
+                                <th class="dekstop">Tanggal Lahir</th>
+                                <th class="dekstop">Nama Orang Tua</th>
+                                <th class="dekstop">Kelompok</th>
+                                <th class="dekstop">Shift</th>
+                                <th class="dekstop">Alamat</th>
+                                <th class="all">Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -74,4 +78,4 @@
 <script type="text/javascript">
     let checkLogin = '<?= $result ?>';
 </script>
-<script src="<?php echo base_url() ?>assets/app/datatables/karyawan.js" charset="utf-8"></script>
+<script src="<?php echo base_url() ?>assets/app/datatables/santri.js" charset="utf-8"></script>

@@ -21,13 +21,10 @@ function cmb_dinamis2($name, $id, $table, $field, $pk, $selected)
     foreach ($data as $d) {
         if ($d->$pk == 1) {
             $cmb .= "<option value='" . $d->$pk . "'disabled>" .  strtoupper($d->$field) . "</option>";
-        } 
-        else if($d->id_khd == $selected) {
+        } else if ($d->id_khd == $selected) {
             $cmb .= "<option value='" . $d->$pk . "'selected>" .  strtoupper($d->$field) . "</option>";
-        }
-        else {
+        } else {
             $cmb .= "<option value='" . $d->$pk . "'>" .  strtoupper($d->$field) . "</option>";
-
         }
     }
     $cmb .= "</select>";

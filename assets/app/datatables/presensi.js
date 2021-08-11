@@ -29,7 +29,7 @@ $(document).ready(function () {
         columns:
             [
                 { 'data': 'id_absen', defaultContent: '' },
-                { "data": "nama_karyawan" },
+                { "data": "nama_santri" },
                 { "data": "tgl" },
                 { "data": "jam_msk" },
                 { "data": "jam_klr" },

@@ -90,7 +90,7 @@ class Presensi extends CI_Controller
             'button' => 'Create',
             'action' => site_url('presensi/create_action'),
             'id_absen' => set_value('id_absen'),
-            'id_karyawan' => set_value('id_karyawan'),
+            'nis' => set_value('nis'),
             'tgl' => set_value('tgl'),
             'jam_msk' => set_value('jam_msk'),
             'jam_klr' => set_value('jam_klr'),
@@ -115,11 +115,11 @@ class Presensi extends CI_Controller
             $refer =  $this->agent->referrer();
         }
         $id = $this->input->post('id');
-        $result = $this->Presensi_model->search_value($_POST['id_karyawan'], $id);
-        $karyawan = $this->input->post('id_karyawan');
+        $result = $this->Presensi_model->search_value($_POST['nis'], $id);
+        $santri = $this->input->post('nis');
         if ($result != FALSE) {
             $data = array(
-                'id_karyawan' => $result[0]->id_karyawan,
+                'nis' => $result[0]->nis,
                 'tgl' => date('Y-m-d'),
                 'jam_msk' => $this->input->post('jam_msk', TRUE),
                 'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -132,21 +132,21 @@ class Presensi extends CI_Controller
             return false;
         }
         $result_tgl = $data['tgl'];
-        $result_id = $result[0]->id_karyawan;
+        $result_id = $result[0]->nis;
         $cek_absen = $this->Presensi_model->cek_id($result_id, $result_tgl);
         if ($cek_absen !== FALSE  && $cek_absen->num_rows() == 1) {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('warning', 'Nama Anggota Sudah diabsen'));
             redirect($_SERVER['HTTP_REFERER']);
             return false;
         } else {
-            $kar_result = $result[0]->id_karyawan;
-            if ($kar_result == NULL || $karyawan == "") {
+            $kar_result = $result[0]->nis;
+            if ($kar_result == NULL || $santri == "") {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('Error', 'Data tidak ditemukan'));
                 redirect($_SERVER['HTTP_REFERER']);
                 return false;
             } else {
                 $tgl = date('Y-m-d');
-                $id_krywn = $data['id_karyawan'];
+                $id_krywn = $data['nis'];
                 $this->Presensi_model->insert($data);
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan data presensi'));
                 $referred_from = $this->session->userdata('referred_from');
@@ -167,8 +167,8 @@ class Presensi extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('presensi/update_action'),
                 'id_absen' => set_value('id_absen', $row->id_absen),
-                'id_karyawan' => set_value('id_karyawan', $row->id_karyawan),
-                'nama_karyawan' => set_value('nama_karyawan', $row->nama_karyawan),
+                'nis' => set_value('nis', $row->nis),
+                'nama_santri' => set_value('nama_santri', $row->nama_santri),
                 'tgl' => set_value('tgl', $row->tgl),
                 'jam_msk' => set_value('jam_msk', $row->jam_msk),
                 'jam_klr' => set_value('jam_klr', $row->jam_klr),
@@ -198,7 +198,7 @@ class Presensi extends CI_Controller
             $cek_id = $this->Presensi_model->get_by_ids($row);
             if ($cek_id->id_khd == 1) {
                 $data = array(
-                    'id_karyawan' => $this->input->post('id_karyawan', TRUE),
+                    'nis' => $this->input->post('nis', TRUE),
                     'tgl' => $this->input->post('tgl', TRUE),
                     'jam_msk' => $this->input->post('jam_msk', TRUE),
                     'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -208,7 +208,7 @@ class Presensi extends CI_Controller
                 );
             } else {
                 $data = array(
-                    'id_karyawan' => $this->input->post('id_karyawan', TRUE),
+                    'nis' => $this->input->post('nis', TRUE),
                     'tgl' => $this->input->post('tgl', TRUE),
                     'jam_msk' => $this->input->post('jam_msk', TRUE),
                     'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -242,7 +242,7 @@ class Presensi extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('id_karyawan', 'id karyawan', 'trim|required');
+        $this->form_validation->set_rules('nis', 'id santri', 'trim|required');
         $this->form_validation->set_rules('tgl', 'tgl', 'trim|required');
         $this->form_validation->set_rules('id_khd', 'id khd', 'trim|required');
         $this->form_validation->set_rules('id_absen', 'id_absen', 'trim');
@@ -256,7 +256,7 @@ class Presensi extends CI_Controller
             if (count($result) > 0) {
                 foreach ($result as $row)
                     $arr_result[] = array(
-                        'label'            => $row->nama_karyawan,
+                        'label'            => $row->nama_santri,
                     );
                 echo json_encode($arr_result);
             }

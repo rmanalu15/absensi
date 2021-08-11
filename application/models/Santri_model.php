@@ -3,10 +3,10 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Karyawan_model extends CI_Model
+class Santri_model extends CI_Model
 {
 
-    public $table = 'karyawan';
+    public $table = 'santri';
     public $id = 'id';
     public $order = 'DESC';
 
@@ -26,47 +26,33 @@ class Karyawan_model extends CI_Model
     function get_max()
     {
         return $this->db->select('max(id) as kode')
-            ->from('karyawan')->get()->result();
+            ->from('santri')->get()->result();
     }
 
     function get_all_query()
     {
-        $sql = "SELECT a.id_karyawan,a.nama_karyawan,b.nama_jabatan,c.nama_shift,a.gedung_id
-                from karyawan as a,jabatan as b,shift as c
-                where b.id_jabatan=a.jabatan
-                and a.id_shift=c.id_shift";
+        $sql = "SELECT a.id, a.nis, a.nama_santri, a.jenis_kelamin, a.tempat_lahir, a.tanggal_lahir, a.nama_orang_tua, a.alamat, b.nama_kelompok, c.nama_shift
+                from santri as a, kelompok as b, shift as c
+                where b.id_kelompok = a.kelompok_id 
+                and a.shift_id = c.id_shift";
         return $this->db->query($sql)->result();
     }
 
-
-    function get_by_id_query($id)
-    {
-        $sql = "SELECT a.id_karyawan,a.nama_karyawan,b.nama_jabatan,d.nama_shift,c.nama_gedung
-        from karyawan as a,jabatan as b,gedung as c,shift as d
-        where b.id_jabatan=a.jabatan
-        and a.gedung_id=c.gedung_id
-        and d.id_shift=a.id_shift
-        and id=$id";
-        return $this->db->query($sql)->row($id);
-    }
-
-
     function getData()
     {
-        $this->datatables->select('a.id,a.id_karyawan,a.nama_karyawan,b.nama_jabatan,d.nama_shift,c.nama_gedung')
-            ->from('karyawan as a,jabatan as b,gedung as c,shift as d')
-            ->where('b.id_jabatan=a.jabatan')
-            ->where('a.gedung_id=c.gedung_id')
-            ->where('d.id_shift=a.id_shift');
+        $this->datatables->select('a.id, a.nis, a.nama_santri, a.jenis_kelamin, a.tempat_lahir, a.tanggal_lahir, a.nama_orang_tua, a.alamat, b.nama_kelompok, c.nama_shift')
+            ->from('santri as a, kelompok as b, shift as c')
+            ->where('b.id_kelompok = a.kelompok_id')
+            ->where('c.id_shift = a.shift_id');
         return $this->datatables->generate();
     }
+
     // get data by id
     function get_by_id($id)
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-  
 
     // insert data
     function insert($data)

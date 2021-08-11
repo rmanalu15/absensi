@@ -14,7 +14,7 @@ class Scan extends Ci_Controller
 		$this->load->model('Gedung_model');
 		$this->load->library('form_validation');
 		$this->user = $this->ion_auth->user()->row();
-		$this->load->model('Scan_model','Scan');
+		$this->load->model('Scan_model', 'Scan');
 	}
 
 
@@ -72,7 +72,7 @@ class Scan extends Ci_Controller
 			return false;
 		} else {
 			$data = array(
-				'id_karyawan' => $result_code,
+				'nis' => $result_code,
 				'tgl' => $tgl,
 				'jam_msk' => $jam_msk,
 				'id_khd' => 1,

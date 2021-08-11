@@ -37,7 +37,7 @@
                             <tr>
                                 <th width="20px">No</th>
                                 <th>NIK</th>
-                                <th>Nama Karyawan</th>
+                                <th>Nama santri</th>
                                 <th>Jabatan </th>
                                 <th>Lokasi</th>
                                 <th>alamat</th>
@@ -47,14 +47,14 @@
                             <?php
                             $start = 0;
                             foreach ($shift_data2 as $shift) { ?>
-                            <tr>
-                                <td><?php echo ++$start ?></td>
-                                <td><?php echo $shift->id_karyawan ?></td>
-                                <td><?php echo $shift->nama_karyawan ?></td>
-                                <td> <?php echo $shift->nama_jabatan ?></td>
-                                <td><?php echo $shift->nama_gedung ?></td>
-                                <td><?php echo $shift->alamat ?></td>
-                            </tr> <?php } ?>
+                                <tr>
+                                    <td><?php echo ++$start ?></td>
+                                    <td><?php echo $shift->nis ?></td>
+                                    <td><?php echo $shift->nama_santri ?></td>
+                                    <td> <?php echo $shift->nama_jabatan ?></td>
+                                    <td><?php echo $shift->nama_gedung ?></td>
+                                    <td><?php echo $shift->alamat ?></td>
+                                </tr> <?php } ?>
                         </tbody>
                         <tr>
                             <td colspan="6" style="text-align:center;"><?php echo anchor('shift', 'Kembali', array('class' => 'btn btn-indigo btn-lg btn3d')); ?></td>

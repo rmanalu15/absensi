@@ -59,7 +59,7 @@
                             foreach ($gedung_data as $gedung) { ?>
                                 <tr>
                                     <td><?php echo ++$start ?></td>
-                                    <td><?php echo $gedung->nama_karyawan ?></td>
+                                    <td><?php echo $gedung->nama_santri ?></td>
                                     <td><?php echo $gedung->nama_jabatan ?></td>
                                     <td>
                                         <?php echo $gedung->nama_shift ?>

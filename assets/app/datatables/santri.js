@@ -4,7 +4,7 @@ $(document).ready(function () {
     table = $("#mytable").addClass('nowrap').DataTable({
         initComplete: function () {
             let api = this.api();
-            $('#karyawan_filter input')
+            $('#santri_filter input')
                 .off('.DT')
                 .on('keyup.DT', function (e) {
                     api.search(this.value).draw();
@@ -23,16 +23,20 @@ $(document).ready(function () {
         ],
         "order": [[0, 'asc']],
         ajax: {
-            "url": base_url + "karyawan/data",
+            "url": base_url + "santri/data",
             "type": "POST",
         },
         columns:
             [
                 { 'data': 'id', defaultContent: '' },
-                { 'data': "id_karyawan" },
-                { "data": "nama_karyawan" },
-                { "data": "nama_jabatan" },
+                { 'data': "nis" },
+                { "data": "nama_santri" },
+                { "data": "jenis_kelamin" },
+                { "data": "tanggal_lahir" },
+                { "data": "nama_orang_tua" },
+                { "data": "nama_kelompok" },
                 { "data": "nama_shift" },
+                { "data": "alamat" },
                 {
                     "data": null,
                 },
@@ -42,25 +46,22 @@ $(document).ready(function () {
                 "data": {
                     "id": "id",
                 },
-                "targets": 5,
+                "targets": 9,
                 "orderable": false,
                 "searchable": false,
                 "render": function (data, type, row, meta) {
                     let btn;
                     if (checkLogin == 1) {
-                        return `<a href="${base_url}karyawan/lihat/${data.id}" title="lihat" class="btn btn-md btn-success btn3d btn-view-data">
-                        <i class="fa fa-eye"></i> Lihat
-                        </a>
-                        <a href="${base_url}karyawan/update/${data.id}" title="edit" class="btn btn-md btn-warning  btn-edit-data">
+                        return `<a href="${base_url}santri/update/${data.id}" title="edit" class="btn btn-md btn-warning  btn-edit-data">
                         <i class="fa fa-pencil-square-o"></i> Edit
                         </a>
-                        <a href="${base_url}karyawan/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
+                        <a href="${base_url}santri/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
                         <i class="fa fa-trash"></i> Hapus
                         </a>`;
                     }
                     else {
-                        return `<a href="${base_url}karyawan/lihat/${data.id}" title="edit" class="btn btn-md btn-success btn3d btn-view-data">
-                        <i class="fa fa-eye"></i> Lihat
+                        return `<a href="#" title="edit" class="btn btn-md btn-success btn3d btn-view-data">
+                        <i class="fa fa-eye"></i> Action
                         </a>`;
                     }
                 }
@@ -72,31 +73,31 @@ $(document).ready(function () {
             {
                 extend: 'csv',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
             },
             {
                 extend: 'excel',
-                title: 'Data Karyawan',
+                title: 'Data Santri',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
             },
             {
                 extend: 'copy',
-                title: 'Data Karyawan',
+                title: 'Data Santri',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
             },
             {
                 extend: 'pdf',
                 oriented: 'portrait',
                 pageSize: 'legal',
-                title: 'Data Karyawan',
+                title: 'Data Santri',
                 download: 'open',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
                 customize: function (doc) {
                     doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
@@ -108,9 +109,9 @@ $(document).ready(function () {
                 extend: 'print',
                 oriented: 'portrait',
                 pageSize: 'A4',
-                title: 'Data Karyawan',
+                title: 'Data Santri',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
             },
         ],

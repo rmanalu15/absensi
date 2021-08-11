@@ -36,12 +36,16 @@
     <div class="login-box">
 
         <!-- /.login-logo -->
-        <div class="login-box pt-5">
+        <div class="login-box">
             <!-- /.login-logo -->
             <div class="login-box-body">
-            <img src="<?php echo base_url() ?>assets/images/LogoTPQ.png">
-                <h3 class="text-center mt-0 mb-4">
-                    <b><font color="green">S</b>istem <b>A</b>bsensi <b>QR</b>code <br>
+                <div class="text-center">
+                    <img src="<?php echo base_url('assets/'); ?>images/LogoTPQ.png">
+                </div>
+                <h3 class="text-center mt-0">
+                    <b>
+                        <font color="green">S
+                    </b>istem <b>A</b>bsensi <b>QR</b>code <br>
                     <b> TPQ Al Fatih</font></b>
                 </h3>
                 <p class="login-box-msg"></p>
@@ -72,7 +76,7 @@
                     <!-- /.col -->
                 </div>
                 <?= form_close(); ?>
-                
+
             </div>
         </div>
         <!-- /.login-box-body -->

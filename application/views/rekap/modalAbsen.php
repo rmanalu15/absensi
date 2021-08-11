@@ -53,7 +53,7 @@
 
 <div class="box" style='max-width:1200px;margin-left:90px;'>
     <div class="box-header with-border">
-        <h3 class="box-title">Data Absensi Karyawan </h3>
+        <h3 class="box-title">Data Absensi santri </h3>
         <button type="button" class="btn btn-danger btn3d pull-right" data-dismiss="modal"><i class='fa fa-close'></i>Close</button>
         <button onclick="printDiv('print-area')" target="_blank" class='pull-right btn btn-success btn3d'><i class='fa fa-print'></i> Print</button>
         <div class="container">
@@ -91,7 +91,7 @@
                             </td>
                             <td> <br>
                                 <p style='font-size:20px;text-align:center;'><b>
-                                        <font size='5px'>REKAP ABSENSI Karyawan <?php echo $gedung->nama_gedung; ?></font>
+                                        <font size='5px'>REKAP ABSENSI santri <?php echo $gedung->nama_gedung; ?></font>
                                     </b></p>
 
                                 <?php
@@ -169,12 +169,12 @@
                         $end = $this->input->get('tgl');
                         $id_shift = $this->input->get('id_shift');
                         if ($id_shift > 0) {
-                            foreach ($this->rekap->karyawan_bak3($segment, $start, $end, $id_shift) as $row) {
+                            foreach ($this->rekap->santri_bak3($segment, $start, $end, $id_shift) as $row) {
                                 $no++;
                                 echo
-                                    "<tr>
+                                "<tr>
                             <td>" . $no . "</td>
-                            <td>" . $row->nama_karyawan . "</td>";
+                            <td>" . $row->nama_santri . "</td>";
                                 if ($row->jabatan == 1  || $row->jabatan == 2) {
                                     echo "<td style='color:red !important;width:30px;'>$row->nama_jabatan</td>";
                                 } else {
@@ -184,38 +184,38 @@
                                     foreach ($resultHadir as $datax) {
                                         $date_of_post = $datax->tgl;
                                         $id_khd = $datax->id_khd;
-                                        $id = $row->id_karyawan;
+                                        $id = $row->nis;
                                         $date = $date_of_post;
                                         $date = date('Ymd', strtotime($date));
                                         $stamp  = $date;
-                                        $ceki = $this->rekap->_cek($datax->tgl, $row->id_karyawan);
-                                        $ceki2 = $this->rekap->_cek2($datax->tgl, $row->id_karyawan);
-                                        $ceki3 = $this->rekap->_cek3($datax->tgl, $row->id_karyawan);
-                                        $ceki4 = $this->rekap->_cek4($datax->tgl, $row->id_karyawan);
-                                        $ceki5 = $this->rekap->_cek5($datax->tgl, $row->id_karyawan);
+                                        $ceki = $this->rekap->_cek($datax->tgl, $row->nis);
+                                        $ceki2 = $this->rekap->_cek2($datax->tgl, $row->nis);
+                                        $ceki3 = $this->rekap->_cek3($datax->tgl, $row->nis);
+                                        $ceki4 = $this->rekap->_cek4($datax->tgl, $row->nis);
+                                        $ceki5 = $this->rekap->_cek5($datax->tgl, $row->nis);
                                         $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3));
                                         $seg = $gedung->gedung_id;
                                         if ($ceki) {
                                             $datax->adkhd = 'onclick="add_kd(' . $stamp . ')"';
                                             $ceklist = "<i class='fa fa-check'></i>";
                                         } else if ($ceki2) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>S</b>";
                                             };
                                         } else if ($ceki3) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>I</b>";
                                             };
                                         } else if ($ceki4) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>A</b>";
                                             };
                                         } else if ($ceki5) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>O</b>";
                                             };
                                         } else if (!$ceki) {
-                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                             $ceklist = "<a href='#'><i>-</i></a>";
                                         };
                                         if (!$ceki) {
@@ -229,14 +229,14 @@
                                 } else {
                                     echo "<td>&nbsp;</td>";
                                 };
-                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->id_karyawan, $start, $end) . "&nbsp;</td></tr>";
+                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->nis, $start, $end) . "&nbsp;</td></tr>";
                             }
                         } else {
-                            foreach ($this->rekap->karyawan_bak2($segment, $start, $end) as $row) {
+                            foreach ($this->rekap->santri_bak2($segment, $start, $end) as $row) {
                                 $no++;
                                 echo "<tr>
                                 <td>" . $no . "</td>
-                                <td>" . $row->nama_karyawan . "</td>";
+                                <td>" . $row->nama_santri . "</td>";
                                 if ($row->jabatan == 1  || $row->jabatan == 2) {
                                     echo "<td style='color:red !important;width:30px;'>$row->nama_jabatan</td>";
                                 } else {
@@ -246,38 +246,38 @@
                                     foreach ($resultHadir as $datax) {
                                         $date_of_post = $datax->tgl;
                                         $id_khd = $datax->id_khd;
-                                        $id = $row->id_karyawan;
+                                        $id = $row->nis;
                                         $date = $date_of_post;
                                         $date = date('Ymd', strtotime($date));
                                         $stamp  = $date;
-                                        $ceki = $this->rekap->_cek($datax->tgl, $row->id_karyawan);
-                                        $ceki2 = $this->rekap->_cek2($datax->tgl, $row->id_karyawan);
-                                        $ceki3 = $this->rekap->_cek3($datax->tgl, $row->id_karyawan);
-                                        $ceki4 = $this->rekap->_cek4($datax->tgl, $row->id_karyawan);
-                                        $ceki5 = $this->rekap->_cek5($datax->tgl, $row->id_karyawan);
+                                        $ceki = $this->rekap->_cek($datax->tgl, $row->nis);
+                                        $ceki2 = $this->rekap->_cek2($datax->tgl, $row->nis);
+                                        $ceki3 = $this->rekap->_cek3($datax->tgl, $row->nis);
+                                        $ceki4 = $this->rekap->_cek4($datax->tgl, $row->nis);
+                                        $ceki5 = $this->rekap->_cek5($datax->tgl, $row->nis);
                                         $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3));
                                         $seg = $gedung->gedung_id;
                                         if ($ceki) {
                                             $datax->adkhd = 'onclick="add_kd(' . $stamp . ')"';
                                             $ceklist = "<i class='fa fa-check'></i>";
                                         } else if ($ceki2) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>S</b>";
                                             };
                                         } else if ($ceki3) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>I</b>";
                                             };
                                         } else if ($ceki4) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>A</b>";
                                             };
                                         } else if ($ceki5) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                                 $ceklist = "<b>O</b>";
                                             };
                                         } else if (!$ceki) {
-                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->id_karyawan . "','" . $seg . "'" . ')"';
+                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
                                             $ceklist = "<a href='#'><i>-</i></a>";
                                         };
                                         if (!$ceki) {
@@ -291,7 +291,7 @@
                                 } else {
                                     echo "<td>&nbsp;</td>";
                                 };
-                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->id_karyawan, $start, $end) . "&nbsp;</td></tr>";
+                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->nis, $start, $end) . "&nbsp;</td></tr>";
                             }
                         } ?>
                     </table>
@@ -323,7 +323,7 @@
                     <div class="form-group">
                         <!-- <label class="control-label col-md-3">NIK</label> -->
                         <div class="col-md-10">
-                            <input type="hidden" name="kar" value="" class="form-control" id="id_karyawan" type="text" readonly>
+                            <input type="hidden" name="kar" value="" class="form-control" id="nis" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-group">

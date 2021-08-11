@@ -14,7 +14,7 @@ const ready = () => {
         },
         success: msg => {
             $('#showR').html(msg);
-            $('#id_karyawan').focus();
+            $('#nis').focus();
         }
     });
 };

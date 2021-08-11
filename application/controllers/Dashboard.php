@@ -37,7 +37,7 @@ class Dashboard extends CI_Controller
 		$box = [
 			[
 				'box' 		=> 'light-blue',
-				'total' 	=> $this->dashboard->total('karyawan'),
+				'total' 	=> $this->dashboard->total('santri'),
 				'title'		=> 'Santri',
 				'icon'		=> 'user'
 			],
@@ -49,7 +49,7 @@ class Dashboard extends CI_Controller
 			],
 			[
 				'box' 		=> 'yellow-active',
-				'total' 	=> $this->dashboard->total('gedung'),
+				// 'total' 	=> $this->dashboard->total('gedung'),
 				'title'		=> 'lokasi',
 				'icon'		=> 'building'
 			],

@@ -1,9 +1,9 @@
 <div class="box box-widget">
     <?php
-    $params['data'] = $id_karyawan;
+    $params['data'] = $nis;
     $params['level'] = 'H';
     $params['size'] = 4;
-    $params['savename'] = FCPATH . "uploads/qr_image/" . $id_karyawan . 'code.png';
+    $params['savename'] = FCPATH . "uploads/qr_image/" . $nis . 'code.png';
     $this->ciqrcode->generate($params);
     ?>
 
@@ -13,11 +13,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-blue">
                 <div class="widget-user-image">
-                    <img class="img-responsive" src="<?php echo base_url('uploads/qr_image/') . $id_karyawan . 'code.png'; ?>" />
+                    <img class="img-responsive" src="<?php echo base_url('uploads/qr_image/') . $nis . 'code.png'; ?>" />
                 </div>
                 <!-- /.widget-user-image -->
-                <h3 class="widget-user-username"><?php echo $id_karyawan ?></h3>
-                <h5 class="widget-user-desc"><?php echo $nama_karyawan; ?></h5>
+                <h3 class="widget-user-username"><?php echo $nis ?></h3>
+                <h5 class="widget-user-desc"><?php echo $nama_santri; ?></h5>
                 <button onclick="printDiv('print-area')" class='pull-right'><i class='fa fa-print'></i> Print</button>
             </div>
             <div class="box-footer no-padding">

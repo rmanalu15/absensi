@@ -8,7 +8,7 @@ class Rekap_model extends CI_Model
 
     public $table = 'gedung';
     public $id = 'gedung_id';
-    public $id_karyawan = 'id_karyawan';
+    public $nis = 'nis';
     public $order = 'DESC';
     public $column = array('nama_gedung', 'alamat');
     public $id_khd = 'id_khd';
@@ -132,10 +132,10 @@ class Rekap_model extends CI_Model
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select('a.gedung_id,b.id_karyawan,c.tgl,c.id_khd');
-        $this->db->from('gedung as a,karyawan as b,presensi as c');
+        $this->db->select('a.gedung_id,b.nis,c.tgl,c.id_khd');
+        $this->db->from('gedung as a,santri as b,presensi as c');
         $this->db->where('a.gedung_id=b.gedung_id');
-        $this->db->where('b.id_karyawan=c.id_karyawan');
+        $this->db->where('b.nis=c.nis');
         $this->db->group_by('c.tgl');
         $this->db->where('a.gedung_id', $id);
         $this->db->where("c.tgl >=", $start);
@@ -146,9 +146,9 @@ class Rekap_model extends CI_Model
 
     function resultHadir($id)
     {
-        $this->db->select("a.id_karyawan,b.gedung_id,c.tgl,c.id_khd");
-        $this->db->from("karyawan as a,gedung as b , presensi as c ");
-        $this->db->where("a.id_karyawan=c.id_karyawan");
+        $this->db->select("a.nis,b.gedung_id,c.tgl,c.id_khd");
+        $this->db->from("santri as a,gedung as b , presensi as c ");
+        $this->db->where("a.nis=c.nis");
         $this->db->where("b.gedung_id=a.gedung_id");
         $this->db->where("b.gedung_id", $id);
         $this->db->group_by("c.tgl");
@@ -160,9 +160,9 @@ class Rekap_model extends CI_Model
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.id_karyawan,b.gedung_id,c.tgl,c.id_khd");
-        $this->db->from("karyawan as a,gedung as b , presensi as c ");
-        $this->db->where("a.id_karyawan=c.id_karyawan");
+        $this->db->select("a.nis,b.gedung_id,c.tgl,c.id_khd");
+        $this->db->from("santri as a,gedung as b , presensi as c ");
+        $this->db->where("a.nis=c.nis");
         $this->db->where("b.gedung_id=a.gedung_id");
         $this->db->where("b.gedung_id", $id);
         $this->db->where("c.tgl >=", $start);
@@ -173,23 +173,23 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi ketika absensi hadir
-    function  _cek($tanggal, $id_karyawan)
+    function  _cek($tanggal, $nis)
     {
 
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("id_karyawan", $id_karyawan);
+        $this->db->where("nis", $nis);
         $this->db->where('id_khd', 1);
         $this->db->distinct();
         return $this->db->get("presensi")->num_rows();
     }
 
     // fungsi ketika absensi sakit
-    function  _cek2($tanggal, $id_karyawan)
+    function  _cek2($tanggal, $nis)
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("id_karyawan", $id_karyawan);
+        $this->db->where("nis", $nis);
         $this->db->where('id_khd', 2);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -197,11 +197,11 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi ketika ijin
-    function  _cek3($tanggal, $id_karyawan)
+    function  _cek3($tanggal, $nis)
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("id_karyawan", $id_karyawan);
+        $this->db->where("nis", $nis);
         $this->db->where('id_khd', 3);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -209,11 +209,11 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi ketika tanpa keterangan
-    function  _cek4($tanggal, $id_karyawan)
+    function  _cek4($tanggal, $nis)
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("id_karyawan", $id_karyawan);
+        $this->db->where("nis", $nis);
         $this->db->where('id_khd', 4);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -221,11 +221,11 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi ketika off/libur
-    function  _cek5($tanggal, $id_karyawan)
+    function  _cek5($tanggal, $nis)
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("id_karyawan", $id_karyawan);
+        $this->db->where("nis", $nis);
         $this->db->where('id_khd', 5);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -251,18 +251,18 @@ class Rekap_model extends CI_Model
     }
 
 
-    function karyawan_bak3($id, $start, $end, $id_shift)
+    function santri_bak3($id, $start, $end, $id_shift)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
         $id_shift = $_GET['id_shift'];
-        $this->db->select("a.id_karyawan,a.nama_karyawan,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
+        $this->db->select("a.nis,a.nama_santri,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
         ,g.nama_status");
-        $this->db->from("karyawan as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
+        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
         $this->db->where("b.id_jabatan=a.jabatan");
         $this->db->where("c.id_shift=a.id_shift");
         $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.id_karyawan=e.id_karyawan");
+        $this->db->where("a.nis=e.nis");
         $this->db->where("e.id_khd=f.id_khd");
         $this->db->where("e.id_status=g.id_status");
         $this->db->where("d.gedung_id", $id);
@@ -278,17 +278,17 @@ class Rekap_model extends CI_Model
         return $this->db->get('presensi')->result();
     }
 
-    // fungsi mendata rekap karyawan berdasarkan lokasi
-    function karyawan($id)
+    // fungsi mendata rekap santri berdasarkan lokasi
+    function santri($id)
     {
 
-        $this->db->select("a.id_karyawan,a.nama_karyawan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
+        $this->db->select("a.nis,a.nama_santri,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
         ,g.nama_status");
-        $this->db->from("karyawan as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
+        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
         $this->db->where("b.id_jabatan=a.jabatan");
         $this->db->where("c.id_shift=a.id_shift");
         $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.id_karyawan=e.id_karyawan");
+        $this->db->where("a.nis=e.nis");
         $this->db->where("e.id_khd=f.id_khd");
         $this->db->where("e.id_status=g.id_status");
         $this->db->where("d.gedung_id", $id);
@@ -298,17 +298,17 @@ class Rekap_model extends CI_Model
         return $this->db->get('presensi')->result();
     }
 
-    function karyawan_bak2($id, $start, $end)
+    function santri_bak2($id, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.id_karyawan,a.nama_karyawan,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
+        $this->db->select("a.nis,a.nama_santri,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
         ,g.nama_status");
-        $this->db->from("karyawan as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
+        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
         $this->db->where("b.id_jabatan=a.jabatan");
         $this->db->where("c.id_shift=a.id_shift");
         $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.id_karyawan=e.id_karyawan");
+        $this->db->where("a.nis=e.nis");
         $this->db->where("e.id_khd=f.id_khd");
         $this->db->where("e.id_status=g.id_status");
         $this->db->where("d.gedung_id", $id);
@@ -324,74 +324,74 @@ class Rekap_model extends CI_Model
 
 
     // fungsi menghitung total kehadiran (masuk)
-    function totalHadir($id, $id_karyawan)
+    function totalHadir($id, $nis)
     {
-        $this->db->select("a.gedung_id,b.id_karyawan,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, karyawan as b");
+        $this->db->select("a.gedung_id,b.nis,c.tgl");
+        $this->db->from("gedung as a ,presensi as c, santri as b");
         $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.id_karyawan=c.id_karyawan");
+        $this->db->where("b.nis=c.nis");
         $this->db->where("a.gedung_id", $id);
-        $this->db->where("b.id_karyawan", $id_karyawan);
+        $this->db->where("b.nis", $nis);
         $this->db->where("c.id_khd", 1);
         $this->db->distinct();
 
         return $this->db->get()->num_rows();
     }
 
-    function tohadir($id_karyawan)
+    function tohadir($nis)
     {
-        $id_karyawan = $this->input->post('id_karyawan');
+        $nis = $this->input->post('nis');
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_karyawan)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $nis)
             ->where('id_khd', 1)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
     }
 
-    function tosakit($id_karyawan)
+    function tosakit($nis)
     {
-        $id_karyawan = $this->input->post('id_karyawan');
+        $nis = $this->input->post('nis');
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_karyawan)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $nis)
             ->where('id_khd', 2)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
     }
 
-    function toijin($id_karyawan)
+    function toijin($nis)
     {
-        $id_karyawan = $this->input->post('id_karyawan');
+        $nis = $this->input->post('nis');
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_karyawan)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $nis)
             ->where('id_khd', 3)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
     }
 
-    function toalpha($id_karyawan)
+    function toalpha($nis)
     {
-        $id_karyawan = $this->input->post('id_karyawan');
+        $nis = $this->input->post('nis');
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_karyawan)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $nis)
             ->where('id_khd', 4)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
     }
     // fungsi menghitung total kehadiran (masuk)
-    function totalHadir_bak($id, $id_karyawan, $start, $end)
+    function totalHadir_bak($id, $nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.id_karyawan,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, karyawan as b");
+        $this->db->select("a.gedung_id,b.nis,c.tgl");
+        $this->db->from("gedung as a ,presensi as c, santri as b");
         $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.id_karyawan=c.id_karyawan");
+        $this->db->where("b.nis=c.nis");
         $this->db->where("a.gedung_id", $id);
-        $this->db->where("b.id_karyawan", $id_karyawan);
+        $this->db->where("b.nis", $nis);
         $this->db->where("c.id_khd", 1);
         $this->db->where("c.tgl >=", $start);
         $this->db->where("c.tgl <=", $end);
@@ -401,16 +401,16 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi menghitung total kehadiran (sakit)
-    function totalHadir2($id, $id_karyawan, $start, $end)
+    function totalHadir2($id, $nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.id_karyawan,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, karyawan as b");
+        $this->db->select("a.gedung_id,b.nis,c.tgl");
+        $this->db->from("gedung as a ,presensi as c, santri as b");
         $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.id_karyawan=c.id_karyawan");
+        $this->db->where("b.nis=c.nis");
         $this->db->where("a.gedung_id", $id);
-        $this->db->where("b.id_karyawan", $id_karyawan);
+        $this->db->where("b.nis", $nis);
         $this->db->where("c.id_khd", 2);
         $this->db->where("c.tgl >=", $start);
         $this->db->where("c.tgl <=", $end);
@@ -419,16 +419,16 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi menghitung total kehadiran (ijin)
-    function totalHadir3($id, $id_karyawan, $start, $end)
+    function totalHadir3($id, $nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.id_karyawan,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, karyawan as b");
+        $this->db->select("a.gedung_id,b.nis,c.tgl");
+        $this->db->from("gedung as a ,presensi as c, santri as b");
         $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.id_karyawan=c.id_karyawan");
+        $this->db->where("b.nis=c.nis");
         $this->db->where("a.gedung_id", $id);
-        $this->db->where("b.id_karyawan", $id_karyawan);
+        $this->db->where("b.nis", $nis);
         $this->db->where("c.id_khd", 3);
         $this->db->where("c.tgl >=", $start);
         $this->db->where("c.tgl <=", $end);
@@ -437,16 +437,16 @@ class Rekap_model extends CI_Model
     }
 
     // fungsi menghitung total kehadiran (alpha)
-    function totalHadir4($id, $id_karyawan, $start, $end)
+    function totalHadir4($id, $nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.id_karyawan,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, karyawan as b");
+        $this->db->select("a.gedung_id,b.nis,c.tgl");
+        $this->db->from("gedung as a ,presensi as c, santri as b");
         $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.id_karyawan=c.id_karyawan");
+        $this->db->where("b.nis=c.nis");
         $this->db->where("a.gedung_id", $id);
-        $this->db->where("b.id_karyawan", $id_karyawan);
+        $this->db->where("b.nis", $nis);
         $this->db->where("c.id_khd", 4);
         $this->db->where("c.tgl >=", $start);
         $this->db->where("c.tgl <=", $end);
@@ -461,11 +461,11 @@ class Rekap_model extends CI_Model
         $id = $this->input->get('tgl');
         $seg = $this->input->get('gedung_id');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('id_karyawan');
+        $kar = $this->input->get('nis');
         $ket = $this->input->post('ket');
         $query_str  =
             $this->db->where('tgl', $id)
-            ->where('id_karyawan', $kar)
+            ->where('nis', $kar)
             ->where('id_status', 3)
             ->get('presensi');
         if ($query_str->num_rows() == 0) {
@@ -476,7 +476,7 @@ class Rekap_model extends CI_Model
                 'ket' => $this->input->get('ket'),
             );
             $this->db->where('tgl', $id);
-            $this->db->where('id_karyawan', $kar);
+            $this->db->where('nis', $kar);
             $this->db->update('presensi', $data);
         }
     }
@@ -488,24 +488,24 @@ class Rekap_model extends CI_Model
         $id = $this->input->get('tgl');
         $seg = $this->input->get('gedung_id');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('id_karyawan');
+        $kar = $this->input->get('nis');
         $ket = $this->input->get('ket');
         $insert = array(
-            'id_karyawan' => $kar,
+            'nis' => $kar,
             'tgl' => $id,
             'id_khd' => $id_khd,
             'id_status' => $id_status,
             'ket' => $ket,
         );
-        $this->db->where("id_karyawan", $this->input->get('kar'));
+        $this->db->where("nis", $this->input->get('kar'));
         $this->db->insert('presensi', $insert);
     }
 
     function tohadirM($id_krywn)
     {
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_krywn)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $id_krywn)
             ->where('id_khd', 1)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -514,8 +514,8 @@ class Rekap_model extends CI_Model
     function tosakitM($id_krywn)
     {
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_krywn)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $id_krywn)
             ->where('id_khd', 2)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -524,8 +524,8 @@ class Rekap_model extends CI_Model
     function toijinM($id_krywn)
     {
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_krywn)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $id_krywn)
             ->where('id_khd', 3)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -534,8 +534,8 @@ class Rekap_model extends CI_Model
     function toalphaM($id_krywn)
     {
         return
-            $this->db->select('count(id_karyawan) as total')
-            ->where('id_karyawan', $id_krywn)
+            $this->db->select('count(nis) as total')
+            ->where('nis', $id_krywn)
             ->where('id_khd', 4)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();

@@ -46,8 +46,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode Karyawan</th>
-                                <th>Nama Karyawan</th>
+                                <th>Kode santri</th>
+                                <th>Nama santri</th>
                                 <th>Shift</th>
                                 <th>Lokasi</th>
                                 <th>Alamat</th>
@@ -57,14 +57,14 @@
                             <?php
                             $start = 0;
                             foreach ($jabatan_data as $jabatan) { ?>
-                            <tr>
-                                <td><?php echo ++$start ?></td>
-                                <td><?php echo $jabatan->id_karyawan ?></td>
-                                <td><?php echo $jabatan->nama_karyawan ?></td>
-                                <td><?php echo $jabatan->nama_shift ?></td>
-                                <td><?php echo $jabatan->nama_gedung ?></td>
-                                <td><?php echo $jabatan->alamat ?></td>
-                            </tr> <?php }  ?>
+                                <tr>
+                                    <td><?php echo ++$start ?></td>
+                                    <td><?php echo $jabatan->nis ?></td>
+                                    <td><?php echo $jabatan->nama_santri ?></td>
+                                    <td><?php echo $jabatan->nama_shift ?></td>
+                                    <td><?php echo $jabatan->nama_gedung ?></td>
+                                    <td><?php echo $jabatan->alamat ?></td>
+                                </tr> <?php }  ?>
                         </tbody>
                         <tr>
                             <td colspan="6" style="text-align:center;"><?php echo anchor('jabatan', 'Kembali', array('class' => 'btn btn-indigo btn-lg btn3d')); ?></td>

@@ -17,7 +17,7 @@ class Rekap extends CI_Controller
         $models = array(
             'Rekap_model' => 'rekap',
             'Gedung_model' => 'gedung',
-            'Karyawan_model' => 'kar',
+            'Santri_model' => 'kar',
         );
         $this->load->model($models);
         $this->load->library('form_validation');
@@ -66,7 +66,7 @@ class Rekap extends CI_Controller
 
     public function ajax_list_modal($id)
     {
-        $id_karyawan = $this->input->get('id_karyawan');
+        $nis = $this->input->get('nis');
         $start = $this->input->get('tgl');
         $end = $this->input->get('tgl');
         $id_shift = $this->input->get('id_shift');
@@ -103,7 +103,7 @@ class Rekap extends CI_Controller
     public function ajax_list_modal2($id)
     {
 
-        $id_karyawan = $this->input->get('id_karyawan');
+        $nis = $this->input->get('nis');
         $start = $this->input->get('tgl');
         $end = $this->input->get('tgl');
         $id_shift = $this->input->get('$id_shift');
@@ -121,7 +121,7 @@ class Rekap extends CI_Controller
         $bulan = $this->tanggal->bulan($t[1]);
         $data['periode'] = $bulan . '&nbsp' . $t[0];
         $result = array(
-            $this->rekap->karyawan_bak3($id, $start, $end, $id_shift),
+            $this->rekap->santri_bak3($id, $start, $end, $id_shift),
         );
         $this->load->view("rekap/modalAbsen", $data, $result);
     }
