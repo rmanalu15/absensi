@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2021 at 03:53 PM
+-- Generation Time: Aug 11, 2021 at 06:17 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -39,25 +39,6 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jabatan`
---
-
-CREATE TABLE `jabatan` (
-  `id_jabatan` int(11) NOT NULL,
-  `nama_jabatan` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jabatan`
---
-
-INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
-(5, 'SANTRI'),
-(6, 'PENGAJAR');
 
 -- --------------------------------------------------------
 
@@ -146,7 +127,6 @@ INSERT INTO `menu` (`id`, `name`, `link`, `icon`, `protected`, `is_active`, `is_
 (15, 'Menu Management', 'menu', 'fa fa-list-alt', NULL, 1, 42, 14),
 (16, 'MASTER DATA', '#', 'fa fa-folder', NULL, 1, 0, 1),
 (18, 'Data Santri', 'santri', 'fa fa-user-graduate', NULL, 1, 16, 2),
-(19, 'Data Jabatan', 'jabatan', 'fa fa-briefcase', NULL, 1, 16, 3),
 (21, 'Data Shift', 'shift', 'fa fa-retweet', NULL, 1, 16, 4),
 (31, 'AMBIL QR CODE', 'genbar', 'fa fa-qrcode', NULL, 1, 0, 6),
 (33, 'SCAN QRCODE', 'scan', 'fa fa-search-plus', NULL, 1, 0, 7),
@@ -172,9 +152,16 @@ CREATE TABLE `pengajar` (
   `tanggal_lahir` date NOT NULL,
   `jenis_kelamin` varchar(10) NOT NULL,
   `alamat` varchar(250) NOT NULL,
-  `foto` varchar(250) NOT NULL,
+  `foto` varchar(250) DEFAULT NULL,
   `shift_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengajar`
+--
+
+INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `foto`, `shift_id`) VALUES
+(1, 'P2108001', 'Pengajar 01', 'Jakarta', '2001-01-01', 'Pria', 'Jakarta', 'foto.png', 5);
 
 -- --------------------------------------------------------
 
@@ -292,7 +279,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628684439, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628696346, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -324,12 +311,6 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `jabatan`
---
-ALTER TABLE `jabatan`
-  ADD PRIMARY KEY (`id_jabatan`);
 
 --
 -- Indexes for table `kehadiran`
@@ -415,12 +396,6 @@ ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `jabatan`
---
-ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT for table `kehadiran`
 --
 ALTER TABLE `kehadiran`
@@ -430,7 +405,7 @@ ALTER TABLE `kehadiran`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
@@ -448,7 +423,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `pengajar`
 --
 ALTER TABLE `pengajar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `presensi`
@@ -466,7 +441,7 @@ ALTER TABLE `santri`
 -- AUTO_INCREMENT for table `shift`
 --
 ALTER TABLE `shift`
-  MODIFY `id_shift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_shift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `stts`
