@@ -23,7 +23,7 @@ $(document).ready(function () {
         ],
         "order": [[0, 'asc']],
         ajax: {
-            "url": base_url + "presensi/data/" + segment,
+            "url": base_url + "presensi/data",
             "type": "POST",
         },
         columns:
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 "data": {
                     "id_absen": "id_absen",
                 },
-                "targets": 8,
+                "targets": 9,
                 "orderable": false,
                 "searchable": false,
                 "render": function (data, type, row, meta) {
@@ -100,14 +100,14 @@ $(document).ready(function () {
             },
             {
                 extend: 'excel',
-                title: 'HISTORI ABSENSI ' + gedung,
+                title: 'HISTORI ABSENSI',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 7],
                 },
             },
             {
                 extend: 'copy',
-                title: 'HISTORI ABSENSI ' + gedung,
+                title: 'HISTORI ABSENSI',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 7],
                 },
@@ -116,7 +116,7 @@ $(document).ready(function () {
                 extend: 'pdf',
                 oriented: 'portrait',
                 pageSize: 'legal',
-                title: 'HISTORI ABSENSI ' + gedung,
+                title: 'HISTORI ABSENSI',
                 download: 'open',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 7],
@@ -131,7 +131,7 @@ $(document).ready(function () {
                 extend: 'print',
                 oriented: 'portrait',
                 pageSize: 'A4',
-                title: 'HISTORI ABSENSI ' + gedung,
+                title: 'HISTORI ABSENSI',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 7],
                 },

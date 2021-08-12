@@ -199,7 +199,7 @@ class Santri extends CI_Controller
                 // }
                 $new_foto = $this->upload->data('file_name');
             } else {
-                echo $this->upload->dispay_errors();
+                echo "Format foto salah!";
             }
         } else {
             $new_foto = $row->foto;

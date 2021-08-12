@@ -34,7 +34,7 @@ class Barcode_model extends CI_Model
     function total_rows($q = NULL)
     {
         $this->db->like('id_barcode', $q);
-        $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('id_santri', $q);
         $this->db->or_like('qr_code', $q);
         $this->db->from($this->table);
         return $this->db->count_all_results();
@@ -45,7 +45,7 @@ class Barcode_model extends CI_Model
     {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_barcode', $q);
-        $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('id_santri', $q);
         $this->db->or_like('qr_code', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();

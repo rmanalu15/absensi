@@ -16,7 +16,6 @@ class Rekap extends CI_Controller
         }
         $models = array(
             'Rekap_model' => 'rekap',
-            'Gedung_model' => 'gedung',
             'Santri_model' => 'kar',
         );
         $this->load->model($models);
@@ -85,7 +84,7 @@ class Rekap extends CI_Controller
         $data['periode'] = $bulan . '&nbsp' . $t[0];
         $id_khd['id_khd'] = set_value('id_khd');
         $result = array(
-            $this->rekap->karyawan_bak2($id, $start, $end),
+            $this->rekap->santri_bak2($id, $start, $end),
         );
         $this->load->view("rekap/modalAbsen", $data, $id_khd, $result);
     }
@@ -114,7 +113,7 @@ class Rekap extends CI_Controller
         $data['start'] = $this->input->get('tgl');
         $data['end'] = $this->input->get('tgl');
         $data['id_shift'] = $this->input->get('id_shift');
-        $data['resultHadir2'] = $this->rekap->karyawan_bak3($segment, $start, $end, $id_shift);
+        $data['resultHadir2'] = $this->rekap->santri_bak3($segment, $start, $end, $id_shift);
         $startdate = $this->input->get('start');
         $st = date('Y-m-d', strtotime($startdate));
         $t = explode('-', $st);

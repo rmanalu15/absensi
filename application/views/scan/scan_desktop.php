@@ -20,7 +20,7 @@
                     $attributes = array('id' => 'button');
                     echo form_open('scan/cek_id', $attributes); ?>
                     <div id="sourceSelectPanel" style="display:none">
-                        <label for="sourceSelect">Change video source:</label>
+                        <label for="sourceSelect">Change video sources:</label>
                         <select id="sourceSelect" style="max-width:400px"></select>
                     </div>
                     <div>

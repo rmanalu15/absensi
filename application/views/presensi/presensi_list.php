@@ -22,16 +22,15 @@
         white-space: nowrap;
     }
 </style>
-<?php $gedung = $this->Gedung_model->get_by_id($segment = $this->uri->segment(3)); ?>
 <!-- Main content -->
 <section class='content'>
     <div class='row'>
         <div class='col-xs-12'>
             <div class='box box-primary'>
                 <div class='box-header  with-border'>
-                    <h3 class='box-title'>HISTORI ABSENSI <?php echo $gedung->nama_gedung ?></h3>
+                    <h3 class='box-title'>HISTORI ABSENSI</h3>
                     <div class="pull-right">
-                        <?php echo anchor(site_url('presensi/create/' . $gedung->gedung_id), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d"'); ?>
+                        <?php echo anchor(site_url('presensi/create/'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d"'); ?>
                     </div>
                 </div>
                 <div class="box-body">
@@ -65,9 +64,6 @@
                         </thead>
                         <tbody>
                         </tbody>
-                        <tr>
-                            <td colspan="10"><?php echo anchor('presensi', 'Kembali', array('class' => 'btn btn-indigo btn-lg btn3d')); ?></td>
-                        </tr>
                     </table>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -77,11 +73,7 @@
 <script type="text/javascript">
     let base_url = '<?= base_url() ?>';
 </script>
-<script type="text/javascript">
-    let segment = '<?= $this->uri->segment(3) ?>';
-    <?php $gedung = $this->Gedung_model->get_by_id($segment = $this->uri->segment(3)); ?>
-    let gedung = '<?= $gedung->nama_gedung ?>'
-</script>
+
 <script type="text/javascript">
     let checkLogin = '<?= $result ?>';
 </script>

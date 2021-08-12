@@ -17,10 +17,8 @@ class Genbar_Model extends CI_model
 	public function getshow_query($nis)
 	{
 		$result = $this->search_value($_POST['term'] = null);
-		$this->db->select('a.nis, a.nama_santri, b.nama_kelompok, c.nama_shift');
-		$this->db->from('santri as a, kelompok as b, shift as c');
-		$this->db->where('b.id_kelompok = a.kelompok_id');
-		$this->db->where('c.id_shift = a.shift_id');
+		$this->db->select('nis, nama_santri, foto');
+		$this->db->from('santri');
 		$this->db->where('nama_santri', $_POST['id']);
 		$hasil = $this->db->get();
 		return $hasil;

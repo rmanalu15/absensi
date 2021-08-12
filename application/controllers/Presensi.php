@@ -12,7 +12,6 @@ class Presensi extends CI_Controller
             redirect('auth');
         }
         $this->load->model('Presensi_model');
-        $this->load->model('Gedung_model');
         $this->load->library('form_validation');
         $this->user = $this->ion_auth->user()->row();
         $this->load->library('user_agent');
@@ -26,18 +25,27 @@ class Presensi extends CI_Controller
 
     public function data()
     {
-        $this->output_json($this->Presensi_model->get_all_q($this->uri->segment(3)), false);
+        $this->output_json($this->Presensi_model->get_all_q());
     }
 
     public function index()
     {
+        $this->session->set_userdata('referred_from', current_url());
+        $chek = $this->ion_auth->is_admin();
+        if (!$chek) {
+            $hasil = 0;
+        } else {
+            $hasil = 1;
+        }
         $user = $this->user;
-        $gedung = $this->Gedung_model->get_all();
+        $presensi = $this->Presensi_model->get_all_query();
         $data = array(
-            'gedung_data' => $gedung,
-            'user' => $user, 'users'     => $this->ion_auth->user()->row(),
+            'presensi_data' => $presensi,
+            'user' => $user,
+            'users'     => $this->ion_auth->user()->row(),
+            'result' => $hasil,
         );
-        $this->template->load('template/template', 'presensi/presensi_v', $data);
+        $this->template->load('template/template', 'presensi/presensi_list', $data);
         $this->load->view('template/datatables');
     }
 
@@ -57,28 +65,6 @@ class Presensi extends CI_Controller
         ";
         return $messageAlert;
     }
-
-    public function read($id)
-    {
-        $this->session->set_userdata('referred_from', current_url());
-        $chek = $this->ion_auth->is_admin();
-        if (!$chek) {
-            $hasil = 0;
-        } else {
-            $hasil = 1;
-        }
-        $user = $this->user;
-        $presensi = $this->Presensi_model->get_all_query($id);
-        $data = array(
-            'presensi_data' => $presensi,
-            'user' => $user,
-            'users'     => $this->ion_auth->user()->row(),
-            'result' => $hasil,
-        );
-        $this->template->load('template/template', 'presensi/presensi_list', $data);
-        $this->load->view('template/datatables');
-    }
-
 
     public function create($id)
     {
@@ -173,7 +159,6 @@ class Presensi extends CI_Controller
                 'jam_msk' => set_value('jam_msk', $row->jam_msk),
                 'jam_klr' => set_value('jam_klr', $row->jam_klr),
                 'id_khd' => set_value('id_khd', $row->id_khd),
-                'gedung_id' =>  $row->gedung_id,
                 'ket' => set_value('ket', $row->ket),
                 'id_status' => set_value('id_status', $row->ket),
                 'user' => $user, 'users'     => $this->ion_auth->user()->row(),
@@ -242,7 +227,7 @@ class Presensi extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('nis', 'id santri', 'trim|required');
+        $this->form_validation->set_rules('nis', 'nis', 'trim|required');
         $this->form_validation->set_rules('tgl', 'tgl', 'trim|required');
         $this->form_validation->set_rules('id_khd', 'id khd', 'trim|required');
         $this->form_validation->set_rules('id_absen', 'id_absen', 'trim');
@@ -256,7 +241,7 @@ class Presensi extends CI_Controller
             if (count($result) > 0) {
                 foreach ($result as $row)
                     $arr_result[] = array(
-                        'label'            => $row->nama_santri,
+                        'label' => $row->nama_santri,
                     );
                 echo json_encode($arr_result);
             }

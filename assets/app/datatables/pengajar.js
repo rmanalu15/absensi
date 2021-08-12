@@ -55,6 +55,9 @@ $(document).ready(function () {
                         </a>
                         <a href="${base_url}pengajar/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
                         <i class="fa fa-trash"></i> Hapus
+                        </a>
+                        <a href="${base_url}pengajar/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
+                        <i class="fa fa-trash"></i> Cetak
                         </a>`;
                     }
                     else {

@@ -18,8 +18,6 @@
             </div>
             <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
-                    <li><a href="#">KELOMPOK: <?php echo $nama_kelompok; ?> </a></li>
-                    <li><a href="#">SHIFT: <?php echo $nama_shift; ?> </a></li>
                     <li><button onclick="printDiv('print-area')" class="btn btn-info pull-right"><i class='fa fa-print'></i>PRINT</button></li>
                 </ul>
             </div>

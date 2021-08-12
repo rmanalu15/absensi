@@ -11,7 +11,6 @@ class Scan extends Ci_Controller
 			show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
 		}
 		$this->load->library('user_agent');
-		$this->load->model('Gedung_model');
 		$this->load->library('form_validation');
 		$this->user = $this->ion_auth->user()->row();
 		$this->load->model('Scan_model', 'Scan');
@@ -49,7 +48,7 @@ class Scan extends Ci_Controller
 	function cek_id()
 	{
 		$user = $this->user;
-		$result_code = $this->input->post('id_karyawan');
+		$result_code = $this->input->post('nis');
 		$tgl = date('Y-m-d');
 		$jam_msk = date('h:i:s');
 		$jam_klr = date('h:i:s');
