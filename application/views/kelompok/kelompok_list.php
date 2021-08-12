@@ -39,7 +39,7 @@
                                     <td><?php echo $kelompok->nama_kelompok ?></td>
                                     <td>
                                         <?php
-                                        echo anchor(site_url('kelompok/lihat/' . $kelompok->id_kelompok), '<i class="fa fa-eye fa-lg"></i>&nbsp;&nbsp;Lihat', array('title' => 'detail', 'class' => 'btn btn-md btn-success btn3d'));
+                                        // echo anchor(site_url('kelompok/lihat/' . $kelompok->id_kelompok), '<i class="fa fa-eye fa-lg"></i>&nbsp;&nbsp;Lihat', array('title' => 'detail', 'class' => 'btn btn-md btn-success btn3d'));
                                         echo anchor(site_url('kelompok/update/' . $kelompok->id_kelompok), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
                                         echo anchor(site_url('kelompok/delete/' . $kelompok->id_kelompok), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Hapus', 'title="delete" class="btn btn-md btn-danger btn-remove-data btn3d"');
                                         ?>

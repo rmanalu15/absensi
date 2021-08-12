@@ -33,17 +33,17 @@
                             <?php
                             $start = 0;
                             foreach ($shift_data as $shift) { ?>
-                            <tr>
-                                <td><?php echo ++$start ?></td>
-                                <td><?php echo $shift->nama_shift ?></td>
-                                <td>
-                                    <?php
-                                        echo anchor(site_url('shift/lihat/' . $shift->id_shift), '<i class="fa fa-eye fa-lg"></i>&nbsp;&nbsp;Lihat', array('title' => 'detail', 'class' => 'btn btn-md btn-success btn3d'));
+                                <tr>
+                                    <td><?php echo ++$start ?></td>
+                                    <td><?php echo $shift->nama_shift ?></td>
+                                    <td>
+                                        <?php
+                                        // echo anchor(site_url('shift/lihat/' . $shift->id_shift), '<i class="fa fa-eye fa-lg"></i>&nbsp;&nbsp;Lihat', array('title' => 'detail', 'class' => 'btn btn-md btn-success btn3d'));
                                         echo anchor(site_url('shift/update/' . $shift->id_shift), '<i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;Edit', array('title' => 'edit', 'class' => 'btn btn-md btn-warning btn-edit-data btn3d'));
                                         echo anchor(site_url('shift/delete/' . $shift->id_shift), '<i class="fa fa-trash fa-lg"></i>&nbsp;&nbsp;Delete', 'title="delete" class="btn btn-md btn-danger btn-remove-data btn3d"');
                                         ?>
-                                </td>
-                            </tr> <?php } ?>
+                                    </td>
+                                </tr> <?php } ?>
                         </tbody>
                     </table>
                     <script type="text/javascript">

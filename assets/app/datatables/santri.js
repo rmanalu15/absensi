@@ -53,10 +53,13 @@ $(document).ready(function () {
                     let btn;
                     if (checkLogin == 1) {
                         return `<a href="${base_url}santri/update/${data.id}" title="edit" class="btn btn-md btn-warning  btn-edit-data">
-                        <i class="fa fa-pencil-square-o"></i> Edit
+                        Edit
                         </a>
                         <a href="${base_url}santri/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
-                        <i class="fa fa-trash"></i> Hapus
+                        Hapus
+                        </a>
+                        <a href="${base_url}santri/cetak/${data.id}" title="cetak" class="btn btn-md btn-info btn3d btn-print">
+                        Cetak
                         </a>`;
                     }
                     else {

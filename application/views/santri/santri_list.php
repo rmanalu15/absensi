@@ -55,7 +55,7 @@
                         <thead>
                             <tr>
                                 <th class="all">No</th>
-                                <th class="all">NIS</th>
+                                <th class="dekstop">NIS</th>
                                 <th class="all">Nama Santri</th>
                                 <th class="dekstop">Jenis Kelamin</th>
                                 <th class="dekstop">Tanggal Lahir</th>
