@@ -16,11 +16,17 @@
                     <table id="mytable" class="table table-bordered table-hover display" style="width:100%;">
                         <thead>
                             <tr>
-                                <th>Lokasi</th>
-                                <th>Alamat</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi" onclick="absen()"><i class="fa fa-check-square"></i> Absensi</a>
+                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan" onclick="laporan()"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     <div class="modal fade" id="modalAbsen" role="dialog" style="min-width: 100%;margin-left:10px">
                         <div class="modal-dialog" style="min-width: 100%;">

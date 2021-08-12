@@ -11,13 +11,12 @@ class Dashboard_model extends Ci_Model
     return $query;
   }
 
-  function get_maxd($pl)
+  function get_maxd()
   {
-    $this->db->select('a.nis,a.nama_santri,b.nama_jabatan,d.nama_shift');
-    $this->db->from('santri as a,jabatan as b,shift as d');
-    $this->db->where('b.id_jabatan=a.jabatan');
-    $this->db->where('d.id_shift = a.id_shift');
-    // $this->db->where_in('c.gedung_id', $pl);
+    $this->db->select('a.nis, a.nama_santri, b.nama_kelompok, c.nama_shift');
+    $this->db->from('santri as a, kelompok as b, shift as c');
+    $this->db->where('b.id_kelompok = a.kelompok_id');
+    $this->db->where('c.id_shift = a.id_shift');
     return $this->db->get();
   }
 
@@ -26,63 +25,45 @@ class Dashboard_model extends Ci_Model
   {
     $sql =  " SELECT COUNT(nis) as total_santri
                 FROM santri
-                WHERE gedung_id IN ('1','2','3','4','5','6','7')
-                GROUP BY gedung_id
-                ORDER BY total_santri desc, nis
-                ";
+                ORDER BY total_santri desc, nis";
 
-    $sql2 = " SELECT a.nama_gedung, COUNT(b.nis) as total_santri
-                FROM santri as b, gedung as a
-                WHERE b.gedung_id IN ('1','2','3','4','5','6','7')
-                AND a.gedung_id=b.gedung_id
-                GROUP BY b.gedung_id
-                ORDER BY total_santri desc, b.nis";
+    $sql2 = " SELECT COUNT(nis) as total_santri
+                FROM santri
+                ORDER BY total_santri desc, nis";
     return $this->db->query($sql, $in);
-    $sql3 = " CREATE view total_jabatan as
-              (SELECT a.nama_jabatan, COUNT(b.nis) as total_santri
-                FROM santri as b, jabatan as a
-                WHERE b.jabatan IN ('1','2','3','4')
-                AND a.id_jabatan=b.jabatan
-                GROUP BY b.jabatan
+    $sql3 = " CREATE view total_kelompok as
+              (SELECT a.nama_kelompok, COUNT(b.nis) as total_santri
+                FROM santri as b, kelompok as a
+                WHERE b.kelompok_id IN ('1','2','3','4')
+                AND a.id_kelompok = b.kelompok_id
+                GROUP BY b.kelompok_id
                 ORDER BY total_santri desc, b.nis)";
 
-    $sql4 = "SELECT	a.nama_santri,b.nama_jabatan,d.nama_gedung, count(c.id_khd) as total_kehadiran
-                FROM santri as a, jabatan as b,presensi as c,gedung as d
-              	where a.jabatan=b.id_jabatan
+    $sql4 = "SELECT	a.nama_santri,b.nama_kelompok,count(c.id_khd) as total_kehadiran
+                FROM santri as a, kelompok as b,presensi as c
+              	where a.kelompok=b.id_kelompok
                 and c.nis=a.nis
-                and a.gedung_id=d.gedung_id
                 GROUP BY a.nis
                 ORDER BY total_kehadiran desc, a.nis";
   }
 
-  function get_max($id)
+  function get_max()
   {
-    $gi = $this->group_by_gi($id);
-    $select = array('a.nama_gedung,count(b.nis) as total_santri');
+    $select = array('count(b.nis) as total_santri');
     $this->db->select($select);
-    $this->db->from('santri as b , gedung as a');
-    $this->db->where('b.gedung_id=a.gedung_id');
-    $this->db->group_by('b.gedung_id');
+    $this->db->from('santri as b');
     $this->db->order_by('total_santri desc, b.nis');
     return $this->db->get();
   }
 
   function get_max2($in)
   {
-    $select = array('a.nama_jabatan,count(b.nis) as total_santri');
+    $select = array('a.nama_kelompok,count(b.nis) as total_santri');
     $this->db->select($select);
-    $this->db->from('santri as b , jabatan as a');
-    $this->db->where('b.jabatan=a.id_jabatan');
-    $this->db->group_by('b.jabatan');
+    $this->db->from('santri as b , kelompok as a');
+    $this->db->where('b.kelompok_id = a.id_kelompok');
+    $this->db->group_by('b.kelompok_id');
     $this->db->order_by('total_santri desc, b.nis');
     return $this->db->get();
-  }
-
-  function group_by_gi($id)
-  {
-    $this->db->select('gedung_id');
-    $this->db->from('gedung');
-    $this->db->group_by('gedung_id');
-    return $this->db->get()->result_array();
   }
 }

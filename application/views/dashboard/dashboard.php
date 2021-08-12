@@ -55,7 +55,7 @@
     <?php if ($this->ion_auth->is_admin()) : ?>
         <div class="row">
             <?php foreach ($info_box as $info) : ?>
-                <div class="col-lg-3 col-xs-6">
+                <div class="col-lg-4 col-xs-6">
                     <div class="small-box bg-<?= $info->box ?>">
                         <div class="inner">
                             <h3><?= $info->total; ?></h3>
@@ -71,67 +71,27 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Total Santri Berdasarkan Penempatan</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body chart-responsive">
-                        <div class="chart" id="donut-chart" style="height: 250px; position: relative;"></div>
-                        <br>
-                        <div id="legend" class="donut2-legend"></div>
+        <div class="col-md">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Total santri Berdasarkan Jabatan</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <div class="box box-danger">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Total santri Berdasarkan Jabatan</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body chart-responsive">
-                        <div class="chart" id="donut-chart2" style="height: 240px; position: relative;"></div>
-                        <br><br><br>
-                        <div id="legend2" class="donut-legend"></div><br>
-                    </div>
+                <div class="box-body chart-responsive">
+                    <div class="chart" id="donut-chart2" style="height: 240px; position: relative;"></div>
+                    <br><br><br>
+                    <div id="legend2" class="donut-legend"></div><br>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
+            <!-- /.box-body -->
         </div>
         <div>
             <script>
                 // Menggunakan Morris.Bar
                 $(document).ready(function() {
-                    var color_array1 = ['#03658C', '#63ad4a', '#F2594A', '#F28C4B', '#7E6F6A', '#36AFB2', '#9c6db2', '#d24a67', '#89a958', '#00739a', '#BDBDBD',
-                        '#16404c', '#16404c', '#17c6c3'
-                    ];
-                    var donut2 = Morris.Donut({
-                        element: 'donut-chart',
-                        resize: true,
-
-                        colors: color_array1,
-                        data: [
-                            <?php foreach ($get_plot as $row) :
-                            ?> {
-                                    label: '<?php echo $row->nama_gedung ?>',
-                                    value: <?php echo $row->total_santri; ?>,
-                                },
-                            <?php endforeach; ?>
-                        ],
-                        hideHover: 'auto'
-                    });
-
                     donut2.options.data.forEach(function(label, i) {
                         var legendItem = $('<div class="col"></div>').text(label['label'] + " ( " + label['value'] + " )").prepend('<i>&nbsp;</i>');
                         legendItem.find('i')

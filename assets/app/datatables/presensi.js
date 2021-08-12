@@ -23,7 +23,7 @@ $(document).ready(function () {
         ],
         "order": [[0, 'asc']],
         ajax: {
-            "url": base_url + "presensi/data",
+            "url": base_url + "presensi/data/",
             "type": "POST",
         },
         columns:
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 "data": {
                     "id_absen": "id_absen",
                 },
-                "targets": 9,
+                "targets": 8,
                 "orderable": false,
                 "searchable": false,
                 "render": function (data, type, row, meta) {

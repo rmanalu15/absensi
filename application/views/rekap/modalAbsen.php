@@ -53,7 +53,7 @@
 
 <div class="box" style='max-width:1200px;margin-left:90px;'>
     <div class="box-header with-border">
-        <h3 class="box-title">Data Absensi santri </h3>
+        <h3 class="box-title">Data Absensi Santri </h3>
         <button type="button" class="btn btn-danger btn3d pull-right" data-dismiss="modal"><i class='fa fa-close'></i>Close</button>
         <button onclick="printDiv('print-area')" target="_blank" class='pull-right btn btn-success btn3d'><i class='fa fa-print'></i> Print</button>
         <div class="container">
@@ -62,11 +62,11 @@
                 <div id='msg'></div>
                 <div class="input-daterange">
                     <div class="col-md-3">
-                        <label>tanggal awal</label>
+                        <label>Tanggal awal</label>
                         <input type="text" name="start" id="start" class="form-control" />
                     </div>
                     <div class="col-md-3">
-                        <label>tanggal akhir</label>
+                        <label>Tanggal akhir</label>
                         <input type="text" name="end" id="end" class="form-control" />
                     </div>
                     <div class="col-md-3">
@@ -91,7 +91,7 @@
                             </td>
                             <td> <br>
                                 <p style='font-size:20px;text-align:center;'><b>
-                                        <font size='5px'>REKAP ABSENSI santri <?php echo $gedung->nama_gedung; ?></font>
+                                        <font size='5px'>REKAP ABSENSI SANTRI</font>
                                     </b></p>
 
                                 <?php
@@ -112,7 +112,7 @@
                         </tr>
                     </table>
                     <hr>
-                    <table width="100%" style='text-align:left;font-weight:bold;margin-left:40px;'>
+                    <table width="100%" style='text-align:left;font-weight:bold;margin-left:5px;'>
                         <tr>
                             <td width='100px' class='tr'>PERIODE</td>
                             <td>:&nbsp;</td>
@@ -121,23 +121,19 @@
                                 echo $periode;
                                 ?>
                             </td>
-                            <td width='250px' rowspan='3'>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td width='100px' class='tr'>ALAMAT </td>
-                            <td class='tr'>:&nbsp;</td>
-                            <td class='tr'><?php echo $gedung->alamat; ?> </td>
-                            <td width='200px' class='tr'>PARAF </td>
-                            <td class='tr'>:&nbsp;</td>
-                            <td class='tr'>______________________</td>
+                            <td width='100px' class='tr'>PARAF</td>
+                            <td>:&nbsp;</td>
+                            <td class='tr'>___________</td>
                         </tr>
                     </table> <br>
-                    <table border="2" width="100%" style='text-align:center;font-weight:bold;margin-left:-10px;'>
+                    <table border="2" width="100%" style='text-align:center;font-weight:bold;margin-left:5px;'>
                         <thead>
                             <tr style='background-color:#429ef4 !important'>
                                 <th width='50px' rowspan='4' style='text-align:center;'>No</th>
                                 <th width='200px' rowspan='4' style='text-align:center;'>NAMA</th>
-                                <th scope="col" width='100px' rowspan='4' style='text-align:center;'>JABATAN</th>
+                                <th scope="col" width='100px' rowspan='4' style='text-align:center;'>KELOMPOK</th>
                                 <th colspan="<?php echo $colspan; ?>">
                                     <center>HARI/TANGGAL</center>
                                 </th>
@@ -145,7 +141,7 @@
                             </tr>
                             <tr style='background-color:#42f445 !important'>
                                 <?php
-                                $resultHadir = $this->rekap->resultHadir2($segment, $start, $end);
+                                $resultHadir = $this->rekap->resultHadir2($start, $end);
                                 foreach ($resultHadir as $data) {
                                     $days = $this->tanggal->namaHari($data->tgl);
                                     if ($days == "M") {
@@ -157,7 +153,7 @@
                             </tr>
                             <tr style='background-color:#42f445 !important'>
                                 <?php
-                                $resultHadir = $this->rekap->resultHadir2($segment, $start, $end);
+                                $resultHadir = $this->rekap->resultHadir2($start, $end);
                                 foreach ($resultHadir as $data) {
                                     echo "<th style='text-align:center;width:40px;'>" . ($this->tanggal->ind($data->tgl, "-")) . "</th>";
                                 } ?>
@@ -169,7 +165,7 @@
                         $end = $this->input->get('tgl');
                         $id_shift = $this->input->get('id_shift');
                         if ($id_shift > 0) {
-                            foreach ($this->rekap->santri_bak3($segment, $start, $end, $id_shift) as $row) {
+                            foreach ($this->rekap->santri_bak3($start, $end, $id_shift) as $row) {
                                 $no++;
                                 echo
                                 "<tr>
@@ -193,8 +189,6 @@
                                         $ceki3 = $this->rekap->_cek3($datax->tgl, $row->nis);
                                         $ceki4 = $this->rekap->_cek4($datax->tgl, $row->nis);
                                         $ceki5 = $this->rekap->_cek5($datax->tgl, $row->nis);
-                                        $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3));
-                                        $seg = $gedung->gedung_id;
                                         if ($ceki) {
                                             $datax->adkhd = 'onclick="add_kd(' . $stamp . ')"';
                                             $ceklist = "<i class='fa fa-check'></i>";
@@ -229,18 +223,18 @@
                                 } else {
                                     echo "<td>&nbsp;</td>";
                                 };
-                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->nis, $start, $end) . "&nbsp;</td></tr>";
+                                echo "<td>" . $this->rekap->totalHadir_bak($row->nis, $start, $end) . "&nbsp;</td></tr>";
                             }
                         } else {
-                            foreach ($this->rekap->santri_bak2($segment, $start, $end) as $row) {
+                            foreach ($this->rekap->santri_bak2($start, $end) as $row) {
                                 $no++;
                                 echo "<tr>
                                 <td>" . $no . "</td>
                                 <td>" . $row->nama_santri . "</td>";
-                                if ($row->jabatan == 1  || $row->jabatan == 2) {
-                                    echo "<td style='color:red !important;width:30px;'>$row->nama_jabatan</td>";
+                                if ($row->kelompok_id == 1  || $row->kelompok_id == 2 || $row->kelompok_id == 3) {
+                                    echo "<td style='color:red !important;width:30px;'>$row->nama_kelompok</td>";
                                 } else {
-                                    echo "<td>$row->nama_jabatan</td>";
+                                    echo "<td>$row->nama_kelompok</td>";
                                 }
                                 if (count($resultHadir)) {
                                     foreach ($resultHadir as $datax) {
@@ -255,8 +249,6 @@
                                         $ceki3 = $this->rekap->_cek3($datax->tgl, $row->nis);
                                         $ceki4 = $this->rekap->_cek4($datax->tgl, $row->nis);
                                         $ceki5 = $this->rekap->_cek5($datax->tgl, $row->nis);
-                                        $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3));
-                                        $seg = $gedung->gedung_id;
                                         if ($ceki) {
                                             $datax->adkhd = 'onclick="add_kd(' . $stamp . ')"';
                                             $ceklist = "<i class='fa fa-check'></i>";
@@ -291,7 +283,7 @@
                                 } else {
                                     echo "<td>&nbsp;</td>";
                                 };
-                                echo "<td>" . $this->rekap->totalHadir_bak($segment, $row->nis, $start, $end) . "&nbsp;</td></tr>";
+                                echo "<td>" . $this->rekap->totalHadir_bak($row->nis, $start, $end) . "&nbsp;</td></tr>";
                             }
                         } ?>
                     </table>

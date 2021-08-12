@@ -5,12 +5,8 @@ if (!defined('BASEPATH'))
 
 class Rekap_model extends CI_Model
 {
-
-    public $table = 'gedung';
-    public $id = 'gedung_id';
     public $nis = 'nis';
     public $order = 'DESC';
-    public $column = array('nama_gedung', 'alamat');
     public $id_khd = 'id_khd';
     public $tgl = 'tgl';
     public $dayList = 'D';
@@ -35,27 +31,6 @@ class Rekap_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
-    // get total rows
-    function total_rows($q = NULL)
-    {
-        $this->db->like('gedung_id', $q);
-        $this->db->or_like('nama_gedung', $q);
-        $this->db->or_like('alamat', $q);
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
-    }
-
-    // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL)
-    {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('gedung_id', $q);
-        $this->db->or_like('nama_gedung', $q);
-        $this->db->or_like('alamat', $q);
-        $this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
-    }
-
     // insert data
     function insert($data)
     {
@@ -76,98 +51,40 @@ class Rekap_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-
-    function get_datatables()
-    {
-        $query = $this->_get_datatables_query();
-        if ($_POST['length'] != -1)
-            return $this->db->query($query)->result();
-    }
-
-    private function _get_datatables_query()
-    {
-        $query = "select * from gedung";
-        $i = 0;
-        if ($_POST['search']['value']) {
-            $searchkey = $_POST['search']['value'];
-            $query .= "
-            where nama_gedung LIKE '%" . $searchkey . "%'
-            or alamat LIKE '%" . $searchkey . "%'
-            ";
-        }
-
-        $column = array('nama_gedung', 'alamat');
-        $i = 0;
-        foreach ($column as $item) {
-            $column[$i] = $item;
-        }
-
-        if (isset($_POST['order'])) {
-            $query .= " order by " . $column[$_POST['order']['0']['column']] . " " . $_POST['order']['0']['dir'];
-        } else if (isset($order)) {
-            $order = $order;
-            $query .= " order by " . key($order) . " " . $order[key($order)];
-        }
-        return $query;
-    }
-
-    public function count_all()
-    {
-        $this->db->select("gedung");
-
-        return $this->db->count_all_results();
-    }
-
-    function count_filtered()
-    {
-        $this->db->where("nama_gedung");
-        $this->db->where("alamat");
-        $this->db->from("gedung");
-        $query = $this->_get_datatables_query();
-        return $this->db->query($query)->num_rows();
-    }
-
-
-    function jmlHadir($id)
+    function jmlHadir()
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select('a.gedung_id,b.nis,c.tgl,c.id_khd');
-        $this->db->from('gedung as a,santri as b,presensi as c');
-        $this->db->where('a.gedung_id=b.gedung_id');
-        $this->db->where('b.nis=c.nis');
-        $this->db->group_by('c.tgl');
-        $this->db->where('a.gedung_id', $id);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
+        $this->db->select('a.nis, b.tgl, b.id_khd');
+        $this->db->from('santri as a,presensi as b');
+        $this->db->where('a.nis = b.nis');
+        $this->db->group_by('b.tgl');
+        $this->db->where("b.tgl >=", $start);
+        $this->db->where("b.tgl <=", $end);
         $this->db->distinct();
         return $this->db->get('presensi')->num_rows();
     }
 
-    function resultHadir($id)
+    function resultHadir()
     {
-        $this->db->select("a.nis,b.gedung_id,c.tgl,c.id_khd");
-        $this->db->from("santri as a,gedung as b , presensi as c ");
-        $this->db->where("a.nis=c.nis");
-        $this->db->where("b.gedung_id=a.gedung_id");
-        $this->db->where("b.gedung_id", $id);
-        $this->db->group_by("c.tgl");
+        $this->db->select("a.nis, b.tgl, b.id_khd");
+        $this->db->from("santri as a, presensi as b");
+        $this->db->where("a.nis = b.nis");
+        $this->db->group_by("b.tgl");
         $this->db->distinct();
         return $this->db->get()->result();
     }
 
-    function resultHadir2($id, $start, $end)
+    function resultHadir2($start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.nis,b.gedung_id,c.tgl,c.id_khd");
-        $this->db->from("santri as a,gedung as b , presensi as c ");
-        $this->db->where("a.nis=c.nis");
-        $this->db->where("b.gedung_id=a.gedung_id");
-        $this->db->where("b.gedung_id", $id);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
-        $this->db->group_by("c.tgl");
+        $this->db->select("a.nis, b.tgl, b.id_khd");
+        $this->db->from("santri as a, presensi as b ");
+        $this->db->where("a.nis = b.nis");
+        $this->db->where("b.tgl >=", $start);
+        $this->db->where("b.tgl <=", $end);
+        $this->db->group_by("b.tgl");
         $this->db->distinct();
         return $this->db->get()->result();
     }
@@ -250,89 +167,79 @@ class Rekap_model extends CI_Model
         };
     }
 
-
-    function santri_bak3($id, $start, $end, $id_shift)
+    function santri_bak3($start, $end, $id_shift)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
         $id_shift = $_GET['id_shift'];
-        $this->db->select("a.nis,a.nama_santri,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
-        ,g.nama_status");
-        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
-        $this->db->where("b.id_jabatan=a.jabatan");
-        $this->db->where("c.id_shift=a.id_shift");
-        $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.nis=e.nis");
-        $this->db->where("e.id_khd=f.id_khd");
-        $this->db->where("e.id_status=g.id_status");
-        $this->db->where("d.gedung_id", $id);
-        $this->db->where("e.id_khd", 1);
-        $this->db->where("e.id_status", 2);
-        $this->db->where("e.tgl >=", $start);
-        $this->db->where("e.tgl <=", $end);
-        $this->db->where("a.id_shift", $id_shift);
-        $this->db->order_by("a.id_shift", "ASC");
-        $this->db->order_by("a.jabatan", "ASC");
+        $this->db->select("a.nis, a.nama_santri, a.shift_id, a.kelompok_id, b.nama_kelompok, c.nama_shift, d.id_khd, d.ket
+        , f.nama_status");
+        $this->db->from("santri as a, kelompok as b, shift as c,presensi as d, kehadiran as e, stts as f");
+        $this->db->where("b.id_kelompok = a.kelompok_id");
+        $this->db->where("c.id_shift = a.shift_id");
+        $this->db->where("a.nis = d.nis");
+        $this->db->where("d.id_khd = e.id_khd");
+        $this->db->where("d.id_status = f.id_status");
+        $this->db->where("d.id_khd", 1);
+        $this->db->where("d.id_status", 2);
+        $this->db->where("d.tgl >=", $start);
+        $this->db->where("d.tgl <=", $end);
+        $this->db->where("a.shift_id", $id_shift);
+        $this->db->order_by("a.shift_id", "ASC");
+        $this->db->order_by("a.kelompok_id", "ASC");
 
         $this->db->distinct();
         return $this->db->get('presensi')->result();
     }
 
     // fungsi mendata rekap santri berdasarkan lokasi
-    function santri($id)
+    function santri()
     {
-
-        $this->db->select("a.nis,a.nama_santri,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
-        ,g.nama_status");
-        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
-        $this->db->where("b.id_jabatan=a.jabatan");
-        $this->db->where("c.id_shift=a.id_shift");
-        $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.nis=e.nis");
-        $this->db->where("e.id_khd=f.id_khd");
-        $this->db->where("e.id_status=g.id_status");
-        $this->db->where("d.gedung_id", $id);
-        $this->db->where("e.id_khd", 1);
-        $this->db->where("e.id_status", 2);
+        $this->db->select("a.nis, a.nama_santri, b.nama_kelompok, c.nama_shift, d.id_khd, d.ket
+        , f.nama_status");
+        $this->db->from("santri as a, kelompok as b, shift as c, presensi as d, kehadiran as e, stts as f");
+        $this->db->where("b.id_kelompok = a.kelompok_id");
+        $this->db->where("c.id_shift = a.shift_id");
+        $this->db->where("a.nis = d.nis");
+        $this->db->where("d.id_khd = e.id_khd");
+        $this->db->where("d.id_status = f.id_status");
+        $this->db->where("d.id_khd", 1);
+        $this->db->where("d.id_status", 2);
         $this->db->distinct();
         return $this->db->get('presensi')->result();
     }
 
-    function santri_bak2($id, $start, $end)
+    function santri_bak2($start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.nis,a.nama_santri,a.id_shift,a.jabatan,b.nama_jabatan,c.nama_shift,d.nama_gedung,e.id_khd,e.ket
-        ,g.nama_status");
-        $this->db->from("santri as a,jabatan as b, shift as c, gedung as d,presensi as e,kehadiran as f, stts as g");
-        $this->db->where("b.id_jabatan=a.jabatan");
-        $this->db->where("c.id_shift=a.id_shift");
-        $this->db->where("a.gedung_id=d.gedung_id");
-        $this->db->where("a.nis=e.nis");
-        $this->db->where("e.id_khd=f.id_khd");
-        $this->db->where("e.id_status=g.id_status");
-        $this->db->where("d.gedung_id", $id);
-        $this->db->where("e.id_khd", 1);
-        $this->db->where("e.id_status", 2);
-        $this->db->where("e.tgl >=", $start);
-        $this->db->where("e.tgl <=", $end);
-        $this->db->order_by("a.id_shift", "ASC");
-        $this->db->order_by("a.jabatan", "ASC");
+        $this->db->select("a.nis, a.nama_santri, a.shift_id, a.kelompok_id, b.nama_kelompok, c.nama_shift, d.id_khd, d.ket
+        , f.nama_status");
+        $this->db->from("santri as a, kelompok as b, shift as c, presensi as d, kehadiran as e, stts as f");
+        $this->db->where("b.id_kelompok = a.kelompok_id");
+        $this->db->where("c.id_shift = a.shift_id");
+        $this->db->where("a.nis = d.nis");
+        $this->db->where("d.id_khd = e.id_khd");
+        $this->db->where("d.id_status = f.id_status");
+        $this->db->where("d.id_khd", 1);
+        $this->db->where("d.id_status", 2);
+        $this->db->where("d.tgl >=", $start);
+        $this->db->where("d.tgl <=", $end);
+        $this->db->order_by("a.shift_id", "ASC");
+        $this->db->order_by("a.kelompok_id", "ASC");
         $this->db->distinct();
         return $this->db->get('presensi')->result();
     }
 
 
     // fungsi menghitung total kehadiran (masuk)
-    function totalHadir($id, $nis)
+    function totalHadir($nis)
     {
-        $this->db->select("a.gedung_id,b.nis,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, santri as b");
-        $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.nis=c.nis");
-        $this->db->where("a.gedung_id", $id);
+        $this->db->select("b.nis, a.tgl");
+        $this->db->from("presensi as a, santri as b");
+        $this->db->where("b.nis = a.nis");
         $this->db->where("b.nis", $nis);
-        $this->db->where("c.id_khd", 1);
+        $this->db->where("a.id_khd", 1);
         $this->db->distinct();
 
         return $this->db->get()->num_rows();
@@ -382,74 +289,66 @@ class Rekap_model extends CI_Model
             ->get('presensi')->result_array();
     }
     // fungsi menghitung total kehadiran (masuk)
-    function totalHadir_bak($id, $nis, $start, $end)
+    function totalHadir_bak($nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.nis,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, santri as b");
-        $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.nis=c.nis");
-        $this->db->where("a.gedung_id", $id);
+        $this->db->select("b.nis, a.tgl");
+        $this->db->from("presensi as a, santri as b");
+        $this->db->where("b.nis = a.nis");
         $this->db->where("b.nis", $nis);
-        $this->db->where("c.id_khd", 1);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
+        $this->db->where("a.id_khd", 1);
+        $this->db->where("a.tgl >=", $start);
+        $this->db->where("a.tgl <=", $end);
         $this->db->distinct();
 
         return $this->db->get()->num_rows();
     }
 
     // fungsi menghitung total kehadiran (sakit)
-    function totalHadir2($id, $nis, $start, $end)
+    function totalHadir2($nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.nis,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, santri as b");
-        $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.nis=c.nis");
-        $this->db->where("a.gedung_id", $id);
+        $this->db->select("b.nis, a.tgl");
+        $this->db->from("presensi as a, santri as b");
+        $this->db->where("b.nis=a.nis");
         $this->db->where("b.nis", $nis);
-        $this->db->where("c.id_khd", 2);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
+        $this->db->where("a.id_khd", 2);
+        $this->db->where("a.tgl >=", $start);
+        $this->db->where("a.tgl <=", $end);
         $this->db->distinct();
         return $this->db->get()->num_rows();
     }
 
     // fungsi menghitung total kehadiran (ijin)
-    function totalHadir3($id, $nis, $start, $end)
+    function totalHadir3($nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.nis,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, santri as b");
-        $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.nis=c.nis");
-        $this->db->where("a.gedung_id", $id);
+        $this->db->select("b.nis, a.tgl");
+        $this->db->from("presensi as a, santri as b");
+        $this->db->where("b.nis = a.nis");
         $this->db->where("b.nis", $nis);
-        $this->db->where("c.id_khd", 3);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
+        $this->db->where("a.id_khd", 3);
+        $this->db->where("a.tgl >=", $start);
+        $this->db->where("a.tgl <=", $end);
         $this->db->distinct();
         return $this->db->get()->num_rows();
     }
 
     // fungsi menghitung total kehadiran (alpha)
-    function totalHadir4($id, $nis, $start, $end)
+    function totalHadir4($nis, $start, $end)
     {
         $start = $_GET['start'];
         $end = $_GET['end'];
-        $this->db->select("a.gedung_id,b.nis,c.tgl");
-        $this->db->from("gedung as a ,presensi as c, santri as b");
-        $this->db->where("a.gedung_id=b.gedung_id");
-        $this->db->where("b.nis=c.nis");
-        $this->db->where("a.gedung_id", $id);
+        $this->db->select("b.nis, a.tgl");
+        $this->db->from("presensi as a, santri as b");
+        $this->db->where("b.nis = a.nis");
         $this->db->where("b.nis", $nis);
-        $this->db->where("c.id_khd", 4);
-        $this->db->where("c.tgl >=", $start);
-        $this->db->where("c.tgl <=", $end);
+        $this->db->where("a.id_khd", 4);
+        $this->db->where("a.tgl >=", $start);
+        $this->db->where("a.tgl <=", $end);
         $this->db->distinct();
         return $this->db->get()->num_rows();
     }
@@ -459,7 +358,6 @@ class Rekap_model extends CI_Model
         $tgl = date('d');
         $id_status = 3;
         $id = $this->input->get('tgl');
-        $seg = $this->input->get('gedung_id');
         $id_khd = $this->input->get('id_khd');
         $kar = $this->input->get('nis');
         $ket = $this->input->post('ket');
@@ -486,7 +384,6 @@ class Rekap_model extends CI_Model
         $tgl = date('d');
         $id_status = 3;
         $id = $this->input->get('tgl');
-        $seg = $this->input->get('gedung_id');
         $id_khd = $this->input->get('id_khd');
         $kar = $this->input->get('nis');
         $ket = $this->input->get('ket');

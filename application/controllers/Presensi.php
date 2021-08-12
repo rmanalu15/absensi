@@ -25,7 +25,7 @@ class Presensi extends CI_Controller
 
     public function data()
     {
-        $this->output_json($this->Presensi_model->get_all_q());
+        $this->output_json($this->Presensi_model->get_all_q(), false);
     }
 
     public function index()

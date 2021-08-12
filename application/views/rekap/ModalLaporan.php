@@ -17,14 +17,11 @@
     }
 </style>
 <?php
-$segment = $this->uri->segment(3);
-$kar = $this->kar->get_by_id($segment);
-$gedung = $this->gedung->get_by_id($segment);
-$gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3)); ?>
+$kar = $this->kar->get_by_id($segment); ?>
 
 <div class="box" style='max-width:80.5%;margin-left:125px'>
     <div class="box-header with-border">
-        <h3 class="box-title">Data Laporan santri</h3>
+        <h3 class="box-title">Data Laporan Santri</h3>
         <div class="container">
             <div class="alert"></div>
             <div class="row clearfix">
@@ -56,24 +53,20 @@ $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3)); ?>
                             </td>
                             <td> <br>
                                 <p style='text-align: center;font-size:20px;'><b>
-                                        <font size='5px'>DATA LAPORAN santri</font>
+                                        <font size='5px'>DATA LAPORAN SANTRI</font>
                                     </b></p>
                             </td>
                         </tr>
                     </table>
                     <table style='text-align:left;font-weight:bold;margin-left:40px;'>
                         <tr>
-                            <td width='200px' class='tr'>Lokasi</td>
-                            <td>:&nbsp;</td>
-                            <td class='tr'> <?php echo $gedung->nama_gedung; ?></td>
-                            <td width='200px' rowspan='3'>&nbsp;</td>
                             <td width='200px' class='tr'>Periode</td>
-                            <td>:&nbsp;</td>
+                            <td class='tr'>:&nbsp;</td>
                             <td class='tr'>
                                 <?php
                                 $start = $this->input->get('tgl');
                                 $end = $this->input->get('tgl');
-                                $data = $this->rekap->resultHadir2($segment, $start, $end);
+                                $data = $this->rekap->resultHadir2($start, $end);
                                 $start = $this->input->get('start');
                                 $st = date('Y-m-d', strtotime($start));
                                 $t = explode('-', $st);
@@ -83,9 +76,6 @@ $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3)); ?>
                             </td>
                         </tr>
                         <tr>
-                            <td width='200px' class='tr'>Alamat </td>
-                            <td class='tr'>:&nbsp;</td>
-                            <td class='tr'><?php echo $gedung->alamat; ?> </td>
                             <td width='200px' class='tr'>Operator </td>
                             <td class='tr'>:&nbsp;</td>
                             <td class='tr'><?= $user->first_name ?></td>
@@ -119,7 +109,7 @@ $gedung = $this->gedung->get_by_id($segment = $this->uri->segment(3)); ?>
                             echo "<tr>
                             <td>" . $no . "</td>
                             <td>" . $row->nama_santri . "</td>
-                            <td>" . $row->nama_jabatan . "</td>
+                            <td>" . $row->nama_kelompok . "</td>
                             <td>" . $hadir . "</td>
                             <td>" . $sakit . "</td>
                             <td>" . $ijin . "</td>

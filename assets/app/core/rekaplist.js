@@ -1,21 +1,5 @@
 var save_method; //for save method string
 var table;
-$(document).ready(function () {
-    table = $("#mytable")
-        .addClass('nowrap')
-        .dataTable({
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "responsive": true,
-            "ajax": {
-                "url": "rekap/ajax_list",
-                "type": "POST"
-            },
-            "columnDefs": [
-                { "targets": [-1], "className": 'dt-responsive', "orderable": false, },
-            ],
-        });
-});
 
 function LoadAjax(id) {
 
@@ -49,9 +33,9 @@ function LoadAjax(id) {
     });
 }
 
-function absen(id, id2) {
+function absen(id) {
     $("#id").val(id);
-    $("#nis").val(id2);
+    // $("#nis").val(id2);
     $('#modalAbsen').modal("show");
     LoadAjax(id);
 }
