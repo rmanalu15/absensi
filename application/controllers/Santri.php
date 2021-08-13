@@ -116,6 +116,30 @@ class Santri extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            /* Fungsi update foto */
+            $upload_foto = $_FILES['foto']['name'];
+            if ($upload_foto) {
+                $config['allowed_types'] = 'jpg|png';
+                $config['upload_path'] = './assets/images/profile/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('foto')) {
+                    /* Fungsi delete foto lama */
+                    // $old_foto = $row->foto;
+                    // if ($old_foto != 'default.png') {
+                    //     unlink(FCPATH . 'assets/images/profile/' . $old_foto);
+                    // }
+                    /* End fungsi delete foto lama */
+                    $new_foto = $this->upload->data('file_name');
+                } else {
+                    echo "Format Foto Tidak Mendukung!";
+                }
+            } else {
+                $new_foto = 'default.png';
+            }
+            /* End fungsi update foto */
+
             $tgl = date('ym');
             $var = $this->Santri_model->get_max();
             $getvar = $var[0]->kode;
@@ -130,7 +154,7 @@ class Santri extends CI_Controller
                 'alamat' => $this->input->post('alamat', TRUE),
                 'nama_orang_tua' => $this->input->post('nama_orang_tua', TRUE),
                 'kelompok_id' => $this->input->post('kelompok_id', TRUE),
-                // 'foto' => $this->input->post('foto', TRUE),
+                'foto' => $new_foto,
                 'shift_id' => $this->input->post('shift_id', TRUE)
             );
             $this->Santri_model->insert($data);
@@ -194,6 +218,7 @@ class Santri extends CI_Controller
         $row = $this->Santri_model->get_by_id($this->input->post('id'));
         $nis = $row->nis;
 
+        /* Fungsi update foto */
         $upload_foto = $_FILES['foto']['name'];
         if ($upload_foto) {
             $config['allowed_types'] = 'jpg|png';
@@ -202,17 +227,20 @@ class Santri extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('foto')) {
+                /* Fungsi delete foto lama */
                 // $old_foto = $row->foto;
                 // if ($old_foto != 'default.png') {
                 //     unlink(FCPATH . 'assets/images/profile/' . $old_foto);
                 // }
+                /* End fungsi delete foto lama */
                 $new_foto = $this->upload->data('file_name');
             } else {
-                echo "Format foto salah!";
+                echo "Format Foto Tidak Mendukung!";
             }
         } else {
             $new_foto = $row->foto;
         }
+        /* End fungsi update foto */
 
         $data = array(
             'nis' => $nis,
