@@ -74,21 +74,21 @@ $(document).ready(function () {
             {
                 extend: 'csv',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
             },
             {
                 extend: 'excel',
                 title: 'Data Pengajar',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
             },
             {
                 extend: 'copy',
                 title: 'Data Pengajar',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
             },
             {
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 title: 'Data Pengajar',
                 download: 'open',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
                 customize: function (doc) {
                     doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
@@ -112,7 +112,7 @@ $(document).ready(function () {
                 pageSize: 'A4',
                 title: 'Data Pengajar',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
             },
         ],
