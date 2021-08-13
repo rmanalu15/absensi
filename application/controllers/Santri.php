@@ -41,7 +41,6 @@ class Santri extends CI_Controller
     public function index()
     {
         $chek = $this->ion_auth->is_admin();
-
         if (!$chek) {
             $hasil = 0;
         } else {
@@ -51,11 +50,21 @@ class Santri extends CI_Controller
         $santri = $this->Santri_model->get_all_query();
         $data = array(
             'santri_data' => $santri,
-            'user' => $user, 'users'     => $this->ion_auth->user()->row(),
+            'user' => $user, 'users' => $this->ion_auth->user()->row(),
             'result' => $hasil,
         );
         $this->template->load('template/template', 'santri/santri_list', $data);
         $this->load->view('template/datatables');
+    }
+
+    public function printCard($nis)
+    {
+        if (!$this->ion_auth->is_admin()) {
+            show_error('<a href="' . base_url('dashboard') . '">Kembali!</a>', 403, 'Akses Dilarang!');
+        }
+        $this->load->library('ciqrcode');
+        $data['card'] = $this->Santri_model->get_card_santri($nis);
+        $this->load->view('santri/print_card', $data);
     }
 
     public function output_json($data, $encode = true)

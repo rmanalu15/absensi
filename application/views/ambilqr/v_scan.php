@@ -18,7 +18,7 @@
             </div>
             <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
-                    <li><button onclick="printDiv('print-area')" class="btn btn-info pull-right"><i class='fa fa-print'></i>PRINT</button></li>
+                    <li><button onclick="printDiv('print-area')" class='pull-right'><i class='fa fa-print'></i>PRINT</button></li>
                 </ul>
             </div>
         </div>

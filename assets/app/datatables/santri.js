@@ -52,15 +52,15 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     let btn;
                     if (checkLogin == 1) {
-                        return `<a href="${base_url}santri/update/${data.id}" title="edit" class="btn btn-md btn-warning  btn-edit-data">
+                        return `<a href="${base_url}santri/update/${data.id}" title="Edit" class="btn btn-md btn-warning  btn-edit-data">
                         Edit
                         </a>
-                        <a href="${base_url}santri/delete/${data.id}" title="hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
+                        <a href="${base_url}santri/delete/${data.id}" title="Hapus" class="btn btn-md btn-danger btn3d btn-remove-data">
                         Hapus
                         </a>
-                        <a href="${base_url}santri/cetak/${data.id}" title="cetak" class="btn btn-md btn-info btn3d btn-print">
+                        <a href="${base_url}santri/printCard/${data.nis}" target="_BLANK" title="Cetak" class="btn btn-md btn-info btn3d">
                         Cetak
-                        </a>`;
+                        </a`;
                     }
                     else {
                         return `<a href="#" title="edit" class="btn btn-md btn-success btn3d btn-view-data">

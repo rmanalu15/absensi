@@ -29,6 +29,14 @@ class Santri_model extends CI_Model
             ->from('santri')->get()->result();
     }
 
+    function get_card_santri($nis)
+    {
+        $sql = "SELECT nis, nama_santri, foto
+        from santri
+        where nis = '$nis'";
+        return $this->db->query($sql)->row_array();
+    }
+
     function get_all_query()
     {
         $sql = "SELECT a.id, a.nis, a.nama_santri, a.jenis_kelamin, a.tempat_lahir, a.tanggal_lahir, a.nama_orang_tua, a.alamat, b.nama_kelompok, c.nama_shift
