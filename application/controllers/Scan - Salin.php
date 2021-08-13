@@ -5,8 +5,14 @@ class Scan extends Ci_Controller
 	function __construct()
 	{
 		parent::__construct();
+		if (!$this->ion_auth->logged_in()) {
+			redirect('auth');
+		} else if (!$this->ion_auth->in_group('Operator') && !$this->ion_auth->is_admin()) {
+			show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+		}
 		$this->load->library('user_agent');
 		$this->load->library('form_validation');
+		$this->user = $this->ion_auth->user()->row();
 		$this->load->model('Scan_model', 'Scan');
 	}
 
@@ -28,7 +34,15 @@ class Scan extends Ci_Controller
 
 	function index()
 	{
-		$this->load->view('scan/scan_qrcode');
+		$user = $this->user;
+		$data = array('user' => $user, 'users' => $this->ion_auth->user()->row());
+		if ($this->agent->is_mobile('iphone')) {
+			$this->template->load('template/template', 'scan/scan_mobile', $data);
+		} elseif ($this->agent->is_mobile()) {
+			$this->template->load('template/template', 'scan/scan_mobile', $data);
+		} else {
+			$this->template->load('template/template', 'scan/scan_desktop', $data);
+		}
 	}
 
 	function cek_id()
