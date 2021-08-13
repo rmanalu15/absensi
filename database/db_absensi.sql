@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2021 at 10:05 PM
+-- Generation Time: Aug 13, 2021 at 02:23 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -154,7 +154,8 @@ INSERT INTO `menu` (`id`, `name`, `link`, `icon`, `protected`, `is_active`, `is_
 (41, 'DATA ABSENSI', '#', 'fa fa-folder-open', NULL, 1, 0, 8),
 (42, 'SETTING', '#', 'fa fa-cogs', NULL, 1, 0, 11),
 (45, 'Data Pengajar', 'pengajar', 'fa fa-user', NULL, 1, 16, 0),
-(46, 'Data Kelompok', 'kelompok', 'fa fa-layer-group', NULL, 1, 16, 0);
+(46, 'Data Kelompok', 'kelompok', 'fa fa-layer-group', NULL, 1, 16, 0),
+(47, 'Data Gaji', 'penggajian', 'fa fa-dollar-sign', NULL, 1, 41, 0);
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,10 @@ CREATE TABLE `pengajar` (
 --
 
 INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `foto`, `shift_id`) VALUES
-(1, 'P2108001', 'Pengajar 01', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'nilai.png', 5);
+(1, 'P2108001', 'Pengajar 01', 'Jakarta', '1997-01-01', 'Wanita', 'Jakarta', 'Selena_Gomez_in_Cute_Pink_Lips_4K_Wallpapers.jpg', 5),
+(4, 'P2108002', 'Pengajar 02', 'Karang Tengah', '1995-01-01', 'Wanita', 'Karang Tengah', '27894388_790732624452440_3552518203873689600_n.jpg', 6),
+(5, 'P2108004', 'Pengajar 03', 'Jakarta Pusat', '1997-01-01', 'Pria', 'Jakarta Pusat', 'wc1791843-liverpool-wallpaper-2017.jpg', 5),
+(6, 'P2108005', 'Pengajar 04', 'Jakarta Timur', '1997-01-01', 'Pria', 'Jakarta Timur', 'default.png', 5);
 
 -- --------------------------------------------------------
 
@@ -231,8 +235,10 @@ CREATE TABLE `santri` (
 --
 
 INSERT INTO `santri` (`id`, `nis`, `nama_santri`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `nama_orang_tua`, `kelompok_id`, `foto`, `shift_id`) VALUES
-(133, 'S2108001', 'Santri 01', 'Tangerang', '2000-01-01', 'Pria', 'Tangerang', 'Orang Tua 01', 2, 'default.png', 6),
-(134, 'S2108133', 'Santri 02', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'Orang Tua 02', 1, 'default.png', 5);
+(133, 'S2108001', 'Santri 01', 'Tangerang', '2000-01-01', 'Pria', 'Tangerang', 'Orang Tua 01', 3, 'default.png', 6),
+(134, 'S2108133', 'Santri 02', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'Orang Tua 02', 1, 'default.png', 5),
+(139, 'S2108134', 'Santri 03', 'Karang Tengah', '1996-01-01', 'Pria', 'Karang Tengah', 'Orang Tua 03', 3, '171747.jpg', 6),
+(140, 'S2108139', 'Santri 04', 'Ciledug', '1997-01-01', 'Wanita', 'Ciledug', 'Orang tua 04', 2, 'default.png', 6);
 
 -- --------------------------------------------------------
 
@@ -306,7 +312,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628796377, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628855702, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -456,13 +462,13 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `pengajar`
 --
 ALTER TABLE `pengajar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `presensi`
@@ -474,7 +480,7 @@ ALTER TABLE `presensi`
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `shift`
