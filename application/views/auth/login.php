@@ -46,8 +46,9 @@
                     <b>
                         <font color="green">S
                     </b>istem <b>A</b>bsensi <b>QR</b>code <br>
-                    <b> TPQ Al Fatih</font></b>
+                    <b>TPQ Al Fatih</font></b>
                 </h3>
+                <a href="<?= base_url('scan'); ?>" target="_BLANK"><b>Klik untuk scan absensi!</b></a>
                 <p class="login-box-msg"></p>
                 <div id="infoMessage" class="text-center"><?php echo $message; ?></div>
                 <?= form_open("auth/cek_login", array('id' => 'login')); ?>

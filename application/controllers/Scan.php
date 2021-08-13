@@ -41,7 +41,7 @@ class Scan extends Ci_Controller
 		$cek_id = $this->Scan->cek_id($result_code);
 		$cek_kehadiran = $this->Scan->cek_kehadiran($result_code, $tgl);
 		if (!$cek_id) {
-			$this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'absen gagal data QR tidak ditemukan'));
+			$this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Absen gagal, data tidak ditemukan!'));
 			redirect($_SERVER['HTTP_REFERER']);
 		} elseif ($cek_kehadiran && $cek_kehadiran->jam_msk != '00:00:00' && $cek_kehadiran->jam_klr == '00:00:00' && $cek_kehadiran->id_status == 1) {
 			$data = array(
@@ -49,10 +49,10 @@ class Scan extends Ci_Controller
 				'id_status' => 2,
 			);
 			$this->Scan->absen_pulang($result_code, $data);
-			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'absen pulang'));
+			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen pulang!'));
 			redirect($_SERVER['HTTP_REFERER']);
 		} elseif ($cek_kehadiran && $cek_kehadiran->jam_msk != '00:00:00' && $cek_kehadiran->jam_klr != '00:00:00' && $cek_kehadiran->id_status == 2) {
-			$this->session->set_flashdata('messageAlert', $this->messageAlert('warning', 'sudah absen'));
+			$this->session->set_flashdata('messageAlert', $this->messageAlert('warning', 'Sudah absen!'));
 			redirect($_SERVER['HTTP_REFERER']);
 			return false;
 		} else {
@@ -64,7 +64,7 @@ class Scan extends Ci_Controller
 				'id_status' => 1,
 			);
 			$this->Scan->absen_masuk($data);
-			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'absen masuk'));
+			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen masuk!'));
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
