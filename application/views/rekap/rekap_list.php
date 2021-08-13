@@ -16,11 +16,20 @@
                     <table id="mytable" class="table table-bordered table-hover display" style="width:100%;">
                         <thead>
                             <tr>
+                                <th>Rekap User</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>Pengajar</td>
+                                <td>
+                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi" onclick="absen()"><i class="fa fa-check-square"></i> Absensi</a>
+                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan" onclick="laporan()"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Santri</td>
                                 <td>
                                     <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi" onclick="absen()"><i class="fa fa-check-square"></i> Absensi</a>
                                     <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan" onclick="laporan()"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
