@@ -21,6 +21,16 @@ class Pengajar extends CI_Controller
         $this->user = $this->ion_auth->user()->row();
     }
 
+    public function printCard($nip)
+    {
+        if (!$this->ion_auth->is_admin()) {
+            show_error('<a href="' . base_url('dashboard') . '">Kembali!</a>', 403, 'Akses Dilarang!');
+        }
+        $this->load->library('ciqrcode');
+        $data['card'] = $this->Pengajar_model->get_card_pengajar($nip);
+        $this->load->view('pengajar/print_card', $data);
+    }
+
     public function messageAlert($type, $title)
     {
         $messageAlert = "

@@ -72,19 +72,19 @@
 
 <body>
     <?php
-    $params['data'] = $card['nis'];
+    $params['data'] = $card['nip'];
     $params['level'] = 'H';
     $params['size'] = 4;
-    $params['savename'] = FCPATH . "uploads/qr_image/" . $card['nis'] . 'code.png';
+    $params['savename'] = FCPATH . "uploads/qr_image/" . $card['nip'] . 'code.png';
     $this->ciqrcode->generate($params);
     ?>
 
     <div class="container">
-        <img style="width: 265px;" src="<?= base_url('uploads/qr_image/') . $card['nis'] . 'code.png'; ?>" />
+        <img style="width: 265px;" src="<?= base_url('uploads/qr_image/') . $card['nip'] . 'code.png'; ?>" />
         <di class="container__profile">
             <img src="<?= base_url('assets/images/profile/') . $card['foto'] ?>" alt="people" />
             <div class="container__profile__text">
-                <h2><?= $card['nama_santri']; ?></h2>
+                <h2><?= $card['nama_pengajar']; ?></h2>
                 <p>By <b>TPQ Al Fatih</b></p>
             </div>
         </di>

@@ -15,6 +15,14 @@ class Pengajar_model extends CI_Model
         parent::__construct();
     }
 
+    function get_card_pengajar($nip)
+    {
+        $sql = "SELECT nip, nama_pengajar, foto
+        from pengajar
+        where nip = '$nip'";
+        return $this->db->query($sql)->row_array();
+    }
+
     // get all
     function get_all()
     {
