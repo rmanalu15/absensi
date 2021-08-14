@@ -39,7 +39,7 @@ class Scan extends Ci_Controller
 	function cek_id()
 	{
 		$user = $this->user;
-		$result_code = $this->input->post('nis');
+		$result_code = $this->input->post('nomor_induk');
 		$tgl = date('Y-m-d');
 		$jam_msk = date('h:i:s');
 		$jam_klr = date('h:i:s');
@@ -51,7 +51,7 @@ class Scan extends Ci_Controller
 		} elseif ($cek_kehadiran && $cek_kehadiran->jam_msk != '00:00:00' && $cek_kehadiran->jam_klr == '00:00:00' && $cek_kehadiran->id_status == 1) {
 			$data = array(
 				'jam_klr' => $jam_klr,
-				'id_status' => 2,
+				'id_status' => 2
 			);
 			$this->Scan->absen_pulang($result_code, $data);
 			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen pulang!'));
@@ -62,11 +62,11 @@ class Scan extends Ci_Controller
 			return false;
 		} else {
 			$data = array(
-				'nis' => $result_code,
+				'nomor_induk' => $result_code,
 				'tgl' => $tgl,
 				'jam_msk' => $jam_msk,
 				'id_khd' => 1,
-				'id_status' => 1,
+				'id_status' => 1
 			);
 			$this->Scan->absen_masuk($data);
 			$this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen masuk!'));

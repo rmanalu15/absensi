@@ -66,7 +66,7 @@
                         <div>
                             <video id="video" width="500" height="400" style="border: 1px solid gray"></video>
                         </div>
-                        <textarea hidden="" name="nis" id="result" readonly></textarea>
+                        <textarea hidden="" name="nomor_induk" id="result" readonly></textarea>
                         <span> <input type="submit" id="button" class="btn btn-success btn-md" value="Cek Kehadiran"></span>
                         <?php echo form_close(); ?>
                     </div>

@@ -30,7 +30,7 @@
                 <div class='box-header  with-border'>
                     <h3 class='box-title'>HISTORI ABSENSI</h3>
                     <div class="pull-right">
-                        <?php echo anchor(site_url('presensi/create/'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d"'); ?>
+                        <?php echo anchor(site_url('presensi/create'), ' <i class="fa fa-plus"></i> &nbsp;&nbsp; Tambah Baru', ' class="btn btn-unique btn-lg btn-create-data btn3d"'); ?>
                     </div>
                 </div>
                 <div class="box-body">
@@ -53,17 +53,21 @@
                             <tr>
                                 <th class="all">No</th>
                                 <th class="all">Nama</th>
-                                <th class="all">Tanggal</th>
+                                <th class="all">Nomor Induk</th>
+                                <th class="desktop">Tanggal</th>
                                 <th class="desktop">Jam Masuk</th>
                                 <th class="desktop">Jam Keluar</th>
                                 <th class="desktop">Kehadiran</th>
                                 <th class="desktop">Keterangan</th>
-                                <th class="desktop">Status </th>
-                                <th class="desktop">Action</th>
+                                <th class="desktop">status </th>
+                                <th class="all">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
+                        <tr>
+                            <td colspan="10"><?php echo anchor('presensi', 'Kembali', array('class' => 'btn btn-indigo btn-lg btn3d')); ?></td>
+                        </tr>
                     </table>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -73,7 +77,9 @@
 <script type="text/javascript">
     let base_url = '<?= base_url() ?>';
 </script>
-
+<script type="text/javascript">
+    let segment = '<?= $this->uri->segment(3) ?>';
+</script>
 <script type="text/javascript">
     let checkLogin = '<?= $result ?>';
 </script>

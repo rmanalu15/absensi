@@ -17,18 +17,17 @@ class Presensi extends CI_Controller
         $this->load->library('user_agent');
     }
 
-    public function output_json($data, $encode = true)
-    {
-        if ($encode) $data = json_encode($data);
-        $this->output->set_content_type('application/json')->set_output($data);
-    }
-
-    public function data()
-    {
-        $this->output_json($this->Presensi_model->get_all_q(), false);
-    }
-
     public function index()
+    {
+        $user = $this->user;
+        $data = array(
+            'user' => $user, 'users' => $this->ion_auth->user()->row(),
+        );
+        $this->template->load('template/template', 'presensi/presensi_v', $data);
+        $this->load->view('template/datatables');
+    }
+
+    public function read($id)
     {
         $this->session->set_userdata('referred_from', current_url());
         $chek = $this->ion_auth->is_admin();
@@ -38,7 +37,13 @@ class Presensi extends CI_Controller
             $hasil = 1;
         }
         $user = $this->user;
-        $presensi = $this->Presensi_model->get_all_query();
+
+        if ($id == "S") {
+            $presensi = $this->Presensi_model->get_all_query_1();
+        } else {
+            $presensi = $this->Presensi_model->get_all_query_2();
+        }
+
         $data = array(
             'presensi_data' => $presensi,
             'user' => $user,
@@ -47,6 +52,21 @@ class Presensi extends CI_Controller
         );
         $this->template->load('template/template', 'presensi/presensi_list', $data);
         $this->load->view('template/datatables');
+    }
+
+    public function data()
+    {
+        if ($this->uri->segment(3) == "S") {
+            $this->output_json($this->Presensi_model->get_all_q_1(), false);
+        } else {
+            $this->output_json($this->Presensi_model->get_all_q_2(), false);
+        }
+    }
+
+    public function output_json($data, $encode = true)
+    {
+        if ($encode) $data = json_encode($data);
+        $this->output->set_content_type('application/json')->set_output($data);
     }
 
     public function messageAlert($type, $title)

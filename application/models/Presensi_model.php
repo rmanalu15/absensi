@@ -22,24 +22,49 @@ class Presensi_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
-    function get_all_query()
+    function get_all_query_1()
     {
-
-        $sql = "SELECT a.id_absen, b.nis, b.nama_santri, a.tgl, a.jam_msk, a.jam_klr, c.nama_khd, a.ket, d.nama_status, d.id_status
-              FROM presensi as a, santri as b, kehadiran as c, stts as d
-              WHERE a.nis = b.nis
-              AND c.id_khd = a.id_khd
-              AND d.id_status = a.id_status";
-        return $this->db->query($sql)->result();
+        $this->db->select('a.id_absen, a.tgl, a.jam_msk, a.jam_klr, a.nomor_induk, b.nama_santri as nama_user, c.nama_khd, a.ket, d.nama_status, d.id_status');
+        $this->db->from('presensi a');
+        $this->db->join('santri b', 'a.nomor_induk = b.nis', 'left');
+        $this->db->join('kehadiran c', 'a.id_khd = c.id_khd', 'left');
+        $this->db->join('stts d', 'a.id_status = d.id_status', 'left');
+        $this->db->like('a.nomor_induk', "S");
+        $query = $this->db->get()->result();
+        return $query;
     }
 
-    function get_all_q()
+    function get_all_query_2()
     {
-        $this->datatables->select('a.id_absen, b.nis, b.nama_santri, a.tgl, a.jam_msk, a.jam_klr, c.id_khd, c.nama_khd, a.ket, d.nama_status, d.id_status')
-            ->from('presensi as a, santri as b, kehadiran as c, stts as d')
-            ->where('a.nis = b.nis')
-            ->where('c.id_khd = a.id_khd')
-            ->where('d.id_status = a.id_status');
+        $this->db->select('a.id_absen, a.tgl, a.jam_msk, a.jam_klr, a.nomor_induk, b.nama_pengajar as nama_user, c.nama_khd, a.ket, d.nama_status, d.id_status');
+        $this->db->from('presensi a');
+        $this->db->join('pengajar b', 'a.nomor_induk = b.nip', 'left');
+        $this->db->join('kehadiran c', 'a.id_khd = c.id_khd', 'left');
+        $this->db->join('stts d', 'a.id_status = d.id_status', 'left');
+        $this->db->like('a.nomor_induk', "P");
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    function get_all_q_1()
+    {
+        $this->datatables->select('a.id_absen, a.tgl, a.jam_msk, a.jam_klr, a.nomor_induk, b.nama_santri as nama_user, c.id_khd, c.nama_khd, a.ket, d.nama_status, d.id_status');
+        $this->datatables->from('presensi a');
+        $this->datatables->join('santri b', 'a.nomor_induk = b.nis', 'left');
+        $this->datatables->join('kehadiran c', 'a.id_khd = c.id_khd', 'left');
+        $this->datatables->join('stts d', 'a.id_status = d.id_status', 'left');
+        $this->datatables->like('a.nomor_induk', "S");
+        return $this->datatables->generate();
+    }
+
+    function get_all_q_2()
+    {
+        $this->datatables->select('a.id_absen, a.tgl, a.jam_msk, a.jam_klr, a.nomor_induk, b.nama_pengajar as nama_user, c.id_khd, c.nama_khd, a.ket, d.nama_status, d.id_status');
+        $this->datatables->from('presensi a');
+        $this->datatables->join('pengajar b', 'a.nomor_induk = b.nip', 'left');
+        $this->datatables->join('kehadiran c', 'a.id_khd = c.id_khd', 'left');
+        $this->datatables->join('stts d', 'a.id_status = d.id_status', 'left');
+        $this->datatables->like('a.nomor_induk', "P");
         return $this->datatables->generate();
     }
 
@@ -49,7 +74,6 @@ class Presensi_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->result();
     }
-
 
     // insert data
     function insert($data)
@@ -71,7 +95,7 @@ class Presensi_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-    function search_value($title, $id)
+    function search_value($title)
     {
         $query_result =
             $this->db->like('nama_santri', $title, 'both')
