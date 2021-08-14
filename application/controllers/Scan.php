@@ -31,6 +31,11 @@ class Scan extends Ci_Controller
 		$this->load->view('scan/scan_qrcode');
 	}
 
+	function pengajar()
+	{
+		$this->load->view('scan/scan_qrcode');
+	}
+
 	function cek_id()
 	{
 		$user = $this->user;

@@ -11,7 +11,7 @@ class Penggajian extends CI_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('auth');
         }
-        // $this->load->model('Penggajian_model');
+        $this->load->model('Penggajian_model');
         $this->user = $this->ion_auth->user()->row();
         $this->load->library('user_agent');
     }
@@ -26,9 +26,9 @@ class Penggajian extends CI_Controller
             $hasil = 1;
         }
         $user = $this->user;
-        // $penggajian = $this->Penggajian_model->get_all_query();
+        $penggajian = $this->Penggajian_model->get_all_query();
         $data = array(
-            // 'penggajian_data' => $penggajian,
+            'penggajian_data' => $penggajian,
             'user' => $user,
             'users' => $this->ion_auth->user()->row(),
             'result' => $hasil,

@@ -253,23 +253,23 @@
                                             $datax->adkhd = 'onclick="add_kd(' . $stamp . ')"';
                                             $ceklist = "<i class='fa fa-check'></i>";
                                         } else if ($ceki2) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "'" . ')"';
                                                 $ceklist = "<b>S</b>";
                                             };
                                         } else if ($ceki3) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "'" . ')"';
                                                 $ceklist = "<b>I</b>";
                                             };
                                         } else if ($ceki4) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "'" . ')"';
                                                 $ceklist = "<b>A</b>";
                                             };
                                         } else if ($ceki5) { {
-                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
+                                                $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "'" . ')"';
                                                 $ceklist = "<b>O</b>";
                                             };
                                         } else if (!$ceki) {
-                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "','" . $seg . "'" . ')"';
+                                            $datax->adkhd = 'onclick="add_khd(' . "'" . $stamp . "','" . $row->nis . "'" . ')"';
                                             $ceklist = "<a href='#'><i>-</i></a>";
                                         };
                                         if (!$ceki) {

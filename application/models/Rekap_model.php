@@ -92,7 +92,6 @@ class Rekap_model extends CI_Model
     // fungsi ketika absensi hadir
     function  _cek($tanggal, $nis)
     {
-
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
         $this->db->where("nis", $nis);

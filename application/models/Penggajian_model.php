@@ -5,13 +5,13 @@ if (!defined('BASEPATH'))
 
 class Penggajian_model extends CI_Model
 {
-
-    public $table = 'presensi';
-    public $id = 'id_absen';
-    public $order = 'DESC';
-
-    function __construct()
+    function get_all_query()
     {
-        parent::__construct();
+        $sql = "SELECT b.nip, b.nama_pengajar
+              FROM presensi_pengajar as a, pengajar as b
+              WHERE a.nip = b.nip
+              AND a.id_khd = 1
+              AND a.id_status = 2";
+        return $this->db->query($sql)->result();
     }
 }
