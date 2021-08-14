@@ -4,11 +4,14 @@ class Scan_model extends Ci_Model
 {
     public function cek_id($nis)
     {
-        $query_str =
-            $this->db->where('nis', $nis)
-            ->get('santri');
-        if ($query_str->num_rows() > 0) {
-            return $query_str->row();
+        $query_str_1 = $this->db->where('nis', $nis)->get('santri');
+        $query_str_2 = $this->db->where('nip', $nis)->get('pengajar');
+
+        if ($query_str_1->num_rows() > 0) {
+            return $query_str_1->row();
+        }
+        if ($query_str_2->num_rows() > 0) {
+            return $query_str_2->row();
         } else {
             return false;
         }
