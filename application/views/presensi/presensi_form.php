@@ -8,11 +8,17 @@
                 </div>
                 <div class='box-body'>
                     <form id="myForm" data-toggle="validator" action="<?php echo $action; ?>" method="post">
-                        <input type="hidden" class="form-control" name="nis" id="nis" placeholder="Id santri" value="<?php echo $nis; ?>" />
+                        <input type="hidden" class="form-control" name="nomor_induk" id="nomor_induk" placeholder="Id santri" value="<?php echo $nomor_induk; ?>" />
                         <div class="form-group">
-                            <label for="nama_santri" class="control-label">Nama santri</label>
+                            <label for="nama_user" class="control-label">Nama User</label>
                             <div class="input-group">
-                                <input type="text" name="nama_santri" class="form-control" placeholder="nama santri" value="<?php echo $nama_santri; ?>" readonly />
+                                <?php if ($nama_user_1) {
+                                    $nama_user = $nama_user_1;
+                                } else {
+                                    $nama_user = $nama_user_2;
+                                }
+                                ?>
+                                <input type="text" name="nama_user" class="form-control" placeholder="Nama User" value="<?= $nama_user; ?>" readonly />
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
@@ -106,7 +112,7 @@
                         <?php endif; ?>
                         <input type="hidden" name="id_absen" value="<?php echo $id_absen; ?>" />
                         <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
-                        <a href="<?php echo site_url('presensi/read/' . $gedung_id) ?>" class="btn btn-default">Cancel</a>
+                        <a href="<?php echo site_url('presensi') ?>" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div><!-- /.box-body -->

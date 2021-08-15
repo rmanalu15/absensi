@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2021 at 02:23 PM
+-- Generation Time: Aug 15, 2021 at 02:54 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -113,13 +113,6 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(14, '::1', 'admin.admin.com', 1628791156);
-
 -- --------------------------------------------------------
 
 --
@@ -146,8 +139,6 @@ INSERT INTO `menu` (`id`, `name`, `link`, `icon`, `protected`, `is_active`, `is_
 (16, 'MASTER DATA', '#', 'fa fa-folder', NULL, 1, 0, 1),
 (18, 'Data Santri', 'santri', 'fa fa-user-graduate', NULL, 1, 16, 2),
 (21, 'Data Shift', 'shift', 'fa fa-retweet', NULL, 1, 16, 4),
-(31, 'AMBIL QR CODE', 'genbar', 'fa fa-qrcode', NULL, 1, 0, 6),
-(33, 'SCAN QRCODE', 'scan', 'fa fa-search-plus', NULL, 1, 0, 7),
 (35, 'User management', 'users', 'fa fa-users', NULL, 1, 42, 13),
 (36, 'Histori Absensi', 'presensi', 'fa fa-paperclip', NULL, 1, 41, 9),
 (39, 'Rekap Absensi', 'rekap', 'fa fa-list-alt', NULL, 1, 41, 10),
@@ -193,7 +184,7 @@ INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_l
 
 CREATE TABLE `presensi` (
   `id_absen` int(11) NOT NULL,
-  `nis` varchar(20) NOT NULL,
+  `nomor_induk` varchar(20) NOT NULL,
   `tgl` date NOT NULL,
   `jam_msk` time NOT NULL,
   `jam_klr` time NOT NULL,
@@ -201,14 +192,6 @@ CREATE TABLE `presensi` (
   `ket` varchar(150) NOT NULL,
   `id_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `presensi`
---
-
-INSERT INTO `presensi` (`id_absen`, `nis`, `tgl`, `jam_msk`, `jam_klr`, `id_khd`, `ket`, `id_status`) VALUES
-(65, 'S2108133', '2021-08-12', '09:56:54', '09:57:15', 1, '', 2),
-(66, 'S2108001', '2021-08-12', '09:59:47', '10:00:35', 1, '', 2);
 
 -- --------------------------------------------------------
 
@@ -312,7 +295,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628855702, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628983470, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -456,13 +439,13 @@ ALTER TABLE `kelompok`
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `pengajar`
@@ -474,7 +457,7 @@ ALTER TABLE `pengajar`
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `santri`

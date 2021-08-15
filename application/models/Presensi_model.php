@@ -15,7 +15,6 @@ class Presensi_model extends CI_Model
         parent::__construct();
     }
 
-    // get all
     function get_all()
     {
         $this->db->order_by($this->id, $this->order);
@@ -68,27 +67,23 @@ class Presensi_model extends CI_Model
         return $this->datatables->generate();
     }
 
-    // get data by id
     function get_by_id($id)
     {
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->result();
     }
 
-    // insert data
     function insert($data)
     {
         $this->db->insert($this->table, $data);
     }
 
-    // update data
     function update($id, $data)
     {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }
 
-    // delete data
     function delete($id)
     {
         $this->db->where($this->id, $id);
@@ -97,29 +92,37 @@ class Presensi_model extends CI_Model
 
     function search_value($title)
     {
-        $query_result =
-            $this->db->like('nama_santri', $title, 'both')
-            ->order_by('nama_santri', 'ASC')
-            ->limit(10)->get('santri');
-        if ($query_result->num_rows() > 0) {
-            return $query_result->result();
+        $this->db->trans_start();
+        $query_result_1 = $this->db->select('nis as nomor_induk, nama_santri as nama_user')->like('nama_santri', $title, 'both')->limit(10)->get('santri');
+        $query_result_2 = $this->db->select('nip as nomor_induk, nama_pengajar as nama_user')->like('nama_pengajar', $title, 'both')->limit(10)->get('pengajar');
+        $this->db->trans_complete();
+
+        if ($query_result_1->num_rows() > 0) {
+            return $query_result_1->result();
         } else {
-            return false;
+            if ($query_result_2->num_rows() > 0) {
+                return $query_result_2->result();
+            } else {
+                return false;
+            }
         }
     }
 
     function get_by_ids($id)
     {
-        return $this->db->where($this->id, $id)
-            ->join('santri', 'santri.nis =' . $this->table . '.nis', 'left')
-            ->get('presensi')
-            ->row();
+        $this->db->select('a.id_absen, a.nomor_induk, b.nama_santri as nama_user_1, c.nama_pengajar as nama_user_2,  a.tgl, a.jam_msk, a.jam_klr, a.id_khd, a.ket, a.id_status');
+        $this->db->from('presensi a');
+        $this->db->join('santri b', 'a.nomor_induk = b.nis', 'left');
+        $this->db->join('pengajar c', 'a.nomor_induk = c.nip', 'left');
+        $this->db->where('a.id_absen', $id);
+        $query = $this->db->get()->row();
+        return $query;
     }
 
-    function cek_id($nis, $tgl)
+    function cek_id($nomor_induk, $tgl)
     {
-        $query_str = "SELECT * FROM presensi WHERE nis= ? AND tgl= ? ";
-        $result = $this->db->query($query_str, array($nis, $tgl));
+        $query_str = "SELECT * FROM presensi WHERE nomor_induk = ? AND tgl= ? ";
+        $result = $this->db->query($query_str, array($nomor_induk, $tgl));
         if ($result->num_rows() == 1) {
             return $result;
         } else {

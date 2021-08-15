@@ -86,7 +86,7 @@ class Presensi extends CI_Controller
         return $messageAlert;
     }
 
-    public function create($id)
+    public function create()
     {
         if (!$this->ion_auth->is_admin()) {
             show_error('Hanya Administrator yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
@@ -96,7 +96,7 @@ class Presensi extends CI_Controller
             'button' => 'Create',
             'action' => site_url('presensi/create_action'),
             'id_absen' => set_value('id_absen'),
-            'nis' => set_value('nis'),
+            'nomor_induk' => set_value('nomor_induk'),
             'tgl' => set_value('tgl'),
             'jam_msk' => set_value('jam_msk'),
             'jam_klr' => set_value('jam_klr'),
@@ -107,7 +107,6 @@ class Presensi extends CI_Controller
             'users'     => $this->ion_auth->user()->row(),
         );
         $this->template->load('template/template', 'presensi/presensi_form_in', $data);
-        return  $id;
     }
 
     public function create_action()
@@ -121,11 +120,11 @@ class Presensi extends CI_Controller
             $refer =  $this->agent->referrer();
         }
         $id = $this->input->post('id');
-        $result = $this->Presensi_model->search_value($_POST['nis'], $id);
-        $santri = $this->input->post('nis');
+        $result = $this->Presensi_model->search_value($_POST['nomor_induk']);
+        $user = $this->input->post('nomor_induk');
         if ($result != FALSE) {
             $data = array(
-                'nis' => $result[0]->nis,
+                'nomor_induk' => $result[0]->nomor_induk,
                 'tgl' => date('Y-m-d'),
                 'jam_msk' => $this->input->post('jam_msk', TRUE),
                 'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -138,21 +137,21 @@ class Presensi extends CI_Controller
             return false;
         }
         $result_tgl = $data['tgl'];
-        $result_id = $result[0]->nis;
+        $result_id = $result[0]->nomor_induk;
         $cek_absen = $this->Presensi_model->cek_id($result_id, $result_tgl);
         if ($cek_absen !== FALSE  && $cek_absen->num_rows() == 1) {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('warning', 'Nama Anggota Sudah diabsen'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('warning', 'Nama Sudah diabsen'));
             redirect($_SERVER['HTTP_REFERER']);
             return false;
         } else {
-            $kar_result = $result[0]->nis;
-            if ($kar_result == NULL || $santri == "") {
+            $kar_result = $result[0]->nomor_induk;
+            if ($kar_result == NULL || $user == "") {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('Error', 'Data tidak ditemukan'));
                 redirect($_SERVER['HTTP_REFERER']);
                 return false;
             } else {
                 $tgl = date('Y-m-d');
-                $id_krywn = $data['nis'];
+                $id_user = $data['nomor_induk'];
                 $this->Presensi_model->insert($data);
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan data presensi'));
                 $referred_from = $this->session->userdata('referred_from');
@@ -173,8 +172,9 @@ class Presensi extends CI_Controller
                 'button' => 'Update',
                 'action' => site_url('presensi/update_action'),
                 'id_absen' => set_value('id_absen', $row->id_absen),
-                'nis' => set_value('nis', $row->nis),
-                'nama_santri' => set_value('nama_santri', $row->nama_santri),
+                'nomor_induk' => set_value('nomor_induk', $row->nomor_induk),
+                'nama_user_1' => set_value('nama_user_1', $row->nama_user_1),
+                'nama_user_2' => set_value('nama_user_2', $row->nama_user_2),
                 'tgl' => set_value('tgl', $row->tgl),
                 'jam_msk' => set_value('jam_msk', $row->jam_msk),
                 'jam_klr' => set_value('jam_klr', $row->jam_klr),
@@ -203,7 +203,7 @@ class Presensi extends CI_Controller
             $cek_id = $this->Presensi_model->get_by_ids($row);
             if ($cek_id->id_khd == 1) {
                 $data = array(
-                    'nis' => $this->input->post('nis', TRUE),
+                    'nomor_induk' => $this->input->post('nomor_induk', TRUE),
                     'tgl' => $this->input->post('tgl', TRUE),
                     'jam_msk' => $this->input->post('jam_msk', TRUE),
                     'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -213,7 +213,7 @@ class Presensi extends CI_Controller
                 );
             } else {
                 $data = array(
-                    'nis' => $this->input->post('nis', TRUE),
+                    'nomor_induk' => $this->input->post('nomor_induk', TRUE),
                     'tgl' => $this->input->post('tgl', TRUE),
                     'jam_msk' => $this->input->post('jam_msk', TRUE),
                     'jam_klr' => $this->input->post('jam_klr', TRUE),
@@ -247,21 +247,22 @@ class Presensi extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('nis', 'nis', 'trim|required');
+        $this->form_validation->set_rules('nomor_induk', 'nomor_induk', 'trim|required');
         $this->form_validation->set_rules('tgl', 'tgl', 'trim|required');
         $this->form_validation->set_rules('id_khd', 'id khd', 'trim|required');
         $this->form_validation->set_rules('id_absen', 'id_absen', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    function get_autocomplete($id)
+    function get_autocomplete()
     {
         if (isset($_GET['term'])) {
-            $result = $this->Presensi_model->search_value($_GET['term'], $id);
+            $result = $this->Presensi_model->search_value($_GET['term']);
+
             if (count($result) > 0) {
                 foreach ($result as $row)
                     $arr_result[] = array(
-                        'label' => $row->nama_santri,
+                        'label' => $row->nama_user,
                     );
                 echo json_encode($arr_result);
             }
