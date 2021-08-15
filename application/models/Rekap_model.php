@@ -56,8 +56,8 @@ class Rekap_model extends CI_Model
         $start = $_GET['start'];
         $end = $_GET['end'];
         $this->db->select('a.nis, b.tgl, b.id_khd');
-        $this->db->from('santri as a,presensi as b');
-        $this->db->where('a.nis = b.nis');
+        $this->db->from('santri as a, presensi as b');
+        $this->db->where('a.nis = b.nomor_induk');
         $this->db->group_by('b.tgl');
         $this->db->where("b.tgl >=", $start);
         $this->db->where("b.tgl <=", $end);
@@ -69,7 +69,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->select("a.nis, b.tgl, b.id_khd");
         $this->db->from("santri as a, presensi as b");
-        $this->db->where("a.nis = b.nis");
+        $this->db->where("a.nis = b.nomor_induk");
         $this->db->group_by("b.tgl");
         $this->db->distinct();
         return $this->db->get()->result();
@@ -81,7 +81,7 @@ class Rekap_model extends CI_Model
         $end = $_GET['end'];
         $this->db->select("a.nis, b.tgl, b.id_khd");
         $this->db->from("santri as a, presensi as b ");
-        $this->db->where("a.nis = b.nis");
+        $this->db->where("a.nis = b.nomor_induk");
         $this->db->where("b.tgl >=", $start);
         $this->db->where("b.tgl <=", $end);
         $this->db->group_by("b.tgl");
@@ -94,7 +94,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("nis", $nis);
+        $this->db->where("nomor_induk", $nis);
         $this->db->where('id_khd', 1);
         $this->db->distinct();
         return $this->db->get("presensi")->num_rows();
@@ -105,7 +105,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("nis", $nis);
+        $this->db->where("nomor_induk", $nis);
         $this->db->where('id_khd', 2);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -117,7 +117,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("nis", $nis);
+        $this->db->where("nomor_induk", $nis);
         $this->db->where('id_khd', 3);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -129,7 +129,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("nis", $nis);
+        $this->db->where("nomor_induk", $nis);
         $this->db->where('id_khd', 4);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -141,7 +141,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->distinct();
         $this->db->where("tgl", $tanggal);
-        $this->db->where("nis", $nis);
+        $this->db->where("nomor_induk", $nis);
         $this->db->where('id_khd', 5);
         $this->db->where('id_status', 3);
         $this->db->distinct();
@@ -176,7 +176,7 @@ class Rekap_model extends CI_Model
         $this->db->from("santri as a, kelompok as b, shift as c,presensi as d, kehadiran as e, stts as f");
         $this->db->where("b.id_kelompok = a.kelompok_id");
         $this->db->where("c.id_shift = a.shift_id");
-        $this->db->where("a.nis = d.nis");
+        $this->db->where("a.nis = d.nomor_induk");
         $this->db->where("d.id_khd = e.id_khd");
         $this->db->where("d.id_status = f.id_status");
         $this->db->where("d.id_khd", 1);
@@ -199,7 +199,7 @@ class Rekap_model extends CI_Model
         $this->db->from("santri as a, kelompok as b, shift as c, presensi as d, kehadiran as e, stts as f");
         $this->db->where("b.id_kelompok = a.kelompok_id");
         $this->db->where("c.id_shift = a.shift_id");
-        $this->db->where("a.nis = d.nis");
+        $this->db->where("a.nis = d.nomor_induk");
         $this->db->where("d.id_khd = e.id_khd");
         $this->db->where("d.id_status = f.id_status");
         $this->db->where("d.id_khd", 1);
@@ -217,7 +217,7 @@ class Rekap_model extends CI_Model
         $this->db->from("santri as a, kelompok as b, shift as c, presensi as d, kehadiran as e, stts as f");
         $this->db->where("b.id_kelompok = a.kelompok_id");
         $this->db->where("c.id_shift = a.shift_id");
-        $this->db->where("a.nis = d.nis");
+        $this->db->where("a.nis = d.nomor_induk");
         $this->db->where("d.id_khd = e.id_khd");
         $this->db->where("d.id_status = f.id_status");
         $this->db->where("d.id_khd", 1);
@@ -236,7 +236,7 @@ class Rekap_model extends CI_Model
     {
         $this->db->select("b.nis, a.tgl");
         $this->db->from("presensi as a, santri as b");
-        $this->db->where("b.nis = a.nis");
+        $this->db->where("b.nis = a.nomor_induk");
         $this->db->where("b.nis", $nis);
         $this->db->where("a.id_khd", 1);
         $this->db->distinct();
@@ -246,10 +246,10 @@ class Rekap_model extends CI_Model
 
     function tohadir($nis)
     {
-        $nis = $this->input->post('nis');
+        $nis = $this->input->post('nomor_induk');
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $nis)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $nis)
             ->where('id_khd', 1)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -257,10 +257,10 @@ class Rekap_model extends CI_Model
 
     function tosakit($nis)
     {
-        $nis = $this->input->post('nis');
+        $nis = $this->input->post('nomor_induk');
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $nis)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $nis)
             ->where('id_khd', 2)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -268,10 +268,10 @@ class Rekap_model extends CI_Model
 
     function toijin($nis)
     {
-        $nis = $this->input->post('nis');
+        $nis = $this->input->post('nomor_induk');
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $nis)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $nis)
             ->where('id_khd', 3)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -279,10 +279,10 @@ class Rekap_model extends CI_Model
 
     function toalpha($nis)
     {
-        $nis = $this->input->post('nis');
+        $nis = $this->input->post('nomor_induk');
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $nis)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $nis)
             ->where('id_khd', 4)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -294,7 +294,7 @@ class Rekap_model extends CI_Model
         $end = $_GET['end'];
         $this->db->select("b.nis, a.tgl");
         $this->db->from("presensi as a, santri as b");
-        $this->db->where("b.nis = a.nis");
+        $this->db->where("b.nis = a.nomor_induk");
         $this->db->where("b.nis", $nis);
         $this->db->where("a.id_khd", 1);
         $this->db->where("a.tgl >=", $start);
@@ -311,7 +311,7 @@ class Rekap_model extends CI_Model
         $end = $_GET['end'];
         $this->db->select("b.nis, a.tgl");
         $this->db->from("presensi as a, santri as b");
-        $this->db->where("b.nis=a.nis");
+        $this->db->where("b.nis=a.nomor_induk");
         $this->db->where("b.nis", $nis);
         $this->db->where("a.id_khd", 2);
         $this->db->where("a.tgl >=", $start);
@@ -327,7 +327,7 @@ class Rekap_model extends CI_Model
         $end = $_GET['end'];
         $this->db->select("b.nis, a.tgl");
         $this->db->from("presensi as a, santri as b");
-        $this->db->where("b.nis = a.nis");
+        $this->db->where("b.nis = a.nomor_induk");
         $this->db->where("b.nis", $nis);
         $this->db->where("a.id_khd", 3);
         $this->db->where("a.tgl >=", $start);
@@ -343,7 +343,7 @@ class Rekap_model extends CI_Model
         $end = $_GET['end'];
         $this->db->select("b.nis, a.tgl");
         $this->db->from("presensi as a, santri as b");
-        $this->db->where("b.nis = a.nis");
+        $this->db->where("b.nis = a.nomor_induk");
         $this->db->where("b.nis", $nis);
         $this->db->where("a.id_khd", 4);
         $this->db->where("a.tgl >=", $start);
@@ -358,11 +358,11 @@ class Rekap_model extends CI_Model
         $id_status = 3;
         $id = $this->input->get('tgl');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('nis');
+        $kar = $this->input->get('nomor_induk');
         $ket = $this->input->post('ket');
         $query_str  =
             $this->db->where('tgl', $id)
-            ->where('nis', $kar)
+            ->where('nomor_induk', $kar)
             ->where('id_status', 3)
             ->get('presensi');
         if ($query_str->num_rows() == 0) {
@@ -373,7 +373,7 @@ class Rekap_model extends CI_Model
                 'ket' => $this->input->get('ket'),
             );
             $this->db->where('tgl', $id);
-            $this->db->where('nis', $kar);
+            $this->db->where('nomor_induk', $kar);
             $this->db->update('presensi', $data);
         }
     }
@@ -384,24 +384,24 @@ class Rekap_model extends CI_Model
         $id_status = 3;
         $id = $this->input->get('tgl');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('nis');
+        $kar = $this->input->get('nomor_induk');
         $ket = $this->input->get('ket');
         $insert = array(
-            'nis' => $kar,
+            'nomor_induk' => $kar,
             'tgl' => $id,
             'id_khd' => $id_khd,
             'id_status' => $id_status,
             'ket' => $ket,
         );
-        $this->db->where("nis", $this->input->get('kar'));
+        $this->db->where("nomor_induk", $this->input->get('kar'));
         $this->db->insert('presensi', $insert);
     }
 
     function tohadirM($id_krywn)
     {
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $id_krywn)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $id_krywn)
             ->where('id_khd', 1)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -410,8 +410,8 @@ class Rekap_model extends CI_Model
     function tosakitM($id_krywn)
     {
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $id_krywn)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $id_krywn)
             ->where('id_khd', 2)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -420,8 +420,8 @@ class Rekap_model extends CI_Model
     function toijinM($id_krywn)
     {
         return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $id_krywn)
+            $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $id_krywn)
             ->where('id_khd', 3)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();
@@ -429,9 +429,8 @@ class Rekap_model extends CI_Model
 
     function toalphaM($id_krywn)
     {
-        return
-            $this->db->select('count(nis) as total')
-            ->where('nis', $id_krywn)
+        return $this->db->select('count(nomor_induk) as total')
+            ->where('nomor_induk', $id_krywn)
             ->where('id_khd', 4)
             ->where('month(tgl) = month(CURRENT_date())')
             ->get('presensi')->result_array();

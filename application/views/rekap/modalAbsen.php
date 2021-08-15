@@ -53,7 +53,7 @@
 
 <div class="box" style='max-width:1200px;margin-left:90px;'>
     <div class="box-header with-border">
-        <h3 class="box-title">Data Absensi Santri </h3>
+        <h3 class="box-title">Data Absensi</h3>
         <button type="button" class="btn btn-danger btn3d pull-right" data-dismiss="modal"><i class='fa fa-close'></i>Close</button>
         <button onclick="printDiv('print-area')" target="_blank" class='pull-right btn btn-success btn3d'><i class='fa fa-print'></i> Print</button>
         <div class="container">
@@ -91,7 +91,7 @@
                             </td>
                             <td> <br>
                                 <p style='font-size:20px;text-align:center;'><b>
-                                        <font size='5px'>REKAP ABSENSI SANTRI</font>
+                                        <font size='5px'>REKAP ABSENSI</font>
                                     </b></p>
 
                                 <?php
