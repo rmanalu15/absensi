@@ -37,25 +37,42 @@ class Rekap extends CI_Controller
 
     public function ajax_list_modal($id)
     {
-        $nis = $this->input->get('nis');
+        // var_dump($id);
+        // die();
+        $nomor_induk = $this->input->get('nomor_induk');
         $start = $this->input->get('tgl');
         $end = $this->input->get('tgl');
         $id_shift = $this->input->get('id_shift');
-        $data['colspan'] = $this->rekap->jmlHadir($start, $end);
+        if ($id == "S") {
+            $data['colspan'] = $this->rekap->jmlHadir_1($start, $end);
+        } else {
+            $data['colspan'] = $this->rekap->jmlHadir_2($start, $end);
+        }
         $data['start'] = $this->input->get('tgl');
         $data['end'] = $this->input->get('tgl');
         $data['id_shift'] = $this->input->get('id_shift');
-        $data['resultHadir'] =   $this->rekap->resultHadir2($start, $end);
-        $data['data'] = $this->rekap->resultHadir2($start, $end);
+        if ($id == "S") {
+            $data['resultHadir'] =   $this->rekap->resultHadir2_1($start, $end);
+            $data['data'] = $this->rekap->resultHadir2_1($start, $end);
+        } else {
+            $data['resultHadir'] =   $this->rekap->resultHadir2_2($start, $end);
+            $data['data'] = $this->rekap->resultHadir2_2($start, $end);
+        }
         $startdate = $this->input->get('start');
         $st = date('Y-m-d', strtotime($startdate));
         $t = explode('-', $st);
         $bulan = $this->tanggal->bulan($t[1]);
         $data['periode'] = $bulan . '&nbsp' . $t[0];
         $id_khd['id_khd'] = set_value('id_khd');
-        $result = array(
-            $this->rekap->santri_bak2($id, $start, $end),
-        );
+        if ($id == "S") {
+            $result = array(
+                $this->rekap->santri_bak2_1($id, $start, $end),
+            );
+        } else {
+            $result = array(
+                $this->rekap->santri_bak2_2($id, $start, $end),
+            );
+        }
         $this->load->view("rekap/modalAbsen", $data, $id_khd, $result);
     }
 
@@ -71,25 +88,38 @@ class Rekap extends CI_Controller
 
     public function ajax_list_modal2($id)
     {
-
-        $nis = $this->input->get('nis');
+        $nomor_induk = $this->input->get('nomor_induk');
         $start = $this->input->get('tgl');
         $end = $this->input->get('tgl');
         $id_shift = $this->input->get('$id_shift');
         $data['id_khd'] = set_value('id_khd');
-        $data['colspan'] = $this->rekap->jmlHadir($start, $end);
+        if ($id == "S") {
+            $data['colspan'] = $this->rekap->jmlHadir_1($start, $end);
+        } else {
+            $data['colspan'] = $this->rekap->jmlHadir_2($start, $end);
+        }
         $data['start'] = $this->input->get('tgl');
         $data['end'] = $this->input->get('tgl');
         $data['id_shift'] = $this->input->get('id_shift');
-        $data['resultHadir2'] = $this->rekap->santri_bak3($start, $end, $id_shift);
+        if ($id == "S") {
+            $data['resultHadir2'] = $this->rekap->santri_bak3_1($start, $end, $id_shift);
+        } else {
+            $data['resultHadir2'] = $this->rekap->santri_bak3_2($start, $end, $id_shift);
+        }
         $startdate = $this->input->get('start');
         $st = date('Y-m-d', strtotime($startdate));
         $t = explode('-', $st);
         $bulan = $this->tanggal->bulan($t[1]);
         $data['periode'] = $bulan . '&nbsp' . $t[0];
-        $result = array(
-            $this->rekap->santri_bak3($id, $start, $end, $id_shift),
-        );
+        if ($id == "S") {
+            $result = array(
+                $this->rekap->santri_bak3_1($id, $start, $end, $id_shift),
+            );
+        } else {
+            $result = array(
+                $this->rekap->santri_bak3_2($id, $start, $end, $id_shift),
+            );
+        }
         $this->load->view("rekap/modalAbsen", $data, $result);
     }
 

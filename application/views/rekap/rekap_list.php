@@ -26,16 +26,16 @@
                                 <td>1</td>
                                 <td>Pengajar</td>
                                 <td>
-                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi Pengajar" onclick="absen()"><i class="fa fa-check-square"></i> Absensi</a>
-                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan Absensi Pengajar" onclick="laporan()"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
+                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi Pengajar" onclick="absen('P')"><i class="fa fa-check-square"></i> Absensi</a>
+                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan Absensi Pengajar" onclick="laporan('P')"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td>Santri</td>
                                 <td>
-                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi Santri" onclick="absen()"><i class="fa fa-check-square"></i> Absensi</a>
-                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan Absensi Santri" onclick="laporan()"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
+                                    <a class="btn btn-lg btn-info btn3d" href="#" title="Rekap Absensi Santri" onclick="absen('S')"><i class="fa fa-check-square"></i> Absensi</a>
+                                    <a class="btn btn-lg btn-primary btn3d" href="#" title="Laporan Absensi Santri" onclick="laporan('S')"><i class="glyphicon glyphicon-pencil"></i> Laporan</a>
                                 </td>
                             </tr>
                         </tbody>
