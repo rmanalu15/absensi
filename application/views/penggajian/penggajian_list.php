@@ -52,10 +52,20 @@
                                 <th class="all">NIP</th>
                                 <th class="all">Nama Pengajar</th>
                                 <th class="desktop">Kehadiran</th>
-                                <th class="desktop">Gaji</th>
-                                <th class="desktop">Total Gaji</th>
+                                <th class="desktop">Transport</th>
+                                <th class="desktop">Gaji Pokok</th>
+                                <th class="desktop">Total</th>
                             </tr>
                         </thead>
+                        <tr>
+                            <td>1</td>
+                            <td>P2108001</td>
+                            <td>Pengajar 01</td>
+                            <td>2</td>
+                            <td>12.500</td>
+                            <td>200.000</td>
+                            <td>425.000</td>
+                        </tr>
                         <tbody>
                         </tbody>
                     </table>
@@ -71,7 +81,7 @@
 <script type="text/javascript">
     let checkLogin = '<?= $result ?>';
 </script>
-<script src="<?php echo base_url() ?>assets/app/datatables/presensi.js" charset="utf-8"></script>
+<!-- <script src="<?php echo base_url() ?>assets/app/datatables/penggajian.js" charset="utf-8"></script> -->
 <script>
     $(document).ready(function() {
         if (checkLogin == 0) {

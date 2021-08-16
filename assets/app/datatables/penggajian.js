@@ -29,9 +29,11 @@ $(document).ready(function () {
         columns:
             [
                 { 'data': 'id_absen', defaultContent: '' },
+                { "data": "nip" },
                 { "data": "nama_pengajar" },
                 { "data": "nama_khd" },
-                { "data": null },
+                { "data": "nama_pengajar" },
+                { "data": "nama_pengajar" },
             ],
         dom: 'Blfrtip',
         buttons: [

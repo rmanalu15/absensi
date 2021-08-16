@@ -36,4 +36,16 @@ class Penggajian extends CI_Controller
         $this->template->load('template/template', 'penggajian/penggajian_list', $data);
         $this->load->view('template/datatables');
     }
+
+    public function data()
+    {
+        $this->output_json($this->Penggajian_model->get_all_q(), false);
+    }
+
+
+    public function output_json($data, $encode = true)
+    {
+        if ($encode) $data = json_encode($data);
+        $this->output->set_content_type('application/json')->set_output($data);
+    }
 }
