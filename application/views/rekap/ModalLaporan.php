@@ -17,7 +17,12 @@
     }
 </style>
 <?php
-$kar = $this->kar->get_by_id($segment); ?>
+if ($this->uri->segment(3) == "S") {
+    $kar = $this->sant->get_by_id($segement = $this->uri->segment(3));
+} else {
+    $kar = $this->peng->get_by_id($segement = $this->uri->segment(3));
+}
+?>
 
 <div class="box" style='max-width:80.5%;margin-left:125px'>
     <div class="box-header with-border">
@@ -53,7 +58,7 @@ $kar = $this->kar->get_by_id($segment); ?>
                             </td>
                             <td> <br>
                                 <p style='text-align: center;font-size:20px;'><b>
-                                        <font size='5px'>DATA LAPORAN SANTRI</font>
+                                        <font size='5px'>DATA LAPORAN</font>
                                     </b></p>
                             </td>
                         </tr>
@@ -66,7 +71,11 @@ $kar = $this->kar->get_by_id($segment); ?>
                                 <?php
                                 $start = $this->input->get('tgl');
                                 $end = $this->input->get('tgl');
-                                $data = $this->rekap->resultHadir2($start, $end);
+                                if ($this->uri->segment(3) == "S") {
+                                    $data = $this->rekap->resultHadir2_1($start, $end);
+                                } else {
+                                    $data = $this->rekap->resultHadir2_2($start, $end);
+                                }
                                 $start = $this->input->get('start');
                                 $st = date('Y-m-d', strtotime($start));
                                 $t = explode('-', $st);
@@ -100,22 +109,42 @@ $kar = $this->kar->get_by_id($segment); ?>
                         $no = 0;
                         $start = $this->input->get('tgl');
                         $end = $this->input->get('tgl');
-                        foreach ($this->rekap->santri($segment) as $row) {
-                            $no++;
-                            $hadir = $this->rekap->totalHadir_bak($segment, $row->nis, $start, $end);
-                            $sakit = $this->rekap->totalHadir2($segment, $row->nis, $start, $end);
-                            $ijin = $this->rekap->totalHadir3($segment, $row->nis, $start, $end);
-                            $alpha = $this->rekap->totalHadir4($segment, $row->nis, $start, $end);
-                            echo "<tr>
-                            <td>" . $no . "</td>
-                            <td>" . $row->nama_santri . "</td>
-                            <td>" . $row->nama_kelompok . "</td>
-                            <td>" . $hadir . "</td>
-                            <td>" . $sakit . "</td>
-                            <td>" . $ijin . "</td>
-                            <td>" . $alpha . "</td>
-                            </tr>  ";
-                        } ?>
+                        if ($this->uri->segment(3) == "S") {
+                            foreach ($this->rekap->santri() as $row) {
+                                $no++;
+                                $hadir = $this->rekap->totalHadir_bak_1($row->nomor_induk, $start, $end);
+                                $sakit = $this->rekap->totalHadir2_1($row->nomor_induk, $start, $end);
+                                $ijin = $this->rekap->totalHadir3_1($row->nomor_induk, $start, $end);
+                                $alpha = $this->rekap->totalHadir4_1($row->nomor_induk, $start, $end);
+                                echo "<tr>
+                                <td>" . $no . "</td>
+                                <td>" . $row->nama_user . "</td>
+                                <td>" . $row->nama_kelompok . "</td>
+                                <td>" . $hadir . "</td>
+                                <td>" . $sakit . "</td>
+                                <td>" . $ijin . "</td>
+                                <td>" . $alpha . "</td>
+                                </tr>  ";
+                            }
+                        } else {
+                            foreach ($this->rekap->pengajar() as $row) {
+                                $no++;
+                                $hadir = $this->rekap->totalHadir_bak_2($row->nomor_induk, $start, $end);
+                                $sakit = $this->rekap->totalHadir2_2($row->nomor_induk, $start, $end);
+                                $ijin = $this->rekap->totalHadir3_2($row->nomor_induk, $start, $end);
+                                $alpha = $this->rekap->totalHadir4_2($row->nomor_induk, $start, $end);
+                                echo "<tr>
+                                <td>" . $no . "</td>
+                                <td>" . $row->nama_user . "</td>
+                                <td>Pengajar</td>
+                                <td>" . $hadir . "</td>
+                                <td>" . $sakit . "</td>
+                                <td>" . $ijin . "</td>
+                                <td>" . $alpha . "</td>
+                                </tr>  ";
+                            }
+                        }
+                        ?>
                     </table>
             </div>
             <div class="modal-body" id="dataLaporan" style='margin-top:10px'></div>

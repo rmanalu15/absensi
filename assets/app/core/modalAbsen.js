@@ -52,7 +52,7 @@ const LoadData = (_id, _id2, id3) => {
 const save = () => {
     var id = $(document.getElementById('id')).val();
     var id_khd = $(document.getElementById('id_khd')).val();
-    var id2 = $(document.getElementById('nis')).val();
+    var id2 = $(document.getElementById('nomor_induk')).val();
     var ket = $(document.getElementById('ket')).val();
     var id3 = $(document.getElementById('id3')).val();
     var url = "rekap/addkhd/";
@@ -62,7 +62,7 @@ const save = () => {
         data: {
             tgl: id,
             id_khd: id_khd,
-            nis: id2,
+            nomor_induk: id2,
             ket: ket,
             id3: id3,
         },

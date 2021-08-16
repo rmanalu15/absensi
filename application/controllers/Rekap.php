@@ -16,7 +16,8 @@ class Rekap extends CI_Controller
         }
         $models = array(
             'Rekap_model' => 'rekap',
-            'Santri_model' => 'kar',
+            'Santri_model' => 'sant',
+            'Pengajar_model' => 'peng'
         );
         $this->load->model($models);
         $this->load->library('form_validation');
@@ -76,13 +77,12 @@ class Rekap extends CI_Controller
         $this->load->view("rekap/modalAbsen", $data, $id_khd, $result);
     }
 
-    public function ajax_list_laporan($id)
+    public function ajax_list_laporan()
     {
         $user = $this->user;
         $data['user'] = $user;
         $start = $this->input->get('tgl');
         $end = $this->input->get('tgl');
-        $data['segment'] = $id;
         $this->load->view("rekap/ModalLaporan", $data, $start, $end);
     }
 
