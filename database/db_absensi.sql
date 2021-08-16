@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2021 at 02:54 AM
+-- Generation Time: Aug 16, 2021 at 12:45 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -193,6 +193,26 @@ CREATE TABLE `presensi` (
   `id_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `presensi`
+--
+
+INSERT INTO `presensi` (`id_absen`, `nomor_induk`, `tgl`, `jam_msk`, `jam_klr`, `id_khd`, `ket`, `id_status`) VALUES
+(83, 'P2108001', '2021-08-15', '17:50:00', '18:00:00', 1, '', 2),
+(84, 'P2108002', '2021-08-15', '17:55:00', '18:00:00', 1, '', 2),
+(85, 'S2108001', '2021-08-15', '17:55:00', '18:00:00', 1, '', 2),
+(86, 'S2108133', '2021-08-15', '18:00:00', '19:00:00', 1, '', 2),
+(87, 'S2108139', '2021-08-15', '07:16:50', '07:16:56', 1, '', 2),
+(90, 'P2108002', '2021-08-16', '12:47:30', '12:47:34', 1, '', 2),
+(91, 'P2108001', '2021-08-16', '12:47:49', '12:47:53', 1, '', 2),
+(92, 'S2108139', '2021-08-16', '12:48:17', '04:00:00', 1, '', 2),
+(93, 'S2108133', '2021-08-16', '04:55:00', '05:00:00', 1, '', 2),
+(94, 'S2108134', '2021-08-16', '07:00:00', '08:00:00', 1, '', 2),
+(95, '', '2021-08-16', '00:00:00', '00:00:00', 4, 'null', 3),
+(96, '', '2021-08-15', '00:00:00', '00:00:00', 4, 'null', 3),
+(97, 'S2108001', '2021-08-16', '00:00:00', '00:00:00', 4, 'null', 3),
+(98, 'S2108134', '2021-08-15', '00:00:00', '00:00:00', 3, 'ada penting', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -295,7 +315,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1628983470, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1629110581, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -457,7 +477,7 @@ ALTER TABLE `pengajar`
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `santri`
