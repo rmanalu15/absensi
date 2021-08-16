@@ -57,16 +57,27 @@
                                 <th class="desktop">Total</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <td>1</td>
-                            <td>P2108001</td>
-                            <td>Pengajar 01</td>
-                            <td>2</td>
-                            <td>12.500</td>
-                            <td>200.000</td>
-                            <td>425.000</td>
-                        </tr>
                         <tbody>
+                            <?php
+                            $no = 0;
+                            foreach ($this->rekap->pengajar() as $row) {
+                                $no++;
+                                $hadir = $this->rekap->totalHadir_bak_3($row->nomor_induk);
+                                $tunjangan = 12500;
+                                $gapok = 200000;
+                                $total = $tunjangan + $gapok;
+                                $tot_gaji = $hadir * $total;
+                                echo "<tr>
+                                <td>" . $no . "</td>
+                                <td>" . $row->nomor_induk . "</td>
+                                <td>" . $row->nama_user . "</td>
+                                <td>" . $hadir . "</td>
+                                <td>" . $tunjangan . "</td>
+                                <td>" . $gapok . "</td>
+                                <td>" . $tot_gaji . "</td>
+                                </tr>  ";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div><!-- /.box-body -->

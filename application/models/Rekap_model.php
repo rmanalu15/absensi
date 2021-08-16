@@ -406,6 +406,18 @@ class Rekap_model extends CI_Model
         return $this->db->get()->num_rows();
     }
 
+    function totalHadir_bak_3($nomor_induk)
+    {
+        $this->db->select("b.nip as nomor_induk, a.tgl");
+        $this->db->from("presensi as a, pengajar as b");
+        $this->db->where("b.nip = a.nomor_induk");
+        $this->db->where("b.nip", $nomor_induk);
+        $this->db->where("a.id_khd", 1);
+        $this->db->distinct();
+
+        return $this->db->get()->num_rows();
+    }
+
     // fungsi menghitung total kehadiran (sakit)
     function totalHadir2_1($nomor_induk, $start, $end)
     {
