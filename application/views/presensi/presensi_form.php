@@ -68,48 +68,24 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                         <?php endif; ?>
-                        <?php if ($id_khd == 1) : ?>
-                            <div class="form-group">
-                                <label for="id_shift" class="control-label">Kehadiran</label>
-                                <div class="input-group">
-                                    <?php echo cmb_dinamis3('id_khd', 'id_khd', 'kehadiran', 'nama_khd', 'id_khd', $id_khd) ?>
-                                    <span class="input-group-addon">
-                                        <span class="fas fa-list"></span>
-                                    </span>
-                                </div>
+                        <div class="form-group">
+                            <label for="id_shift" class="control-label">Kehadiran</label>
+                            <div class="input-group">
+                                <?php echo cmb_dinamis('id_khd', 'id_khd', 'kehadiran', 'nama_khd', 'id_khd', $id_khd) ?>
+                                <span class="input-group-addon">
+                                    <span class="fas fa-list"></span>
+                                </span>
                             </div>
-                        <?php else : ?>
-                            <div class="form-group">
-                                <label for="id_shift" class="control-label">Kehadiran</label>
-                                <div class="input-group">
-                                    <?php echo cmb_dinamis2('id_khd', 'id_khd', 'kehadiran', 'nama_khd', 'id_khd', $id_khd) ?>
-                                    <span class="input-group-addon">
-                                        <span class="fas fa-list"></span>
-                                    </span>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_shift" class="control-label">Keterangan</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" />
+                                <span class="input-group-addon">
+                                    <span class="fas fa-book-open"></span>
+                                </span>
                             </div>
-                        <?php endif; ?>
-                        <?php if ($id_khd != 1) : ?>
-                            <div class="form-group">
-                                <label for="id_shift" class="control-label">Keterangan</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" />
-                                    <span class="input-group-addon">
-                                        <span class="fas fa-book-open"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        <?php else : ?>
-                            <div class="form-group">
-                                <label for="id_shift" class="control-label">Keterangan</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" readonly />
-                                    <span class="input-group-addon">
-                                        <span class="fas fa-book-open"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        </div>
                         <input type="hidden" name="id_absen" value="<?php echo $id_absen; ?>" />
                         <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
                         <a href="<?php echo site_url('presensi') ?>" class="btn btn-default">Cancel</a>

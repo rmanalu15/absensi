@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2021 at 12:45 PM
+-- Generation Time: Aug 17, 2021 at 01:37 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -174,7 +174,8 @@ INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_l
 (1, 'P2108001', 'Pengajar 01', 'Jakarta', '1997-01-01', 'Wanita', 'Jakarta', 'Selena_Gomez_in_Cute_Pink_Lips_4K_Wallpapers.jpg', 5),
 (4, 'P2108002', 'Pengajar 02', 'Karang Tengah', '1995-01-01', 'Wanita', 'Karang Tengah', '27894388_790732624452440_3552518203873689600_n.jpg', 6),
 (5, 'P2108004', 'Pengajar 03', 'Jakarta Pusat', '1997-01-01', 'Pria', 'Jakarta Pusat', 'wc1791843-liverpool-wallpaper-2017.jpg', 5),
-(6, 'P2108005', 'Pengajar 04', 'Jakarta Timur', '1997-01-01', 'Pria', 'Jakarta Timur', 'default.png', 5);
+(6, 'P2108005', 'Pengajar 04', 'Jakarta Timur', '1997-01-01', 'Pria', 'Jakarta Timur', 'default.png', 5),
+(7, 'P2108006', 'Jeff Bezos', 'Meksiko', '1964-12-01', 'Pria', 'Meksiko', 'Tanpa_judul.png', 6);
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ CREATE TABLE `presensi` (
 --
 
 INSERT INTO `presensi` (`id_absen`, `nomor_induk`, `tgl`, `jam_msk`, `jam_klr`, `id_khd`, `ket`, `id_status`) VALUES
-(83, 'P2108001', '2021-08-15', '17:50:00', '18:00:00', 1, '', 2),
+(83, 'P2108001', '2021-08-15', '17:50:00', '18:00:00', 1, 'Rajin', 2),
 (84, 'P2108002', '2021-08-15', '17:55:00', '18:00:00', 1, '', 2),
 (85, 'S2108001', '2021-08-15', '17:55:00', '18:00:00', 1, '', 2),
 (86, 'S2108133', '2021-08-15', '18:00:00', '19:00:00', 1, '', 2),
@@ -207,11 +208,14 @@ INSERT INTO `presensi` (`id_absen`, `nomor_induk`, `tgl`, `jam_msk`, `jam_klr`, 
 (91, 'P2108001', '2021-08-16', '12:47:49', '12:47:53', 1, '', 2),
 (92, 'S2108139', '2021-08-16', '12:48:17', '04:00:00', 1, '', 2),
 (93, 'S2108133', '2021-08-16', '04:55:00', '05:00:00', 1, '', 2),
-(94, 'S2108134', '2021-08-16', '07:00:00', '08:00:00', 1, '', 2),
+(94, 'S2108134', '2021-08-16', '07:00:00', '08:00:00', 1, 'Rajin kali', 2),
 (95, '', '2021-08-16', '00:00:00', '00:00:00', 4, 'null', 3),
 (96, '', '2021-08-15', '00:00:00', '00:00:00', 4, 'null', 3),
-(97, 'S2108001', '2021-08-16', '00:00:00', '00:00:00', 4, 'null', 3),
-(98, 'S2108134', '2021-08-15', '00:00:00', '00:00:00', 3, 'ada penting', 3);
+(97, 'S2108001', '2021-08-16', '00:00:00', '00:00:00', 4, 'Malas masuk', 3),
+(98, 'S2108134', '2021-08-15', '00:00:00', '00:00:00', 3, 'Ada kepentingan', 3),
+(99, 'P2108006', '2021-08-17', '07:00:00', '08:00:00', 1, 'Digantikan', 2),
+(100, 'P2108006', '2021-08-15', '00:00:00', '00:00:00', 3, 'Rapat', 3),
+(101, 'P2108006', '2021-08-16', '00:00:00', '00:00:00', 2, 'Flu', 3);
 
 -- --------------------------------------------------------
 
@@ -241,7 +245,8 @@ INSERT INTO `santri` (`id`, `nis`, `nama_santri`, `tempat_lahir`, `tanggal_lahir
 (133, 'S2108001', 'Santri 01', 'Tangerang', '2000-01-01', 'Pria', 'Tangerang', 'Orang Tua 01', 3, 'default.png', 6),
 (134, 'S2108133', 'Santri 02', 'Jakarta', '2001-01-01', 'Wanita', 'Jakarta', 'Orang Tua 02', 1, 'default.png', 5),
 (139, 'S2108134', 'Santri 03', 'Karang Tengah', '1996-01-01', 'Pria', 'Karang Tengah', 'Orang Tua 03', 3, '171747.jpg', 6),
-(140, 'S2108139', 'Santri 04', 'Ciledug', '1997-01-01', 'Wanita', 'Ciledug', 'Orang tua 04', 2, 'default.png', 6);
+(140, 'S2108139', 'Santri 04', 'Ciledug', '1997-01-01', 'Wanita', 'Ciledug', 'Orang tua 04', 2, 'default.png', 6),
+(141, 'S2108140', 'Santri 05', 'Karang Tengah', '0000-00-00', 'Pria', 'Karang Tengah', 'Orang Tua 05', 1, '2016-dota-2-1366x768_-_Copy.jpg', 6);
 
 -- --------------------------------------------------------
 
@@ -315,7 +320,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1629110581, 1, 'Administrator', '.', NULL, '123412341234'),
+(26, '::1', 'admin@admin.com', '$2y$12$MPcQlOck9fzd/5UjJ6iIXuhZivhkXdfoVD2xFXpZTnZ2IWQw/nFhW', 'admin@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1556798313, 1629155474, 1, 'Administrator', '.', NULL, '123412341234'),
 (48, '::1', 'manalu@gmail.com', '$2y$10$Z8NjOCsRReheIq.4FrQeLepPTi8PsqdbgDafohBbcWy.gfaDQTWtu', 'manalu@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1628598959, NULL, 1, 'RUPINDA', 'MANALU', NULL, '081283404176');
 
 -- --------------------------------------------------------
@@ -471,19 +476,19 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `pengajar`
 --
 ALTER TABLE `pengajar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `santri`
 --
 ALTER TABLE `santri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `shift`
