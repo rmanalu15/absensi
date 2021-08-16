@@ -19,7 +19,7 @@ $(() => {
 });
 
 const LoadData = (_id, _id2, id3) => {
-    var kar = $(this).data('nis');
+    var kar = $(this).data('nomor_induk');
     var d = new Date();
     d.setDate(1);
     var month = '' + (d.getMonth() + 1);
@@ -41,7 +41,7 @@ const LoadData = (_id, _id2, id3) => {
             $(document.getElementById('datakar')).html(data);
         },
         error: function (_jqXHR, _textStatus, _errorThrown) {
-            alert('Error adding / update data');
+            window.location.href = "rekap";
         }
     });
 };
@@ -62,7 +62,7 @@ const save = () => {
         data: {
             tgl: id,
             id_khd: id_khd,
-            nomor_induk: id2,
+            nomor: id2,
             ket: ket,
             id3: id3,
         },

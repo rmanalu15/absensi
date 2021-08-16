@@ -73,7 +73,7 @@ function loadLap(id) {
 
 const add_khd = (id, id2, id3) => {
     $(document.getElementById('id')).val(id);
-    $(document.getElementById('nis')).val(id2);
+    $(document.getElementById('nomor_induk')).val(id2);
     $(document.getElementById('id3')).val(id3);
     $(document.getElementById('sep')).modal("show");
 };

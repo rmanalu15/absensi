@@ -505,7 +505,7 @@ class Rekap_model extends CI_Model
         $id_status = 3;
         $id = $this->input->get('tgl');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('nomor_induk');
+        $kar = $this->input->get('nomor');
         $ket = $this->input->post('ket');
         $query_str  =
             $this->db->where('tgl', $id)
@@ -531,7 +531,7 @@ class Rekap_model extends CI_Model
         $id_status = 3;
         $id = $this->input->get('tgl');
         $id_khd = $this->input->get('id_khd');
-        $kar = $this->input->get('nomor_induk');
+        $kar = $this->input->get('nomor');
         $ket = $this->input->get('ket');
         $insert = array(
             'nomor_induk' => $kar,
@@ -540,7 +540,7 @@ class Rekap_model extends CI_Model
             'id_status' => $id_status,
             'ket' => $ket,
         );
-        $this->db->where("nomor_induk", $this->input->get('kar'));
+        $this->db->where("nomor_induk", $kar);
         $this->db->insert('presensi', $insert);
     }
 
