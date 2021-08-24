@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2021 at 01:37 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Waktu pembuatan: 24 Agu 2021 pada 17.51
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gender`
+-- Struktur dari tabel `gender`
 --
 
 CREATE TABLE `gender` (
@@ -33,7 +33,7 @@ CREATE TABLE `gender` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `gender`
+-- Dumping data untuk tabel `gender`
 --
 
 INSERT INTO `gender` (`id_gender`, `gender`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `gender` (`id_gender`, `gender`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Struktur dari tabel `groups`
 --
 
 CREATE TABLE `groups` (
@@ -53,7 +53,7 @@ CREATE TABLE `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `groups`
+-- Dumping data untuk tabel `groups`
 --
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
@@ -62,7 +62,7 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kehadiran`
+-- Struktur dari tabel `kehadiran`
 --
 
 CREATE TABLE `kehadiran` (
@@ -71,7 +71,7 @@ CREATE TABLE `kehadiran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kehadiran`
+-- Dumping data untuk tabel `kehadiran`
 --
 
 INSERT INTO `kehadiran` (`id_khd`, `nama_khd`) VALUES
@@ -83,7 +83,7 @@ INSERT INTO `kehadiran` (`id_khd`, `nama_khd`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelompok`
+-- Struktur dari tabel `kelompok`
 --
 
 CREATE TABLE `kelompok` (
@@ -92,7 +92,7 @@ CREATE TABLE `kelompok` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kelompok`
+-- Dumping data untuk tabel `kelompok`
 --
 
 INSERT INTO `kelompok` (`id_kelompok`, `nama_kelompok`) VALUES
@@ -103,7 +103,7 @@ INSERT INTO `kelompok` (`id_kelompok`, `nama_kelompok`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_attempts`
+-- Struktur dari tabel `login_attempts`
 --
 
 CREATE TABLE `login_attempts` (
@@ -116,7 +116,7 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Struktur dari tabel `menu`
 --
 
 CREATE TABLE `menu` (
@@ -131,7 +131,7 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `menu`
+-- Dumping data untuk tabel `menu`
 --
 
 INSERT INTO `menu` (`id`, `name`, `link`, `icon`, `protected`, `is_active`, `is_parent`, `sort`) VALUES
@@ -151,7 +151,7 @@ INSERT INTO `menu` (`id`, `name`, `link`, `icon`, `protected`, `is_active`, `is_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengajar`
+-- Struktur dari tabel `pengajar`
 --
 
 CREATE TABLE `pengajar` (
@@ -167,7 +167,7 @@ CREATE TABLE `pengajar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pengajar`
+-- Dumping data untuk tabel `pengajar`
 --
 
 INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `foto`, `shift_id`) VALUES
@@ -180,7 +180,7 @@ INSERT INTO `pengajar` (`id`, `nip`, `nama_pengajar`, `tempat_lahir`, `tanggal_l
 -- --------------------------------------------------------
 
 --
--- Table structure for table `presensi`
+-- Struktur dari tabel `presensi`
 --
 
 CREATE TABLE `presensi` (
@@ -195,7 +195,7 @@ CREATE TABLE `presensi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `presensi`
+-- Dumping data untuk tabel `presensi`
 --
 
 INSERT INTO `presensi` (`id_absen`, `nomor_induk`, `tgl`, `jam_msk`, `jam_klr`, `id_khd`, `ket`, `id_status`) VALUES
@@ -220,7 +220,7 @@ INSERT INTO `presensi` (`id_absen`, `nomor_induk`, `tgl`, `jam_msk`, `jam_klr`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `santri`
+-- Struktur dari tabel `santri`
 --
 
 CREATE TABLE `santri` (
@@ -238,7 +238,7 @@ CREATE TABLE `santri` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `santri`
+-- Dumping data untuk tabel `santri`
 --
 
 INSERT INTO `santri` (`id`, `nis`, `nama_santri`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `nama_orang_tua`, `kelompok_id`, `foto`, `shift_id`) VALUES
@@ -251,7 +251,7 @@ INSERT INTO `santri` (`id`, `nis`, `nama_santri`, `tempat_lahir`, `tanggal_lahir
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shift`
+-- Struktur dari tabel `shift`
 --
 
 CREATE TABLE `shift` (
@@ -260,7 +260,7 @@ CREATE TABLE `shift` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shift`
+-- Dumping data untuk tabel `shift`
 --
 
 INSERT INTO `shift` (`id_shift`, `nama_shift`) VALUES
@@ -270,7 +270,7 @@ INSERT INTO `shift` (`id_shift`, `nama_shift`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stts`
+-- Struktur dari tabel `stts`
 --
 
 CREATE TABLE `stts` (
@@ -279,7 +279,7 @@ CREATE TABLE `stts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `stts`
+-- Dumping data untuk tabel `stts`
 --
 
 INSERT INTO `stts` (`id_status`, `nama_status`) VALUES
@@ -290,7 +290,7 @@ INSERT INTO `stts` (`id_status`, `nama_status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -316,7 +316,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
@@ -326,7 +326,7 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users_groups`
+-- Struktur dari tabel `users_groups`
 --
 
 CREATE TABLE `users_groups` (
@@ -336,7 +336,7 @@ CREATE TABLE `users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users_groups`
+-- Dumping data untuk tabel `users_groups`
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
@@ -348,73 +348,73 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Indexes for table `gender`
+-- Indeks untuk tabel `gender`
 --
 ALTER TABLE `gender`
   ADD PRIMARY KEY (`id_gender`);
 
 --
--- Indexes for table `groups`
+-- Indeks untuk tabel `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kehadiran`
+-- Indeks untuk tabel `kehadiran`
 --
 ALTER TABLE `kehadiran`
   ADD PRIMARY KEY (`id_khd`);
 
 --
--- Indexes for table `kelompok`
+-- Indeks untuk tabel `kelompok`
 --
 ALTER TABLE `kelompok`
   ADD PRIMARY KEY (`id_kelompok`);
 
 --
--- Indexes for table `login_attempts`
+-- Indeks untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `menu`
+-- Indeks untuk tabel `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pengajar`
+-- Indeks untuk tabel `pengajar`
 --
 ALTER TABLE `pengajar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `presensi`
+-- Indeks untuk tabel `presensi`
 --
 ALTER TABLE `presensi`
   ADD PRIMARY KEY (`id_absen`);
 
 --
--- Indexes for table `santri`
+-- Indeks untuk tabel `santri`
 --
 ALTER TABLE `santri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `shift`
+-- Indeks untuk tabel `shift`
 --
 ALTER TABLE `shift`
   ADD PRIMARY KEY (`id_shift`);
 
 --
--- Indexes for table `stts`
+-- Indeks untuk tabel `stts`
 --
 ALTER TABLE `stts`
   ADD PRIMARY KEY (`id_status`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -424,7 +424,7 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `uc_remember_selector` (`remember_selector`);
 
 --
--- Indexes for table `users_groups`
+-- Indeks untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD PRIMARY KEY (`id`),
@@ -433,93 +433,93 @@ ALTER TABLE `users_groups`
   ADD KEY `fk_users_groups_groups1_idx` (`group_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `gender`
+-- AUTO_INCREMENT untuk tabel `gender`
 --
 ALTER TABLE `gender`
   MODIFY `id_gender` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT untuk tabel `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `kehadiran`
+-- AUTO_INCREMENT untuk tabel `kehadiran`
 --
 ALTER TABLE `kehadiran`
   MODIFY `id_khd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `kelompok`
+-- AUTO_INCREMENT untuk tabel `kelompok`
 --
 ALTER TABLE `kelompok`
   MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `login_attempts`
+-- AUTO_INCREMENT untuk tabel `login_attempts`
 --
 ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `menu`
+-- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
--- AUTO_INCREMENT for table `pengajar`
+-- AUTO_INCREMENT untuk tabel `pengajar`
 --
 ALTER TABLE `pengajar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `presensi`
+-- AUTO_INCREMENT untuk tabel `presensi`
 --
 ALTER TABLE `presensi`
   MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
--- AUTO_INCREMENT for table `santri`
+-- AUTO_INCREMENT untuk tabel `santri`
 --
 ALTER TABLE `santri`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
--- AUTO_INCREMENT for table `shift`
+-- AUTO_INCREMENT untuk tabel `shift`
 --
 ALTER TABLE `shift`
   MODIFY `id_shift` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `stts`
+-- AUTO_INCREMENT untuk tabel `stts`
 --
 ALTER TABLE `stts`
   MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
--- AUTO_INCREMENT for table `users_groups`
+-- AUTO_INCREMENT untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `users_groups`
+-- Ketidakleluasaan untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
